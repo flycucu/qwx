@@ -9,6 +9,7 @@ Item {
     width: parent.width; height: parent.height
 
     property string uuid: ""
+    property string tip: "1"
 
     UUID {
         id: uuidObj
@@ -36,16 +37,18 @@ Item {
         }
         onScanedButWaitConfirm: {
             console.log("DEBUG: scaned but waitting for confirm ...")
+            loginView.tip = "0"
+            statReportObj.firstRequestSuccess(loginView.uuid)
+            statReportObj.secondRequestStart(loginView.uuid)
         }
         onScanedAndConfirmed: {
             console.log("DEBUG: confirmed")
             scanTimer.stop()
             cookieObj.get(redirect_uri)
-            secReqObj.post(loginView.uuid)
         }
     }
 
-    function scanQRcode() { scanObj.get(loginView.uuid) }
+    function scanQRcode() { scanObj.get(loginView.uuid, loginView.tip) }
 
     Timer {
         id: scanTimer
@@ -56,12 +59,14 @@ Item {
     Cookie {
         id: cookieObj
         onInfoChanged: {
-            initObj.post(uin, sid, skey)
+            statReportObj.post(loginView.uuid)
+            initObj.post(uin, sid)
             modContactObj.post(uin, sid)
             contactObj.post()
             //-----------------------------------------------------------------
             // TODO: only for test
-            statusNotifyObj.post(uin, sid, skey, "sirtoozee")
+            headImgObj.get("sirtoozee")
+            statusNotifyObj.post(uin, sid, "sirtoozee")
             //-----------------------------------------------------------------
             stackView.clear()
             stackView.push({item: Qt.resolvedUrl("ContactListView.qml"), 
@@ -70,8 +75,8 @@ Item {
         }
     }
 
-    SecReq {
-        id: secReqObj
+    StatReport {
+        id: statReportObj
     }
 
     Init {
@@ -84,6 +89,10 @@ Item {
 
     Contact {
         id: contactObj
+    }
+
+    HeadImg {
+        id: headImgObj
     }
 
     StatusNotify {

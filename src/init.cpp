@@ -1,5 +1,9 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#if QWX_DEBUG
+#include <QFile>
+#endif
+
 #include "init.h"
 #include "globaldeclarations.h"
 
@@ -18,10 +22,9 @@ Init::~Init()
 #endif
 }
 
-void Init::post(QString uin, QString sid, QString skey) 
+void Init::post(QString uin, QString sid) 
 {
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << "why webwx NOT use skey" << skey;
-    QString url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=" + 
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxinit?r=" + 
         QString::number(time(NULL));
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
@@ -38,6 +41,11 @@ void Init::finished(QNetworkReply* reply)
 {
     QString replyStr = QString(reply->readAll());
 #if QWX_DEBUG
+    QFile file("init.json"); 
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << replyStr;
+    }
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif

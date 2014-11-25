@@ -18,10 +18,10 @@ Scan::~Scan()
 #endif
 }
 
-void Scan::get(QString uuid) 
+void Scan::get(QString uuid, QString tip) 
 {
     QString url = LOGIN_SERVER_HOST + WX_CGI_PATH + "login?uuid=" + uuid + 
-        "&tip=0&_=" + QString::number(time(NULL));
+        "&tip=" + tip + "&_=" + QString::number(time(NULL));
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
@@ -40,7 +40,7 @@ void Scan::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << replyStr;
 #endif
     if (replyStr == "window.code=408;") {
-        emit error("timeout");
+        emit error("timeout! have not scanned yet ...");
         return;
     }
     if (replyStr == "window.code=201;") {

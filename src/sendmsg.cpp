@@ -1,6 +1,6 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#include "send_msg.h"
+#include "sendmsg.h"
 #include "globaldeclarations.h"
 
 SendMsg::SendMsg(HttpPost* parent) 

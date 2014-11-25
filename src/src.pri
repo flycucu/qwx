@@ -7,13 +7,15 @@ HEADERS += \
     $$PWD/scan.h    \
     $$PWD/cookie.h  \
     $$PWD/httppost.h   \
-    $$PWD/sec_req.h \
+    $$PWD/statreport.h \
     $$PWD/init.h    \
     $$PWD/modcontact.h   \
     $$PWD/contact.h \
     $$PWD/userobject.h  \
+    $$PWD/headimg.h    \
     $$PWD/statusnotify.h    \
-    $$PWD/send_msg.h
+    $$PWD/sendmsg.h    \
+    $$PWD/getmsg.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -24,10 +26,11 @@ SOURCES += \
     $$PWD/scan.cpp  \
     $$PWD/cookie.cpp    \
     $$PWD/httppost.cpp \
-    $$PWD/sec_req.cpp   \
+    $$PWD/statreport.cpp   \
     $$PWD/init.cpp  \
     $$PWD/modcontact.cpp \
     $$PWD/contact.cpp   \
+    $$PWD/headimg.cpp  \
     $$PWD/statusnotify.cpp  \
-    $$PWD/send_msg.cpp
-
+    $$PWD/sendmsg.cpp  \
+    $$PWD/getmsg.cpp

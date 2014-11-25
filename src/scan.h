@@ -13,7 +13,7 @@ public:
     Scan(HttpGet* parent = nullptr);
     ~Scan();
 
-    Q_INVOKABLE void get(QString uuid);
+    Q_INVOKABLE void get(QString uuid, QString tip);
 
 Q_SIGNALS:
     void error(QString strerror);

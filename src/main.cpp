@@ -8,12 +8,14 @@
 #include "uuid.h"
 #include "scan.h"
 #include "cookie.h"
-#include "sec_req.h"
+#include "statreport.h"
 #include "init.h"
 #include "modcontact.h"
 #include "contact.h"
+#include "headimg.h"
 #include "statusnotify.h"
-#include "send_msg.h"
+#include "sendmsg.h"
+#include "getmsg.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -25,12 +27,14 @@ int main(int argc, char* argv[])
     qmlRegisterType<UUID>("cn.com.isoft.qwx", 1, 0, "UUID");
     qmlRegisterType<Scan>("cn.com.isoft.qwx", 1, 0, "Scan");
     qmlRegisterType<Cookie>("cn.com.isoft.qwx", 1, 0, "Cookie");
-    qmlRegisterType<SecReq>("cn.com.isoft.qwx", 1, 0, "SecReq");
+    qmlRegisterType<StatReport>("cn.com.isoft.qwx", 1, 0, "StatReport");
     qmlRegisterType<Init>("cn.com.isoft.qwx", 1, 0, "Init");
     qmlRegisterType<ModContact>("cn.com.isoft.qwx", 1, 0, "ModContact");
     qmlRegisterType<Contact>("cn.com.isoft.qwx", 1, 0, "Contact");
+    qmlRegisterType<HeadImg>("cn.com.isoft.qwx", 1, 0, "HeadImg");
     qmlRegisterType<StatusNotify>("cn.com.isoft.qwx", 1, 0, "StatusNotify");
     qmlRegisterType<SendMsg>("cn.com.isoft.qwx", 1, 0, "SendMsg");
+    qmlRegisterType<GetMsg>("cn.com.isoft.qwx", 1, 0, "GetMsg");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

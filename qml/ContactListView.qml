@@ -44,7 +44,7 @@ Item {
                                         contactListView.skey, 
                                         "sirtoozee", // TODO: only for test 
                                         modelData.UserName, 
-                                        "hello, " + modelData.NickName + " 消息来自qwx ;)")
+                                        "hello, " + modelData.NickName + " 消息来自qwx https://github.com/xiangzhai/qwx ;) 欢迎一起来鼓捣 ^_^")
                     }
                 }
             }
