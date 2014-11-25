@@ -4,8 +4,9 @@
 #define HTTP_GET_H
 
 #include <QObject>
-#include <QNetworkReply>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkCookie>
 
 class HttpGet : public QObject 
 {
@@ -15,7 +16,7 @@ public:
     HttpGet(QObject* parent = nullptr);
     virtual ~HttpGet();
 
-public:
+    QList<QNetworkCookie> cookies() const;
     void get(QString url);
 
 protected:
@@ -27,6 +28,8 @@ private Q_SLOTS:
 
 private:
     QNetworkAccessManager m_nam;
+    QString m_url;
+    QList<QNetworkCookie> m_cookies;
 };
 
 #endif // HTTP_GET_H

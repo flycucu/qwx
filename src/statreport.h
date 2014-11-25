@@ -16,7 +16,7 @@ public:
 public:
     Q_INVOKABLE void firstRequestSuccess(QString uuid);
     Q_INVOKABLE void secondRequestStart(QString uuid);
-    Q_INVOKABLE void post(QString uuid);
+    Q_INVOKABLE void post(QString uuid, QVariant cookies);
 
 protected:
     void finished(QNetworkReply* reply);

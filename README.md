@@ -76,11 +76,16 @@ window.redirect_uri="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?tic
 
 ### get 登陆获取Cookie
 
+> 使用的```cookiesForUrl```
+而且微信老的API将Cookie信息已经转化成xml格式，但是新注册的微信帐号貌似无法获得
+xml
+
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896&fun=new
 
 ### 设置Cookie 返回一个状态
 
-*** 还未实现 ***
+***还未实现***
+
 
 ### post 第二次请求成功
 

@@ -1,5 +1,7 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#include <QNetworkCookieJar>
+
 #include "httppost.h"
 
 HttpPost::HttpPost(QObject* parent) 
@@ -17,11 +19,16 @@ HttpPost::~HttpPost()
 #endif
 }
 
-void HttpPost::post(QString url, QString str) 
+void HttpPost::post(QString url, QString str, QVariant cookies) 
 {
     QNetworkRequest request(url);
     // TODO: weixin use json as HTTP POST
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    // FIXME: QNetworkRequest::setHeader: QVariant of type QList<QNetworkCookie> 
+    // cannot be used with header Cookie
+    if (cookies != 0) {
+        request.setHeader(QNetworkRequest::CookieHeader, cookies);
+    }
     connect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
             this, SLOT(m_finished(QNetworkReply*)));
     connect(&m_nam, &QNetworkAccessManager::sslErrors, 

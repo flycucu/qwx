@@ -59,7 +59,7 @@ Item {
     Cookie {
         id: cookieObj
         onInfoChanged: {
-            statReportObj.post(loginView.uuid)
+            statReportObj.post(loginView.uuid, cookieObj.cookies)
             initObj.post(uin, sid)
             modContactObj.post(uin, sid)
             contactObj.post()

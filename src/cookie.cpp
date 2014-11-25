@@ -20,6 +20,13 @@ Cookie::~Cookie()
 #endif
 }
 
+QVariant Cookie::cookies() const 
+{
+    QVariant var;
+    var.setValue(HttpGet::cookies());
+    return var;
+}
+
 void Cookie::get(QString redirect_uri) 
 {
     QString url = redirect_uri + "&fun=new";

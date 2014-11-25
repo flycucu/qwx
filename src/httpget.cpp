@@ -1,5 +1,7 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#include <QNetworkCookieJar>
+
 #include "httpget.h"
 
 HttpGet::HttpGet(QObject* parent) 
@@ -17,13 +19,16 @@ HttpGet::~HttpGet()
 #endif
 }
 
+QList<QNetworkCookie> HttpGet::cookies() const { return m_cookies; }
+
 void HttpGet::get(QString url) 
 {
+    m_url = url;
     connect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
             this, SLOT(m_finished(QNetworkReply*)));
     connect(&m_nam, &QNetworkAccessManager::sslErrors, 
             this, &HttpGet::m_sslErrors);
-    m_nam.get(QNetworkRequest(url));
+    m_nam.get(QNetworkRequest(m_url));
 }
 
 void HttpGet::finished(QNetworkReply*) {}
@@ -31,6 +36,12 @@ void HttpGet::finished(QNetworkReply*) {}
 void HttpGet::m_finished(QNetworkReply* reply) 
 {
     this->finished(reply);
+    m_cookies = m_nam.cookieJar()->cookiesForUrl(QUrl(m_url));
+#if QWX_DEBUG
+    foreach (const QNetworkCookie cookie, m_cookies) {
+        qDebug() << "DEBUG:" << cookie;
+    }
+#endif
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));
 }

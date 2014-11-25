@@ -50,7 +50,7 @@ void StatReport::secondRequestStart(QString uuid)
     HttpPost::post(url, json);
 }
 
-void StatReport::post(QString uuid) 
+void StatReport::post(QString uuid, QVariant cookies) 
 {
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxstatreport?type=1&r=" + 
         QString::number(time(NULL));
@@ -63,7 +63,7 @@ void StatReport::post(QString uuid)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, cookies);
 }
 
 void StatReport::finished(QNetworkReply* reply) 

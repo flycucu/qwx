@@ -9,9 +9,13 @@ class Cookie : public HttpGet
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariant cookies READ cookies)
+
 public:
     Cookie(HttpGet* parent = nullptr);
     ~Cookie();
+
+    QVariant cookies() const;
 
     Q_INVOKABLE void get(QString redirect_uri);
 
