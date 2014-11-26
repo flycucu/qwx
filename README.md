@@ -1,8 +1,7 @@
 qwx
 ===
 
-微信Qt前端。
-刚开始，欢迎一起鼓捣 ;-)
+网页微信 Qt 前端 HTTP GET/POST
 
 
 ## 编译、运行
@@ -22,13 +21,16 @@ make
 
 以下是Post/Get的封包大全，如果能看懂这个，基本上你就可以做出来了。
 
+
 ### 获取uuid
 
 https://login.weixin.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=1388994062250
 
+
 ### 获取二维码
 
 https://login.weixin.qq.com/qrcode/{$uuid}?t=webwx
+
 
 ### 等待扫描Get
 
@@ -38,11 +40,14 @@ https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?uuid=454d958c7f6243&tip=1&
 
 https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?uuid=454d958c7f6243&tip=1&_=1388975883859
 
+
 ### 扫描了（但还没有确认）-返回
 
 window.code=201;
 
+
 ### 未扫描返回空
+
 
 ### 扫描之后-第一次请求成功
 
@@ -50,11 +55,13 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388975895453
 
 {"BaseRequest":{"Uin":0,"Sid":0},"Count":1,"List":[{"Type":1,"Text":"/cgi-bin/mmwebwx-bin/login, First Request Success, uuid: 454d958c7f6243"}]}
 
+
 ### 扫描之后-第二次请求开始
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388975895453
 
 {"BaseRequest":{"Uin":0,"Sid":0},"Count":1,"List":[{"Type":1,"Text":"/cgi-bin/mmwebwx-bin/login, Second Request Start, uuid: 454d958c7f6243"}]}
+
 
 ### 等待确认Get
 
@@ -66,11 +73,13 @@ https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?uuid=454d958c7f6243&tip=0&
 
 https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?uuid=454d958c7f6243&tip=0&_=1388975911953
 
+
 ### 手机确认-返回
 
 window.code=200;
 
 window.redirect_uri="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896";
+
 
 ### 未确认返回空
 
@@ -78,6 +87,8 @@ window.redirect_uri="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?tic
 ### get 登陆获取Cookie
 
 ***已实现 src/httpget.cpp, src/cookie.cpp***
+
+> 将其保存在 $HOME/.qwx/cookies 里
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896&fun=new
 
@@ -88,6 +99,8 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab
 
 ***已实现 src/httppost.cpp***
 
+> 读取 $HOME/.qwx/cookies 内容，设置Cookie
+
 
 ### post 第二次请求成功
 
@@ -95,9 +108,14 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388976086218
 
 {"BaseRequest":{"Uin":0,"Sid":0},"Count":1,"List":[{"Type":1,"Text":"/cgi-bin/mmwebwx-bin/login, Second Request Success, uuid: 454d958c7f6243, time: 190765ms"}]}
 
+
 ### post 表示登陆成功-返回重要的数据skey
 
 ***SKey, ContactList, User***
+
+> ContactList 是当前与你聊过天的对象链表
+
+> User 是当前登录网页微信的帐号信息，比如 sirtoozee
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1388976086484
 
@@ -106,7 +124,9 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1388976086484
 
 ### post 可能是获取列表
 
-*** modcontact.json ***
+***modcontact.json***
+
+> ModContactList 是你的通讯录
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=e75TXbI7TnKUevmI&r=1388976086734
 
@@ -115,8 +135,6 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=e75TXbI7TnKUevmI&r=138897608
 --这里的内容在上一步返回结果里
 
 ### post 可能是获取当前会话列表-大数据
-
-*** 有问题，链表为空 ***
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact?r=1388976086734
 
