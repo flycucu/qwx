@@ -21,7 +21,12 @@ Item {
 
         Tab {
             title: "微信"
-            WXView {}
+            WXView {
+                uin: navigatorView.uin
+                sid: navigatorView.sid
+                skey: navigatorView.skey
+                initObj: navigatorView.initObj
+            }
         }
 
         Tab {

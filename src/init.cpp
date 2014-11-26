@@ -8,6 +8,7 @@
 #include <QJsonArray>
 
 #include "init.h"
+#include "userobject.h"
 #include "globaldeclarations.h"
 
 Init::Init(HttpPost* parent) 
@@ -57,6 +58,7 @@ void Init::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif
+
     QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());
     if (!doc.isObject()) { emit error(); return; }                              
     QJsonObject obj = doc.object();
@@ -65,10 +67,21 @@ void Init::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;
 #endif
     emit skeyChanged(skey);
+
     QJsonObject user = obj["User"].toObject();
     m_loginUserName = user["UserName"].toString(); 
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << m_loginUserName;
 #endif
     emit loginUserNameChanged();
+
+    QJsonArray arr = obj["ContactList"].toArray(); 
+    foreach (const QJsonValue & val, arr) {
+        QJsonObject user = val.toObject();
+        m_contactList.append(new UserObject(
+            user["UserName"].toString(), 
+            user["NickName"].toString(), 
+            WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+    }
+    emit contactListChanged();
 }
