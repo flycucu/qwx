@@ -1,5 +1,8 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#if QWX_DEBUG
+#include <QFile>
+#endif
 #include <QNetworkCookieJar>
 
 #include "httpget.h"
@@ -38,8 +41,17 @@ void HttpGet::m_finished(QNetworkReply* reply)
     this->finished(reply);
     m_cookies = m_nam.cookieJar()->cookiesForUrl(QUrl(m_url));
 #if QWX_DEBUG
-    foreach (const QNetworkCookie cookie, m_cookies) {
-        qDebug() << "DEBUG:" << cookie;
+    QFile file("cookies");
+    if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QTextStream out(&file);
+        foreach (const QNetworkCookie cookie, m_cookies) {
+            qDebug() << "DEBUG:" << cookie;
+            QLocale locale = QLocale(QLocale::C, QLocale::AnyCountry);
+            out << QString(cookie.name()) << "=" << QString(cookie.value()) 
+                << "; expires=" << locale.toString(cookie.expirationDate(), "ddd, dd-MMM-yyyy hh:mm:ss") + " GMT" 
+                << "; domain=" << cookie.domain() 
+                << "; path=" << cookie.path() << endl;
+        }
     }
 #endif
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 

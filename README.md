@@ -82,6 +82,8 @@ xml
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896&fun=new
 
+获取Cookie之后，每次get/post都需要设置Cookie
+
 ### 设置Cookie 返回一个状态
 
 ***还未实现***

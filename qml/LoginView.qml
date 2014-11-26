@@ -14,7 +14,7 @@ Item {
     UUID {
         id: uuidObj
         onError: {
-            console.log("ERROR: fail to get uuid!")
+            console.log("ERROR: 获取UUID失败!")
         }
         onUuidChanged: {
             loginView.uuid = uuid
@@ -34,15 +34,16 @@ Item {
         id: scanObj
         onError: {
             console.log("ERROR:", strerror)
+            console.log("DEBUG: 等待扫描 ...")
         }
         onScanedButWaitConfirm: {
-            console.log("DEBUG: scaned but waitting for confirm ...")
+            console.log("DEBUG: 已扫描等待确认 ...")
             loginView.tip = "0"
             statReportObj.firstRequestSuccess(loginView.uuid)
             statReportObj.secondRequestStart(loginView.uuid)
         }
         onScanedAndConfirmed: {
-            console.log("DEBUG: confirmed")
+            console.log("DEBUG: 已确认")
             scanTimer.stop()
             cookieObj.get(redirect_uri)
         }
