@@ -11,7 +11,7 @@
 #include "globaldeclarations.h"
 
 Init::Init(HttpPost* parent) 
-  : HttpPost(parent)
+  : HttpPost(parent) 
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -40,6 +40,10 @@ void Init::post(QString uin, QString sid)
     HttpPost::post(url, json, true);
 }
 
+QString Init::loginUserName() const { return m_loginUserName; }
+
+QList<QObject*> Init::contactList() const { return m_contactList; }
+
 void Init::finished(QNetworkReply* reply) 
 {
     QString replyStr = QString(reply->readAll());
@@ -61,4 +65,10 @@ void Init::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;
 #endif
     emit skeyChanged(skey);
+    QJsonObject user = obj["User"].toObject();
+    m_loginUserName = user["UserName"].toString(); 
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << m_loginUserName;
+#endif
+    emit loginUserNameChanged();
 }

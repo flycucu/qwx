@@ -8,10 +8,19 @@ Item {
     id: contactListView
     width: parent.width; height: parent.height
 
-    property var modContactObj
     property string uin
     property string sid
     property string skey
+    property var initObj
+
+    ModContact {
+        id: modContactObj
+        uin: contactListView.uin
+        sid: contactListView.sid
+        onModContactListChanged: {
+            modContactListView.model = modContactObj.modContactList
+        }
+    }
 
     SendMsg {
         id: sendMsgObj
@@ -19,7 +28,6 @@ Item {
 
     ListView {
         id: modContactListView
-        model: contactListView.modContactObj.modContactList
         anchors.fill: parent
 
         delegate: Item {
@@ -32,7 +40,7 @@ Item {
             */
 
             Text {
-                text: modelData.NickName
+                text: modelData.nickName
 
                 MouseArea {
                     anchors.fill: parent
@@ -42,9 +50,9 @@ Item {
                         sendMsgObj.post(contactListView.uin, 
                                         contactListView.sid, 
                                         contactListView.skey, 
-                                        "sirtoozee", // TODO: only for test 
-                                        modelData.UserName, 
-                                        "hello, " + modelData.NickName + " 消息来自qwx https://github.com/xiangzhai/qwx ;) 欢迎一起来鼓捣 ^_^")
+                                        contactListView.initObj.loginUserName, 
+                                        modelData.userName, 
+                                        "您好 " + modelData.nickName + " 消息来自qwx https://github.com/xiangzhai/qwx 欢迎一起来鼓捣 ^_^")
                     }
                 }
             }

@@ -12,7 +12,9 @@
 #include "globaldeclarations.h"
 
 ModContact::ModContact(HttpPost* parent) 
-  : HttpPost(parent)
+  : HttpPost(parent), 
+    m_uin(""), 
+    m_sid("") 
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -26,14 +28,34 @@ ModContact::~ModContact()
 #endif
 }
 
-void ModContact::post(QString uin, QString sid) 
+QString ModContact::uin() const { return m_uin; }
+void ModContact::setUin(const QString & uin) 
+{
+    if (m_uin == uin) return;
+    m_uin = uin; emit uinChanged();
+}
+
+QString ModContact::sid() const { return m_sid; }
+void ModContact::setSid(const QString & sid) 
+{
+    if (m_sid == sid) return;
+    m_sid = sid;
+    if (m_uin != "") {
+        emit sidChanged(); 
+        m_post();
+    }
+}
+
+void ModContact::m_post() 
 {
     QString ts = QString::number(time(NULL));
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + "&r=" + ts;
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + m_sid 
+        + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
+    QString json = "{\"BaseRequest\":{\"Uin\":" + m_uin 
+        + ",\"Sid\":\"" + m_sid + 
         "\"},\"SyncKey\":{\"Count\":4,\"List\":[{\"Key\":1,\"Val\":620916854},"
         "{\"Key\":2,\"Val\":620917961},{\"Key\":3,\"Val\":620917948},"
         "{\"Key\":1000,\"Val\":1388967977}]},\"rr\":" + ts + "}";
@@ -47,6 +69,7 @@ QList<QObject*> ModContact::modContactList() const { return m_modContactList; }
 
 void ModContact::finished(QNetworkReply* reply) 
 {
+    m_modContactList.clear();
     QString replyStr = QString(reply->readAll());
 #if QWX_DEBUG
     QFile file("modcontact.json");

@@ -9,8 +9,7 @@ ApplicationWindow {
     width: 310; height: 500
 
     StackView {
-        id: stackView
-        width: parent.width; height: parent.height
+        id: rootWindowStackView
         anchors.fill: parent
         initialItem: LoginView {}
     }

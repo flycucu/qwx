@@ -76,35 +76,13 @@ Item {
     Init {
         id: initObj
         onSkeyChanged: {
-            modContactObj.post(loginView.uin, loginView.sid)
-            contactObj.post()                                                      
-            //----------------------------------------------------------------- 
-            // TODO: only for test                                                 
-            headImgObj.get("sirtoozee")                                            
-            statusNotifyObj.post(loginView.uin, loginView.sid, "sirtoozee")
-            //----------------------------------------------------------------- 
-            stackView.clear()                                                      
-            stackView.push({item: Qt.resolvedUrl("ContactListView.qml"),           
-                            properties: {modContactObj: modContactObj,             
-                                         uin: loginView.uin, 
-                                         sid: loginView.sid, 
-                                         skey: skey}})
+            rootWindowStackView.clear()
+            rootWindowStackView.push({
+                item: Qt.resolvedUrl("NavigatorView.qml"),  
+                properties: {uin: loginView.uin, 
+                             sid: loginView.sid, 
+                             skey: skey, 
+                             initObj: initObj}})
         }
-    }
-
-    ModContact {
-        id: modContactObj
-    }
-
-    Contact {
-        id: contactObj
-    }
-
-    HeadImg {
-        id: headImgObj
-    }
-
-    StatusNotify {
-        id: statusNotifyObj
     }
 }
