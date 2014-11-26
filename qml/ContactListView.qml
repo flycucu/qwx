@@ -31,22 +31,29 @@ Item {
         anchors.fill: parent
 
         delegate: Item {
-            height: 30
-            
-            /* FIXME: ./src/modcontact.cpp it ONLY works in web browser ...
-            Image {
-                source: modelData.HeadImgUrl
+            height: 60
+
+            HeadImg {                                                              
+                id: headImgObj                                                     
+                userName: modelData.userName                                       
+                onFilePathChanged: {                                               
+                    headImage.source = headImgObj.filePath                         
+                }                                                                  
+            }                                                                      
+                                                                                   
+            Image {                                                                
+                id: headImage                                                      
+                height: parent.height; width: parent.height                        
             }
-            */
 
             Text {
                 text: modelData.nickName
+                anchors.left: headImage.right
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         console.log("DEBUG: only for test sending msg")
-                        // TODO: it needs to get current login user account ;)
                         sendMsgObj.post(contactListView.uin, 
                                         contactListView.sid, 
                                         contactListView.skey, 
