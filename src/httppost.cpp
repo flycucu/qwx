@@ -1,7 +1,6 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #include <QFile>
-#include <QDir>
 #include <QNetworkCookie>
 
 #include "httppost.h"
@@ -28,16 +27,10 @@ void HttpPost::post(QString url, QString str, bool needSetCookie)
     // TODO: webwx use json as HTTP POST
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     if (needSetCookie) {
-        QFile file(QDir::homePath() + "/." + CODE_NAME + "/cookies");
+        QFile file(QWXDIR + "/cookies");
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QTextStream out(&file);
             QList<QNetworkCookie> cookies = QNetworkCookie::parseCookies(out.readAll().toUtf8());
-#if QWX_DEBUG
-            qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
-            foreach (const QNetworkCookie cookie, cookies) {
-                qDebug() << "DEBUG:" << cookie;
-            }
-#endif
             QVariant var;
             var.setValue(cookies);
             request.setHeader(QNetworkRequest::CookieHeader, var);
@@ -57,6 +50,8 @@ void HttpPost::m_finished(QNetworkReply* reply)
     this->finished(reply);
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));
+    disconnect(&m_nam, &QNetworkAccessManager::sslErrors, 
+               this, &HttpPost::m_sslErrors);
 }
 
 void HttpPost::m_sslErrors(QNetworkReply* reply, const QList<QSslError> & errors) 

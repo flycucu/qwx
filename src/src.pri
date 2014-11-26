@@ -13,6 +13,7 @@ HEADERS += \
     $$PWD/contact.h \
     $$PWD/userobject.h  \
     $$PWD/headimg.h    \
+    $$PWD/download.h    \
     $$PWD/statusnotify.h    \
     $$PWD/sendmsg.h    \
     $$PWD/getmsg.h
@@ -31,6 +32,7 @@ SOURCES += \
     $$PWD/modcontact.cpp \
     $$PWD/contact.cpp   \
     $$PWD/headimg.cpp  \
+    $$PWD/download.cpp  \
     $$PWD/statusnotify.cpp  \
     $$PWD/sendmsg.cpp  \
     $$PWD/getmsg.cpp

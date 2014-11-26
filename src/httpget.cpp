@@ -1,11 +1,9 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#if QWX_DEBUG
-#include <QFile>
-#endif
 #include <QNetworkCookieJar>
 
 #include "httpget.h"
+#include "globaldeclarations.h"
 
 HttpGet::HttpGet(QObject* parent) 
   : QObject(parent)
@@ -51,11 +49,14 @@ void HttpGet::m_finished(QNetworkReply* reply)
                 << "; domain=" << cookie.domain() 
                 << "; path=" << cookie.path() << endl;
         }
+        file.close();
     }
 #endif
     this->finished(reply);
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));
+    disconnect(&m_nam, &QNetworkAccessManager::sslErrors, 
+               this, &HttpGet::m_finished);
 }
 
 void HttpGet::m_sslErrors(QNetworkReply* reply, const QList<QSslError> & errors) 

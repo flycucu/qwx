@@ -3,23 +3,38 @@
 #ifndef HEAD_IMG_H
 #define HEAD_IMG_H
 
-#include "httpget.h"
+#include "download.h"
 
-class HeadImg : public HttpGet 
+class HeadImg : public QObject 
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
+    Q_PROPERTY(QString filePath READ filePath NOTIFY filePathChanged)
+
 public:
-    HeadImg(HttpGet* parent = nullptr);
+    HeadImg(QObject* parent = nullptr);
     ~HeadImg();
 
-    Q_INVOKABLE void get(QString userName);
+    QString userName() const;
+    void setUserName(const QString & userName);
+
+    QString filePath() const;
 
 Q_SIGNALS:
-    void cache(QString filePath);
+    void userNameChanged();
+    void filePathChanged();
 
-protected:
-    void finished(QNetworkReply* reply);
+private:
+    QString m_userName;
+    QString m_filePath;
+    Download m_down;
+
+private Q_SLOTS:
+    void m_finished();
+
+private:
+    void m_get();
 };
 
 #endif // HEAD_IMG_H

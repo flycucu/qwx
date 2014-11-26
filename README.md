@@ -146,9 +146,8 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatusnotify?r=1388976086750
 
 {"BaseRequest":{"Uin":750366800,"Sid":"e75TXbI7TnKUevmI","Skey":"","DeviceID":"e519062714508114"},"Code":3,"FromUserName":"langyeie","ToUserName":"langyeie","ClientMsgId":"1388976086750"}
 
-### get 获取头像图片
 
-*** 在浏览器上工作，但是libcurl等如何实现？ ***
+### get 获取头像图片
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgeticon?seq=1388335457&username=langyeie
 

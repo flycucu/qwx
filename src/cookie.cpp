@@ -42,10 +42,9 @@ void Cookie::finished(QNetworkReply* reply)
 #endif
     //-------------------------------------------------------------------------
     // TODO: save cookies
-    QString qwxDirStr = QDir::homePath() + "/." + CODE_NAME;
-    QString cookiePath = qwxDirStr + "/cookies";
-    QDir qwxDir(qwxDirStr);
-    if (!qwxDir.exists(cookiePath)) qwxDir.mkdir(qwxDirStr);
+    QString cookiePath = QWXDIR + "/cookies";
+    QDir qwxDir(QWXDIR);
+    if (!qwxDir.exists(cookiePath)) qwxDir.mkdir(QWXDIR);
     QFile file(cookiePath);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         qWarning() << "ERROR: fail to save cookies!";

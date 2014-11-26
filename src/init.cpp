@@ -53,8 +53,8 @@ void Init::finished(QNetworkReply* reply)
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
         out << replyStr;
+        file.close();
     }
-    file.close();
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif

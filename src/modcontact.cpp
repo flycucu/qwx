@@ -76,6 +76,7 @@ void ModContact::finished(QNetworkReply* reply)
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
         out << replyStr;
+        file.close();
     }
 #endif
     QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());

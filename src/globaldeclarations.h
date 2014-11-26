@@ -4,6 +4,7 @@
 #define GLOBAL_DECLARATIONS_H
 
 #include <QString>
+#include <QDir>
 
 const QString CODE_NAME = "qwx";
 const QString APPLICATION_VERSION = "0.1";
@@ -13,5 +14,7 @@ const QString LOGIN_SERVER_HOST = "https://login.weixin.qq.com";
 const QString WX_SERVER_HOST = "https://wx.qq.com";
 const QString WX_CGI_PATH = "/cgi-bin/mmwebwx-bin/";
 const QString DEVICE_ID = "e519062714508114";
+
+const QString QWXDIR = QDir::homePath() + "/." + CODE_NAME;
 
 #endif // GLOBAL_DECLARATIONS_H

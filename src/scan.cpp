@@ -40,7 +40,7 @@ void Scan::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << replyStr;
 #endif
     if (replyStr == "window.code=408;") {
-        emit error("timeout! have not scanned yet ...");
+        emit error("timeout");
         return;
     }
     if (replyStr == "window.code=201;") {
