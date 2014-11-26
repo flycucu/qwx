@@ -1,9 +1,10 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QFile>
+#include <QDir>
 
 #include "cookie.h"
+#include "globaldeclarations.h"
 
 Cookie::Cookie(HttpGet* parent) 
   : HttpGet(parent)
@@ -20,13 +21,6 @@ Cookie::~Cookie()
 #endif
 }
 
-QVariant Cookie::cookies() const 
-{
-    QVariant var;
-    var.setValue(HttpGet::cookies());
-    return var;
-}
-
 void Cookie::get(QString redirect_uri) 
 {
     QString url = redirect_uri + "&fun=new";
@@ -41,19 +35,39 @@ void Cookie::finished(QNetworkReply* reply)
     QString replyStr(reply->readAll());
     QString uinStr = "";
     QString sidStr = "";
-    QDomDocument doc;
 
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif
+    //-------------------------------------------------------------------------
+    // TODO: save cookies
+    QString qwxDirStr = QDir::homePath() + "/." + CODE_NAME;
+    QString cookiePath = qwxDirStr + "/cookies";
+    QDir qwxDir(qwxDirStr);
+    if (!qwxDir.exists(cookiePath)) qwxDir.mkdir(qwxDirStr);
+    QFile file(cookiePath);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        qWarning() << "ERROR: fail to save cookies!";
+        return;
+    }
+    QTextStream out(&file);
+    QLocale locale = QLocale(QLocale::C, QLocale::AnyCountry);
     foreach (const QNetworkCookie cookie, HttpGet::cookies()) {
+        out << QString(cookie.name()) << "=" << QString(cookie.value()) 
+            << "; expires=" << locale.toString(cookie.expirationDate(), "ddd, dd-MMM-yyyy hh:mm:ss") + " GMT" 
+            << "; domain=" << cookie.domain() 
+            << "; path=" << cookie.path() << endl;
+
         if (cookie.name() == "wxuin") 
             uinStr = QString(cookie.value());
         else if (cookie.name() == "wxsid") 
             sidStr = QString(cookie.value());
     }
-    
+    file.close();
+    //-------------------------------------------------------------------------
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << uinStr << sidStr;
+#endif
     emit infoChanged(uinStr, sidStr);
 }
-

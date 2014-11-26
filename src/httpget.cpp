@@ -38,7 +38,6 @@ void HttpGet::finished(QNetworkReply*) {}
 
 void HttpGet::m_finished(QNetworkReply* reply) 
 {
-    this->finished(reply);
     m_cookies = m_nam.cookieJar()->cookiesForUrl(QUrl(m_url));
 #if QWX_DEBUG
     QFile file("cookies");
@@ -54,6 +53,7 @@ void HttpGet::m_finished(QNetworkReply* reply)
         }
     }
 #endif
+    this->finished(reply);
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));
 }

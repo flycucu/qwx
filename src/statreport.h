@@ -13,10 +13,9 @@ public:
     StatReport(HttpPost* parent = nullptr);
     ~StatReport();
 
-public:
     Q_INVOKABLE void firstRequestSuccess(QString uuid);
     Q_INVOKABLE void secondRequestStart(QString uuid);
-    Q_INVOKABLE void post(QString uuid, QVariant cookies);
+    Q_INVOKABLE void post(QString uuid);
 
 protected:
     void finished(QNetworkReply* reply);

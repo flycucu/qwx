@@ -6,7 +6,6 @@
 #include <QObject>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
-#include <QNetworkCookie>
 
 class HttpPost : public QObject 
 {
@@ -17,7 +16,7 @@ public:
     virtual ~HttpPost();
 
 public:
-    void post(QString url, QString str, QVariant cookies = 0);
+    void post(QString url, QString str, bool needSetCookie = false);
 
 protected:
     virtual void finished(QNetworkReply* reply);

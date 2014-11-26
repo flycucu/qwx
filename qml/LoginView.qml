@@ -10,6 +10,8 @@ Item {
 
     property string uuid: ""
     property string tip: "1"
+    property string uin: ""
+    property string sid: ""
 
     UUID {
         id: uuidObj
@@ -60,19 +62,10 @@ Item {
     Cookie {
         id: cookieObj
         onInfoChanged: {
-            statReportObj.post(loginView.uuid, cookieObj.cookies)
-            initObj.post(uin, sid)
-            modContactObj.post(uin, sid)
-            contactObj.post()
-            //-----------------------------------------------------------------
-            // TODO: only for test
-            headImgObj.get("sirtoozee")
-            statusNotifyObj.post(uin, sid, "sirtoozee")
-            //-----------------------------------------------------------------
-            stackView.clear()
-            stackView.push({item: Qt.resolvedUrl("ContactListView.qml"), 
-                            properties: {modContactObj: modContactObj, 
-                                         uin: uin, sid: sid, skey: skey}})
+            loginView.uin = uin
+            loginView.sid = sid
+            statReportObj.post(loginView.uuid)
+            initObj.post(loginView.uin, loginView.sid)
         }
     }
 
@@ -82,6 +75,21 @@ Item {
 
     Init {
         id: initObj
+        onSkeyChanged: {
+            modContactObj.post(loginView.uin, loginView.sid)
+            contactObj.post()                                                      
+            //----------------------------------------------------------------- 
+            // TODO: only for test                                                 
+            headImgObj.get("sirtoozee")                                            
+            statusNotifyObj.post(loginView.uin, loginView.sid, "sirtoozee")
+            //----------------------------------------------------------------- 
+            stackView.clear()                                                      
+            stackView.push({item: Qt.resolvedUrl("ContactListView.qml"),           
+                            properties: {modContactObj: modContactObj,             
+                                         uin: loginView.uin, 
+                                         sid: loginView.sid, 
+                                         skey: skey}})
+        }
     }
 
     ModContact {

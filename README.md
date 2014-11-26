@@ -74,19 +74,19 @@ window.redirect_uri="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?tic
 
 ### 未确认返回空
 
+
 ### get 登陆获取Cookie
 
-> 使用的```cookiesForUrl```
-而且微信老的API将Cookie信息已经转化成xml格式，但是新注册的微信帐号貌似无法获得
-xml
+***已实现 src/httpget.cpp, src/cookie.cpp***
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896&fun=new
 
-获取Cookie之后，每次get/post都需要设置Cookie
+***获取Cookie之后，每次get/post都需要设置Cookie***
+
 
 ### 设置Cookie 返回一个状态
 
-***还未实现***
+***已实现 src/httppost.cpp***
 
 
 ### post 第二次请求成功
@@ -95,13 +95,14 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388976086218
 
 {"BaseRequest":{"Uin":0,"Sid":0},"Count":1,"List":[{"Type":1,"Text":"/cgi-bin/mmwebwx-bin/login, Second Request Success, uuid: 454d958c7f6243, time: 190765ms"}]}
 
-### post 表示登陆成功-返回重要的数据key123
+### post 表示登陆成功-返回重要的数据skey
 
-*** 返回的json对象链表为空 init.json ***
+***SKey, ContactList, User***
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1388976086484
 
 {"BaseRequest":{"Uin":"750366800","Sid":"e75TXbI7TnKUevmI","Skey":"","DeviceID":"e519062714508114"}}
+
 
 ### post 可能是获取列表
 

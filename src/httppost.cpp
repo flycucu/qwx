@@ -1,8 +1,11 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#include <QNetworkCookieJar>
+#include <QFile>
+#include <QDir>
+#include <QNetworkCookie>
 
 #include "httppost.h"
+#include "globaldeclarations.h"
 
 HttpPost::HttpPost(QObject* parent) 
   : QObject(parent)
@@ -19,15 +22,26 @@ HttpPost::~HttpPost()
 #endif
 }
 
-void HttpPost::post(QString url, QString str, QVariant cookies) 
+void HttpPost::post(QString url, QString str, bool needSetCookie) 
 {
     QNetworkRequest request(url);
-    // TODO: weixin use json as HTTP POST
+    // TODO: webwx use json as HTTP POST
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    // FIXME: QNetworkRequest::setHeader: QVariant of type QList<QNetworkCookie> 
-    // cannot be used with header Cookie
-    if (cookies != 0) {
-        request.setHeader(QNetworkRequest::CookieHeader, cookies);
+    if (needSetCookie) {
+        QFile file(QDir::homePath() + "/." + CODE_NAME + "/cookies");
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            QList<QNetworkCookie> cookies = QNetworkCookie::parseCookies(out.readAll().toUtf8());
+#if QWX_DEBUG
+            qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
+            foreach (const QNetworkCookie cookie, cookies) {
+                qDebug() << "DEBUG:" << cookie;
+            }
+#endif
+            QVariant var;
+            var.setValue(cookies);
+            request.setHeader(QNetworkRequest::CookieHeader, var);
+        }
     }
     connect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
             this, SLOT(m_finished(QNetworkReply*)));

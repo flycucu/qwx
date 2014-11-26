@@ -3,6 +3,9 @@
 #if QWX_DEBUG
 #include <QFile>
 #endif
+#include <QJsonDocument>                                                           
+#include <QJsonObject>                                                             
+#include <QJsonArray>
 
 #include "init.h"
 #include "globaldeclarations.h"
@@ -34,7 +37,7 @@ void Init::post(QString uin, QString sid)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, true);
 }
 
 void Init::finished(QNetworkReply* reply) 
@@ -46,7 +49,16 @@ void Init::finished(QNetworkReply* reply)
         QTextStream out(&file);
         out << replyStr;
     }
+    file.close();
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif
+    QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());
+    if (!doc.isObject()) { emit error(); return; }                              
+    QJsonObject obj = doc.object();
+    QString skey = obj["SKey"].toString();
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;
+#endif
+    emit skeyChanged(skey);
 }
