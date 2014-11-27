@@ -99,5 +99,5 @@ void Cookie::finished(QNetworkReply* reply)
     out << "webwxuvid=" << webwxuvid << "; expires=" << expires << "; domain="            
         << domain << "; path=" << path << endl;
     file.close();
-    emit infoChanged(uinStr, sidStr, skey.text());
+    emit infoChanged(uinStr, sidStr, skey.text(), ticket.text());
 }

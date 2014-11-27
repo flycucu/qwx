@@ -67,7 +67,7 @@ Item {
             loginView.sid = sid
             loginView.skey = skey
             statReportObj.post(loginView.uuid)
-            initObj.post(loginView.uin, loginView.sid)
+            initObj.post(loginView.uin, loginView.sid, ticket)
         }
     }
 

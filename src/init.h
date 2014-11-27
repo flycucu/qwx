@@ -20,7 +20,7 @@ public:
 
     QList<QObject*> contactList() const;
 
-    Q_INVOKABLE void post(QString uin, QString sid);
+    Q_INVOKABLE void post(QString uin, QString sid, QString ticket);
 
 Q_SIGNALS:
     void error();

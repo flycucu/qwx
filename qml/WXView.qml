@@ -52,7 +52,7 @@ Item {
                                         wxView.skey, 
                                         wxView.initObj.loginUserName, 
                                         modelData.userName, 
-                                        "您好 " + modelData.nickName + " 消息来自qwx https://github.com/xiangzhai/qwx 欢迎一起来鼓捣 ^_^")
+                                        "您好 " + modelData.nickName + " 消息来自 qwx https://github.com/xiangzhai/qwx")
                     }
                 }
             }

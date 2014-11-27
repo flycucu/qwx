@@ -35,10 +35,10 @@ void Init::m_clear()
     m_contactList.clear();
 }
 
-void Init::post(QString uin, QString sid) 
+void Init::post(QString uin, QString sid, QString ticket) 
 {
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxinit?r=" + 
-        QString::number(time(NULL));
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxinit?pass_ticket=" + 
+        ticket + "&r=" + QString::number(time(NULL));
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
