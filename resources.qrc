@@ -4,6 +4,7 @@
   <file>qml/LoginView.qml</file>
   <file>qml/NavigatorView.qml</file>
   <file>qml/WXView.qml</file>
+  <file>qml/ChatView.qml</file>
   <file>qml/ContactListView.qml</file>
   <file>qml/IView.qml</file>
 </qresource>

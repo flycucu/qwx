@@ -13,21 +13,23 @@ Item {
     property string skey: ""
     property var initObj
 
+    GetMsg {
+        id: getMsgObj
+    }
+
+    Timer {                                                                        
+        id: getMsgTimer                                                              
+        interval: 8000; running: true; repeat: true                              
+        onTriggered: {
+            getMsgObj.post(navigatorView.uin, navigatorView.sid)
+        }                                              
+    }
+
     TabView {
         id: navigatorTabView
         width: parent.width; height: parent.height - navigatorHeader.height
         tabPosition: Qt.BottomEdge
         anchors.top: navigatorHeader.bottom
-
-        Tab {                                                                      
-            title: "通讯录"                                                        
-            ContactListView {                                                      
-                uin: navigatorView.uin                                             
-                sid: navigatorView.sid                                             
-                skey: navigatorView.skey                                           
-                initObj: navigatorView.initObj                                     
-            }                                                                      
-        }
 
         Tab {
             title: "微信"
@@ -37,6 +39,16 @@ Item {
                 skey: navigatorView.skey
                 initObj: navigatorView.initObj
             }
+        }
+
+        Tab {                                                                      
+            title: "通讯录"                                                        
+            ContactListView {                                                      
+                uin: navigatorView.uin                                             
+                sid: navigatorView.sid                                             
+                skey: navigatorView.skey                                           
+                initObj: navigatorView.initObj                                     
+            }                                                                      
         }
 
         Tab {

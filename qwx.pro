@@ -19,6 +19,8 @@ OTHER_FILES += \
     qml/main.qml    \
     qml/LoginView.qml   \
     qml/NavigatorView.qml   \
+    qml/WXView.qml  \
+    qml/ChatView.qml    \
     qml/ContactListView.qml \
     qml/IView.qml
 

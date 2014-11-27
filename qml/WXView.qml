@@ -13,10 +13,6 @@ Item {
     property string skey
     property var initObj
 
-    SendMsg {
-        id: sendMsgObj
-    }
-
     ListView {
         id: wxListView
         model: initObj.contactList
@@ -35,24 +31,34 @@ Item {
 
             Image {
                 id: headImage
-                height: parent.height; width: parent.height
+                width: 42; height: 42
+                anchors.top: parent.top
+                anchors.topMargin: 8
+                anchors.left: parent.left
+                anchors.leftMargin: 10
             }
 
             Text {
                 text: modelData.nickName
+                font.pixelSize: 13
+                anchors.top: parent.top
+                anchors.topMargin: 14
                 anchors.left: headImage.right
+                anchors.leftMargin: 11
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log("DEBUG: only for test sending msg")
-                        // TODO: it needs to get current login user account ;)
-                        sendMsgObj.post(wxView.uin, 
-                                        wxView.sid, 
-                                        wxView.skey, 
-                                        wxView.initObj.loginUserName, 
-                                        modelData.userName, 
-                                        "您好 " + modelData.nickName + " 消息来自 qwx https://github.com/xiangzhai/qwx")
+                        var component = Qt.createComponent("ChatView.qml")
+                        var chatView = component.createObject(
+                            Qt.resolvedUrl("ChatView.qml"), 
+                            {"uin": wxView.uin, 
+                             "sid": wxView.sid, 
+                             "skey": wxView.skey, 
+                             "fromUserName": wxView.initObj.loginUserName, 
+                             "toUserName": modelData.userName,
+                             "toNickName": modelData.nickName})
+                        chatView.show()
                     }
                 }
             }

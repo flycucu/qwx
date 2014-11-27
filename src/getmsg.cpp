@@ -1,5 +1,9 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#if QWX_DEBUG
+#include <QFile>
+#endif
+
 #include "getmsg.h"
 #include "globaldeclarations.h"
 
@@ -33,14 +37,20 @@ void GetMsg::post(QString uin, QString sid)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, true);
 }
 
 void GetMsg::finished(QNetworkReply* reply) 
 {
     QString replyStr = QString(reply->readAll());
 #if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
-    qDebug() << "DEBUG:" << replyStr;
+    QFile file("getmsg.json");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << replyStr;
+        file.close(); 
+    }
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;                                   
+    qDebug() << "DEBUG:" << replyStr;                                              
 #endif
 }
