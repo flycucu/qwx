@@ -49,16 +49,16 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        var component = Qt.createComponent("ChatView.qml")
-                        var chatView = component.createObject(
-                            Qt.resolvedUrl("ChatView.qml"), 
-                            {"uin": wxView.uin, 
-                             "sid": wxView.sid, 
-                             "skey": wxView.skey, 
-                             "fromUserName": wxView.loginUserName, 
-                             "toUserName": modelData.userName,
-                             "toNickName": modelData.nickName})
-                        chatView.show()
+                        //navigatorStackView.clear()
+                        navigatorStackView.push({
+                            item: Qt.resolvedUrl("ChatView.qml"),
+                            properties: {
+                                uin: wxView.uin, 
+                                sid: wxView.sid,                                   
+                                skey: wxView.skey,                                 
+                                fromUserName: wxView.loginUserName,                 
+                                toUserName: modelData.userName, 
+                                toNickName: modelData.nickName}})
                     }
                 }
             }

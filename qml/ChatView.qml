@@ -1,14 +1,12 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
-import QtQuick.Window 2.1
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
 
-Window {
+Item {
     id: chatView
-    width: 500; height: 300
-    title: chatView.toNickName
+    width: parent.width; height: parent.height
 
     property string uin
     property string sid
@@ -19,6 +17,17 @@ Window {
 
     SendMsg {
         id: sendMsgObj
+    }
+
+    Image {
+        source: "../images/back.png"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                navigatorStackView.pop()
+            }
+        }
     }
 
     TextField {
@@ -39,6 +48,7 @@ Window {
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text)
+            sendMsgTextField.text = ""
         }
     }
 }
