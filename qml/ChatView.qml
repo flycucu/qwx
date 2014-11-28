@@ -20,6 +20,7 @@ Item {
     }
 
     Image {
+        id: backImage
         source: "../images/back.png"
 
         MouseArea {
@@ -27,6 +28,24 @@ Item {
             onClicked: {
                 navigatorStackView.pop()
             }
+        }
+    }
+
+    ListModel {
+        id: chatListModel
+
+        ListElement { content: "" }
+    }
+
+    ListView {
+        id: chatListView
+        model: chatListModel
+        width: parent.width; height: parent.height - backImage.height - 
+        sendMsgTextField.height
+        anchors.top: backImage.bottom
+        delegate: Item {
+            height: 60
+            Text { text: content }
         }
     }
 
@@ -48,6 +67,7 @@ Item {
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text)
+            chatListModel.append({"content": sendMsgTextField.text})
             sendMsgTextField.text = ""
         }
     }
