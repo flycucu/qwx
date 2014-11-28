@@ -8,10 +8,10 @@ Item {
     id: navigatorView
     width: parent.width; height: parent.height
 
-    property string uin: ""
-    property string sid: ""
-    property string skey: ""
-    property string loginUserName: ""
+    property string uin
+    property string sid
+    property string skey
+    property string loginUserName
     property var initObj
 
     GetMsg {
@@ -22,7 +22,7 @@ Item {
         id: getMsgTimer                                                              
         interval: 8000; running: true; repeat: true                              
         onTriggered: {
-            getMsgObj.post(navigatorView.uin, navigatorView.sid)
+            //getMsgObj.post(navigatorView.uin, navigatorView.sid)
         }                                              
     }
 

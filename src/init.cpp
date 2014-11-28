@@ -67,15 +67,9 @@ void Init::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << replyStr;
 #endif
 
-    QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());
-    if (!doc.isObject()) { emit error(); return; }                              
+    QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());                
+    if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();
-    QString skey = obj["SKey"].toString();
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;
-#endif
-    emit skeyChanged(skey);
-
     QJsonObject user = obj["User"].toObject();
     m_loginUserName = user["UserName"].toString(); 
 #if QWX_DEBUG
@@ -92,4 +86,10 @@ void Init::finished(QNetworkReply* reply)
             WX_SERVER_HOST + user["HeadImgUrl"].toString()));
     }
     emit contactListChanged();
+
+    QString skey = obj["SKey"].toString();                                         
+#if QWX_DEBUG                                                                      
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;                           
+#endif                                                                             
+    emit skeyChanged(skey);
 }

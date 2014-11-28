@@ -33,7 +33,6 @@ Window {
         anchors.top: sendMsgTextField.top
         anchors.right: parent.right
         onClicked: {
-            console.log("DEBUG:", chatView.uin, chatView.sid, chatView.skey)
             sendMsgObj.post(chatView.uin, 
                             chatView.sid, 
                             chatView.skey, 
