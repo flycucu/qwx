@@ -19,18 +19,6 @@ Item {
         id: sendMsgObj
     }
 
-    Image {
-        id: backImage
-        source: "../images/back.png"
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                navigatorStackView.pop()
-            }
-        }
-    }
-
     ListModel {
         id: chatListModel
 
@@ -43,10 +31,70 @@ Item {
         width: parent.width; height: parent.height - backImage.height - 
         sendMsgTextField.height
         anchors.top: backImage.bottom
+        spacing: 10
         delegate: Item {
             height: 60
-            Text { text: content }
+   
+            HeadImg {
+                id: fromUserHeadImgObj 
+                userName: chatView.fromUserName 
+                onFilePathChanged: { 
+                    fromUserHeadImage.source = fromUserHeadImgObj.filePath 
+                }
+            }
+
+            Image {
+                id: fromUserHeadImage
+                width: 42; height: 42
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+            }
+
+            Rectangle {
+                color: "#b3d073"
+                width: content.length * 12; height: parent.height
+                anchors.left: fromUserHeadImage.right
+                anchors.leftMargin: 10
+
+                Text { 
+                    text: content 
+                    font.pixelSize: 12 
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                }
+            }
         }
+    }
+
+    Rectangle {                                                            
+        id: chatHeader                                                
+        width: parent.width; height: 58                                    
+        anchors.top: parent.top                                            
+        color: "#20282a"                                                   
+
+        Image {
+            id: backImage
+            source: "../images/back.png"
+            width: 36; height: 36
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 19
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: { navigatorStackView.pop() }
+            }
+        }
+
+        Text {                                                             
+            text: chatView.toNickName
+            font.pixelSize: 22                                             
+            anchors.verticalCenter: parent.verticalCenter                  
+            anchors.left: backImage.right
+            anchors.leftMargin: 19                                         
+            color: "white"                                                 
+        }                                                                  
     }
 
     TextField {
