@@ -62,7 +62,13 @@ Item {
 
     Cookie {
         id: cookieObj
-        onInfoChanged: {
+        onInfoV1Changed: {
+            loginView.uin = uin
+            loginView.sid = sid
+            statReportObj.post(loginView.uuid)
+            initObj.post(loginView.uin, loginView.sid, ticket)
+        }
+        onInfoV2Changed: {
             loginView.uin = uin
             loginView.sid = sid
             loginView.skey = skey
@@ -79,6 +85,7 @@ Item {
         id: initObj
         // FIXME: webwx removed skey from getter/setter cookie
         onSkeyChanged: {
+            if (skey != "") { loginView.skey = skey }
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  

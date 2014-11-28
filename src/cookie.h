@@ -16,7 +16,8 @@ public:
     Q_INVOKABLE void get(QString redirect_uri);
 
 Q_SIGNALS:
-    void infoChanged(QString uin, QString sid, QString skey, QString ticket);
+    void infoV1Changed(QString uin, QString sid, QString ticket);
+    void infoV2Changed(QString uin, QString sid, QString skey, QString ticket);
 
 protected:
     void finished(QNetworkReply* reply);
