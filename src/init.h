@@ -34,6 +34,9 @@ protected:
 private:
     QString m_loginUserName;
     QList<QObject*> m_contactList;
+
+private:
+    void m_clear();
 };
 
 #endif // INIT_H

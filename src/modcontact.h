@@ -40,6 +40,7 @@ private:
     QList<QObject*> m_modContactList;
 
 private:
+    void m_clear();
     void m_post();
 };
 

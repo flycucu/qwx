@@ -26,6 +26,7 @@ ModContact::~ModContact()
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
+    m_clear();
 }
 
 QString ModContact::uin() const { return m_uin; }
@@ -44,6 +45,14 @@ void ModContact::setSid(const QString & sid)
         emit sidChanged(); 
         m_post();
     }
+}
+
+void ModContact::m_clear() 
+{
+    foreach (QObject* obj, m_modContactList) {
+        if (obj) delete obj; obj = nullptr;
+    }
+    m_modContactList.clear();
 }
 
 void ModContact::m_post() 

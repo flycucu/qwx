@@ -24,6 +24,15 @@ Init::~Init()
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
+    m_clear();
+}
+
+void Init::m_clear() 
+{
+    foreach (QObject* obj, m_contactList) {
+        if (obj) delete obj; obj = nullptr;
+    }
+    m_contactList.clear();
 }
 
 void Init::post(QString uin, QString sid) 

@@ -1,7 +1,7 @@
 qwx
 ===
 
-网页微信 Qt 前端 HTTP GET/POST
+网页微信 Qt 前端
 
 
 ## 编译、运行

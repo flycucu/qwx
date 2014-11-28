@@ -37,21 +37,6 @@ void HttpGet::finished(QNetworkReply*) {}
 void HttpGet::m_finished(QNetworkReply* reply) 
 {
     m_cookies = m_nam.cookieJar()->cookiesForUrl(QUrl(m_url));
-#if QWX_DEBUG
-    QFile file("cookies");
-    if (file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        QTextStream out(&file);
-        foreach (const QNetworkCookie cookie, m_cookies) {
-            qDebug() << "DEBUG:" << cookie;
-            QLocale locale = QLocale(QLocale::C, QLocale::AnyCountry);
-            out << QString(cookie.name()) << "=" << QString(cookie.value()) 
-                << "; expires=" << locale.toString(cookie.expirationDate(), "ddd, dd-MMM-yyyy hh:mm:ss") + " GMT" 
-                << "; domain=" << cookie.domain() 
-                << "; path=" << cookie.path() << endl;
-        }
-        file.close();
-    }
-#endif
     this->finished(reply);
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));
