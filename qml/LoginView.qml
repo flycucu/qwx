@@ -12,6 +12,7 @@ Item {
     property string tip: "1"
     property string uin: ""
     property string sid: ""
+    property string skey: ""
 
     UUID {
         id: uuidObj
@@ -64,6 +65,7 @@ Item {
         onInfoChanged: {
             loginView.uin = uin
             loginView.sid = sid
+            loginView.skey = skey
             statReportObj.post(loginView.uuid)
             initObj.post(loginView.uin, loginView.sid)
         }
@@ -75,13 +77,14 @@ Item {
 
     Init {
         id: initObj
+        // FIXME: webwx removed skey from getter/setter cookie
         onSkeyChanged: {
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
-                             skey: skey, 
+                             skey: loginView.skey, 
                              initObj: initObj}})
         }
     }

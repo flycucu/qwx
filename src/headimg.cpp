@@ -8,7 +8,8 @@
 
 HeadImg::HeadImg(QObject* parent) 
   : QObject(parent), 
-    m_userName("")
+    m_userName(""), 
+    m_filePath("")
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -46,6 +47,12 @@ void HeadImg::m_get()
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    m_down.get(url, QWXDIR + "/" + m_userName);
-    connect(&m_down, SIGNAL(finished()), this, SLOT(m_finished()));
+    QString headImgPath = QWXDIR + "/" + m_userName;
+    if (QFile::exists(headImgPath)) { 
+        m_filePath = "file://" + QWXDIR + "/" + m_userName;
+        emit filePathChanged();
+    } else {
+        m_down.get(url, headImgPath);
+        connect(&m_down, SIGNAL(finished()), this, SLOT(m_finished()));
+    }
 }

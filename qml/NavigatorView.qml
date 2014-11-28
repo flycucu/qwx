@@ -19,19 +19,19 @@ Item {
         tabPosition: Qt.BottomEdge
         anchors.top: navigatorHeader.bottom
 
-        Tab {
-            title: "微信"
-            WXView {
-                uin: navigatorView.uin
-                sid: navigatorView.sid
-                skey: navigatorView.skey
-                initObj: navigatorView.initObj
-            }
+        Tab {                                                                      
+            title: "通讯录"                                                        
+            ContactListView {                                                      
+                uin: navigatorView.uin                                             
+                sid: navigatorView.sid                                             
+                skey: navigatorView.skey                                           
+                initObj: navigatorView.initObj                                     
+            }                                                                      
         }
 
         Tab {
-            title: "通讯录"
-            ContactListView {
+            title: "微信"
+            WXView {
                 uin: navigatorView.uin
                 sid: navigatorView.sid
                 skey: navigatorView.skey

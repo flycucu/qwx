@@ -40,7 +40,7 @@ void SendMsg::post(QString uin,
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, true);
 }
 
 void SendMsg::finished(QNetworkReply* reply) 
