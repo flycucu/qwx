@@ -13,12 +13,10 @@ Item {
     property string skey
     property string loginUserName
 
-    ModContact {
-        id: modContactObj
-        uin: contactListView.uin
-        sid: contactListView.sid
-        onModContactListChanged: {
-            modContactListView.model = modContactObj.modContactList
+    Contact {
+        id: contactObj
+        onContactListChanged: {
+            modContactListView.model = contactObj.contactList
         }
     }
 
@@ -61,16 +59,15 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        var component = Qt.createComponent("ChatView.qml")         
-                        var chatView = component.createObject(                     
-                            Qt.resolvedUrl("ChatView.qml"),                        
-                            {"uin": contactListView.uin, 
-                             "sid": contactListView.sid,
-                             "skey": contactListView.skey,
-                             "fromUserName": contactListView.loginUserName,
-                             "toUserName": modelData.userName,
-                             "toNickName": modelData.nickName})                    
-                        chatView.show()
+                        navigatorStackView.push({                                  
+                            item: Qt.resolvedUrl("ChatView.qml"),                  
+                            properties: {                                          
+                                uin: contactListView.uin, 
+                                sid: contactListView.sid,
+                                skey: contactListView.skey,
+                                fromUserName: contactListView.loginUserName,
+                                toUserName: modelData.userName,                    
+                                toNickName: modelData.nickName}})
                     }
                 }
             }

@@ -16,6 +16,7 @@ HEADERS += \
     $$PWD/download.h    \
     $$PWD/statusnotify.h    \
     $$PWD/sendmsg.h    \
+    $$PWD/monitor.h \
     $$PWD/getmsg.h
 
 SOURCES += \
@@ -35,4 +36,5 @@ SOURCES += \
     $$PWD/download.cpp  \
     $$PWD/statusnotify.cpp  \
     $$PWD/sendmsg.cpp  \
+    $$PWD/monitor.cpp   \
     $$PWD/getmsg.cpp

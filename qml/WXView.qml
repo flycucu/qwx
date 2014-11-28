@@ -49,7 +49,6 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        //navigatorStackView.clear()
                         navigatorStackView.push({
                             item: Qt.resolvedUrl("ChatView.qml"),
                             properties: {

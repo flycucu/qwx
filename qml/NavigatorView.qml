@@ -14,15 +14,15 @@ Item {
     property string loginUserName
     property var initObj
 
-    GetMsg {
-        id: getMsgObj
+    Monitor {
+        id: monitorObj
     }
 
     Timer {                                                                        
         id: getMsgTimer                                                              
         interval: 8000; running: true; repeat: true                              
         onTriggered: {
-            getMsgObj.post(navigatorView.uin, navigatorView.sid)
+            monitorObj.get(navigatorView.uin, navigatorView.sid)
         }                                              
     }
 

@@ -9,17 +9,25 @@ class Contact : public HttpPost
 {
     Q_OBJECT
 
+    Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
+
 public:
     Contact(HttpPost* parent = nullptr);
     ~Contact();
 
+    QList<QObject*> contactList() const;
+
     Q_INVOKABLE void post();
 
 Q_SIGNALS:
-    void contactChanged();
+    void error();
+    void contactListChanged();
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    QList<QObject*> m_contactList;
 };
 
 #endif // CONTACT_H

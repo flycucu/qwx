@@ -15,6 +15,7 @@
 #include "headimg.h"
 #include "statusnotify.h"
 #include "sendmsg.h"
+#include "monitor.h"
 #include "getmsg.h"
 
 int main(int argc, char* argv[]) 
@@ -34,6 +35,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<HeadImg>("cn.com.isoft.qwx", 1, 0, "HeadImg");
     qmlRegisterType<StatusNotify>("cn.com.isoft.qwx", 1, 0, "StatusNotify");
     qmlRegisterType<SendMsg>("cn.com.isoft.qwx", 1, 0, "SendMsg");
+    qmlRegisterType<Monitor>("cn.com.isoft.qwx", 1, 0, "Monitor");
     qmlRegisterType<GetMsg>("cn.com.isoft.qwx", 1, 0, "GetMsg");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
