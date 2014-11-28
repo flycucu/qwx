@@ -11,6 +11,7 @@ Item {
     property string uin: ""
     property string sid: ""
     property string skey: ""
+    property string loginUserName: ""
     property var initObj
 
     GetMsg {
@@ -37,6 +38,7 @@ Item {
                 uin: navigatorView.uin
                 sid: navigatorView.sid
                 skey: navigatorView.skey
+                loginUserName: navigatorView.loginUserName
                 initObj: navigatorView.initObj
             }
         }
@@ -47,7 +49,7 @@ Item {
                 uin: navigatorView.uin                                             
                 sid: navigatorView.sid                                             
                 skey: navigatorView.skey                                           
-                initObj: navigatorView.initObj                                     
+                loginUserName: navigatorView.loginUserName 
             }                                                                      
         }
 
@@ -59,9 +61,17 @@ Item {
 
     Rectangle {                                                                    
         id: navigatorHeader                                                        
-        width: parent.width; height: 80
+        width: parent.width; height: 58
         anchors.top: parent.top
+        color: "#20282a"
                                                                                    
-        Text { text: "微信" }                                                      
+        Text { 
+            text: "微信"
+            font.pixelSize: 22
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 19
+            color: "white"
+        }
     }
 }

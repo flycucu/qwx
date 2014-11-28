@@ -14,31 +14,33 @@ Item {
     property string sid: ""
     property string skey: ""
 
-    UUID {
-        id: uuidObj
-        onError: {
-            console.log("ERROR: 获取UUID失败!")
-        }
-        onUuidChanged: {
-            loginView.uuid = uuid
-            qrcodeImage.source = "https://login.weixin.qq.com/qrcode/" + uuid + "?t=webwx"
-            qrcodeImage.visible = true                     
-            scanQRcode()
-            scanTimer.start()
-        }
+    Text {
+        id: titleText
+        text: "微信"
+        font.pixelSize: 22
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 42
     }
 
     Image {
         id: qrcodeImage
-        visible: false
+        source: "https://login.weixin.qq.com/qrcode/" + loginView.uuid + "?t=webwx"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: titleText.bottom
+        anchors.topMargin: 31
+    }
+
+    Text {
+        text: "请使用微信扫描二维码以登录"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: qrcodeImage.bottom
+        anchors.topMargin: 38
     }
 
     Scan {
         id: scanObj
-        onError: {
-            console.log("ERROR:", strerror)
-            console.log("DEBUG: 等待扫描 ...")
-        }
+        onError: { console.log("ERROR:", strerror) }
         onScanedButWaitConfirm: {
             console.log("DEBUG: 已扫描等待确认 ...")
             loginView.tip = "0"
@@ -56,7 +58,7 @@ Item {
 
     Timer {
         id: scanTimer
-        interval: 16000; running: false; repeat: true
+        interval: 10000; running: true; repeat: true
         onTriggered: { scanQRcode() }
     }
 
@@ -83,7 +85,6 @@ Item {
 
     Init {
         id: initObj
-        // FIXME: webwx removed skey from getter/setter cookie
         onSkeyChanged: {
             if (skey != "") { loginView.skey = skey }
             rootWindowStackView.clear()
@@ -92,6 +93,7 @@ Item {
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
                              skey: loginView.skey, 
+                             loginUserName: initObj.loginUserName,  
                              initObj: initObj}})
         }
     }

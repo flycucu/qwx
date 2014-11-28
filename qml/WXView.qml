@@ -11,11 +11,12 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string loginUserName
     property var initObj
 
     ListView {
         id: wxListView
-        model: initObj.contactList
+        model: wxView.initObj.contactList
         anchors.fill: parent
 
         delegate: Item {
@@ -32,8 +33,7 @@ Item {
             Image {
                 id: headImage
                 width: 42; height: 42
-                anchors.top: parent.top
-                anchors.topMargin: 8
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
             }
@@ -55,7 +55,7 @@ Item {
                             {"uin": wxView.uin, 
                              "sid": wxView.sid, 
                              "skey": wxView.skey, 
-                             "fromUserName": wxView.initObj.loginUserName, 
+                             "fromUserName": wxView.loginUserName, 
                              "toUserName": modelData.userName,
                              "toNickName": modelData.nickName})
                         chatView.show()

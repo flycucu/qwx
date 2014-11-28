@@ -52,5 +52,9 @@ void UUID::finished(QNetworkReply* reply)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << uuidStr;
 #endif
+    if (uuidStr == "") {
+        emit error();
+        return;
+    }
     emit uuidChanged(uuidStr);
 }

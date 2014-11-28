@@ -24,7 +24,6 @@ Init::~Init()
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
-    m_clear();
 }
 
 void Init::m_clear() 

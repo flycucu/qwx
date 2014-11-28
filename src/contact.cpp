@@ -26,7 +26,7 @@ void Contact::post()
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{}";
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, true);
 }
 
 void Contact::finished(QNetworkReply* reply) 

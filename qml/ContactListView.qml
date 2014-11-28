@@ -11,7 +11,7 @@ Item {
     property string uin
     property string sid
     property string skey
-    property var initObj
+    property string loginUserName
 
     ModContact {
         id: modContactObj
@@ -67,7 +67,7 @@ Item {
                             {"uin": contactListView.uin, 
                              "sid": contactListView.sid,
                              "skey": contactListView.skey,
-                             "fromUserName": contactListView.initObj.loginUserName,
+                             "fromUserName": contactListView.loginUserName,
                              "toUserName": modelData.userName,
                              "toNickName": modelData.nickName})                    
                         chatView.show()

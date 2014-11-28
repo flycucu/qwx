@@ -17,6 +17,7 @@ include(src/src.pri)
 
 OTHER_FILES += \
     qml/main.qml    \
+    qml/SplashView.qml  \
     qml/LoginView.qml   \
     qml/NavigatorView.qml   \
     qml/WXView.qml  \

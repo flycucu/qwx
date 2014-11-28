@@ -6,11 +6,11 @@ import QtQuick.Window 2.1
 
 ApplicationWindow {
     id: rootWindow
-    width: 310; height: 500
+    width: 320; height: 544
 
     StackView {
         id: rootWindowStackView
         anchors.fill: parent
-        initialItem: LoginView {}
+        initialItem: SplashView {}
     }
 }
