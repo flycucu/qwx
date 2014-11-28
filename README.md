@@ -12,6 +12,7 @@ make
 ./qwx
 ```
 
+
 ## 重度开发状态下的原型骨架截图
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/login.png)
@@ -19,4 +20,12 @@ make
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/chat.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/contact.png)
+
+
+## 目录结构
+
+./protocol.md 网页微信协议
+./cookie_template 网页微信cookie模板
+...
+
 
