@@ -20,6 +20,7 @@ OTHER_FILES += \
     qml/SplashView.qml  \
     qml/LoginView.qml   \
     qml/NavigatorView.qml   \
+    qml/IconTab.qml \
     qml/WXView.qml  \
     qml/ChatView.qml    \
     qml/ContactListView.qml \

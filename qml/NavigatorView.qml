@@ -36,9 +36,9 @@ Item {
                 tabPosition: Qt.BottomEdge
                 anchors.top: navigatorHeader.bottom
 
-                Tab {
+                IconTab {
                     title: "微信"
-                    source: "../images/messages.png"
+                    iconSource: "../images/messages.png"
                     WXView {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
@@ -48,9 +48,9 @@ Item {
                     }
                 }
 
-                Tab {
+                IconTab {
                     title: "通讯录"
-                    source: "../images/contacts.png"
+                    iconSource: "../images/contacts.png"
                     ContactListView {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
@@ -59,9 +59,9 @@ Item {
                     }
                 }
 
-                Tab {
+                IconTab {
                     title: "我"
-                    source: navigatorView.initObj.loginHeadImgUrl
+                    iconSource: navigatorView.initObj.loginHeadImgUrl
                     IView {}
                 }
 
@@ -72,17 +72,20 @@ Item {
                         implicitWidth: 100
                         implicitHeight: 60
 
-                        // FIXME: how to use image in Tab?
                         Image {
+                            id: iconImage
                             anchors.centerIn: parent
-                            source: styleData.source
+                            source: navigatorTabView.getTab(styleData.index).iconSource
                             width: 30; height: 30
                         }
 
                         Text {
-                            anchors.centerIn: parent
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.top: iconImage.bottom
+                            anchors.topMargin: 3
                             text: styleData.title
                             color: styleData.selected ? "#45c01a" : "#9b9b9b"
+                            font.pixelSize: 12
                         }
                     }
                     frame: Rectangle { color: "white" }

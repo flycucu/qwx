@@ -4,6 +4,7 @@
   <file>qml/SplashView.qml</file>
   <file>qml/LoginView.qml</file>
   <file>qml/NavigatorView.qml</file>
+  <file>qml/IconTab.qml</file>
   <file>qml/WXView.qml</file>
   <file>qml/ChatView.qml</file>
   <file>qml/ContactListView.qml</file>
