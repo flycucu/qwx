@@ -17,7 +17,8 @@ HEADERS += \
     $$PWD/statusnotify.h    \
     $$PWD/sendmsg.h    \
     $$PWD/monitor.h \
-    $$PWD/getmsg.h
+    $$PWD/getmsg.h  \
+    $$PWD/circleimage.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -37,4 +38,5 @@ SOURCES += \
     $$PWD/statusnotify.cpp  \
     $$PWD/sendmsg.cpp  \
     $$PWD/monitor.cpp   \
-    $$PWD/getmsg.cpp
+    $$PWD/getmsg.cpp    \
+    $$PWD/circleimage.cpp

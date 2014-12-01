@@ -17,6 +17,7 @@
 #include "sendmsg.h"
 #include "monitor.h"
 #include "getmsg.h"
+#include "circleimage.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -37,6 +38,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<SendMsg>("cn.com.isoft.qwx", 1, 0, "SendMsg");
     qmlRegisterType<Monitor>("cn.com.isoft.qwx", 1, 0, "Monitor");
     qmlRegisterType<GetMsg>("cn.com.isoft.qwx", 1, 0, "GetMsg");
+    qmlRegisterType<CircleImage>("cn.com.isoft.qwx", 1, 0, "CircleImage");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

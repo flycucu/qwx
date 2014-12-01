@@ -35,11 +35,11 @@ Item {
                 id: headImgObj                                                     
                 userName: modelData.userName                                       
                 onFilePathChanged: {                                               
-                    headImage.source = headImgObj.filePath                         
+                    headImage.imageSource = headImgObj.filePath
                 }                                                                  
             }                                                                      
                                                                                    
-            Image {                                                                
+            CircleImage {
                 id: headImage                                                      
                 width: 42; height: 42                                              
                 anchors.top: parent.top                                            

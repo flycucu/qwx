@@ -38,7 +38,7 @@ Item {
 
                 IconTab {
                     title: "微信"
-                    iconSource: "../images/messages.png"
+                    iconSource: "images/messages.png"
                     WXView {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
@@ -50,7 +50,7 @@ Item {
 
                 IconTab {
                     title: "通讯录"
-                    iconSource: "../images/contacts.png"
+                    iconSource: "images/contacts.png"
                     ContactListView {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
@@ -72,10 +72,12 @@ Item {
                         implicitWidth: 100
                         implicitHeight: 60
 
-                        Image {
+                        CircleImage {
                             id: iconImage
-                            anchors.centerIn: parent
-                            source: navigatorTabView.getTab(styleData.index).iconSource
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+                            imageSource: navigatorTabView.getTab(styleData.index).iconSource
                             width: 30; height: 30
                         }
 
