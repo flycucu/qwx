@@ -11,6 +11,7 @@ class Init : public HttpPost
 
     Q_PROPERTY(QString loginUserName READ loginUserName NOTIFY loginUserNameChanged)
     Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
+    Q_PROPERTY(QString loginHeadImgUrl READ loginHeadImgUrl NOTIFY loginHeadImgUrlChanged)
 
 public:
     Init(HttpPost* parent = nullptr);
@@ -20,6 +21,8 @@ public:
 
     QList<QObject*> contactList() const;
 
+    QString loginHeadImgUrl() const;
+
     Q_INVOKABLE void post(QString uin, QString sid, QString ticket);
 
 Q_SIGNALS:
@@ -27,6 +30,7 @@ Q_SIGNALS:
     void skeyChanged(QString skey);
     void loginUserNameChanged();
     void contactListChanged();
+    void loginHeadImgUrlChanged();
 
 protected:
     void finished(QNetworkReply* reply);

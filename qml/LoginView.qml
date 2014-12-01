@@ -93,7 +93,6 @@ Item {
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
                              skey: loginView.skey, 
-                             loginUserName: initObj.loginUserName,  
                              initObj: initObj}})
         }
     }

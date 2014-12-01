@@ -53,6 +53,11 @@ QString Init::loginUserName() const { return m_loginUserName; }
 
 QList<QObject*> Init::contactList() const { return m_contactList; }
 
+QString Init::loginHeadImgUrl() const 
+{ 
+    return "file://" + QWXDIR + "/" + m_loginUserName;
+}
+
 void Init::finished(QNetworkReply* reply) 
 {
     QString replyStr = QString(reply->readAll());
@@ -76,6 +81,7 @@ void Init::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << m_loginUserName;
 #endif
     emit loginUserNameChanged();
+    emit loginHeadImgUrlChanged();
 
     QJsonArray arr = obj["ContactList"].toArray(); 
     foreach (const QJsonValue & val, arr) {

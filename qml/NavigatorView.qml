@@ -2,6 +2,7 @@
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
+import QtQuick.Controls.Styles 1.1
 import cn.com.isoft.qwx 1.0
 
 Item {
@@ -11,7 +12,6 @@ Item {
     property string uin
     property string sid
     property string skey
-    property string loginUserName
     property var initObj
 
     Monitor {
@@ -38,28 +38,54 @@ Item {
 
                 Tab {
                     title: "微信"
+                    source: "../images/messages.png"
                     WXView {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
                         skey: navigatorView.skey
-                        loginUserName: navigatorView.loginUserName
+                        loginUserName: navigatorView.initObj.loginUserName
                         initObj: navigatorView.initObj
                     }
                 }
 
                 Tab {
                     title: "通讯录"
+                    source: "../images/contacts.png"
                     ContactListView {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
                         skey: navigatorView.skey 
-                        loginUserName: navigatorView.loginUserName 
+                        loginUserName: navigatorView.initObj.loginUserName 
                     }
                 }
 
                 Tab {
                     title: "我"
+                    source: navigatorView.initObj.loginHeadImgUrl
                     IView {}
+                }
+
+                style: TabViewStyle {
+                    frameOverlap: 1 
+                    tab: Rectangle {
+                        color: "white"
+                        implicitWidth: 100
+                        implicitHeight: 60
+
+                        // FIXME: how to use image in Tab?
+                        Image {
+                            anchors.centerIn: parent
+                            source: styleData.source
+                            width: 30; height: 30
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: styleData.title
+                            color: styleData.selected ? "#45c01a" : "#9b9b9b"
+                        }
+                    }
+                    frame: Rectangle { color: "white" }
                 }
             }
         

@@ -55,21 +55,26 @@ Item {
                 anchors.topMargin: 14                                              
                 anchors.left: headImage.right                                      
                 anchors.leftMargin: 11
+            }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        navigatorStackView.push({                                  
-                            item: Qt.resolvedUrl("ChatView.qml"),                  
-                            properties: {                                          
-                                uin: contactListView.uin, 
-                                sid: contactListView.sid,
-                                skey: contactListView.skey,
-                                fromUserName: contactListView.loginUserName,
-                                toUserName: modelData.userName,                    
-                                toNickName: modelData.nickName}})
-                    }
-                }
+            Rectangle {                                                            
+                width: parent.width; height: 1                                     
+                color: "#dadada"                                                   
+            }
+
+            MouseArea {                                                        
+                anchors.fill: parent                                           
+                onClicked: {                                                   
+                    navigatorStackView.push({                                  
+                        item: Qt.resolvedUrl("ChatView.qml"),                  
+                        properties: {                                          
+                            uin: contactListView.uin,                          
+                            sid: contactListView.sid,                          
+                            skey: contactListView.skey,                        
+                            fromUserName: contactListView.loginUserName,       
+                            toUserName: modelData.userName,                    
+                            toNickName: modelData.nickName}})                  
+                }                                                              
             }
         }
     }

@@ -10,5 +10,7 @@
   <file>qml/IView.qml</file>
   <file>images/splash.jpg</file>
   <file>images/back.png</file>
+  <file>images/messages.png</file>
+  <file>images/contacts.png</file>
 </qresource>
 </RCC>

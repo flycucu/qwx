@@ -47,6 +47,11 @@ Item {
                 anchors.leftMargin: 11
             }
 
+            Rectangle {
+                width: parent.width; height: 1
+                color: "#dadada"
+            }
+
             MouseArea {                                                        
                 anchors.fill: parent                                           
                 onClicked: {                                                   
