@@ -20,7 +20,7 @@ Item {
         anchors.fill: parent
 
         delegate: Item {
-            height: 60
+            width: parent.width; height: 60
 
             HeadImg {
                 id: headImgObj
@@ -45,21 +45,21 @@ Item {
                 anchors.topMargin: 14
                 anchors.left: headImage.right
                 anchors.leftMargin: 11
+            }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        navigatorStackView.push({
-                            item: Qt.resolvedUrl("ChatView.qml"),
-                            properties: {
-                                uin: wxView.uin, 
-                                sid: wxView.sid,                                   
-                                skey: wxView.skey,                                 
-                                fromUserName: wxView.loginUserName,                 
-                                toUserName: modelData.userName, 
-                                toNickName: modelData.nickName}})
-                    }
-                }
+            MouseArea {                                                        
+                anchors.fill: parent                                           
+                onClicked: {                                                   
+                    navigatorStackView.push({                                  
+                        item: Qt.resolvedUrl("ChatView.qml"),                  
+                        properties: {                                          
+                            uin: wxView.uin,                                   
+                            sid: wxView.sid,                                   
+                            skey: wxView.skey,                                 
+                            fromUserName: wxView.loginUserName,                 
+                            toUserName: modelData.userName,                    
+                            toNickName: modelData.nickName}})                  
+                }                                                              
             }
         }
     }

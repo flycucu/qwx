@@ -16,5 +16,6 @@ const QString WX_CGI_PATH = "/cgi-bin/mmwebwx-bin/";
 const QString DEVICE_ID = "e519062714508114";
 
 const QString QWXDIR = QDir::homePath() + "/." + CODE_NAME;
+const QString COOKIE_FILENAME = ".cookie";
 
 #endif // GLOBAL_DECLARATIONS_H

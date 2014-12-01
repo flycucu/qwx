@@ -46,12 +46,12 @@ void Cookie::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif
-    QString cookiePath = QWXDIR + "/cookies";
+    QString cookiePath = QWXDIR + "/" + COOKIE_FILENAME;
     QDir qwxDir(QWXDIR);
     if (!qwxDir.exists(cookiePath)) qwxDir.mkdir(QWXDIR);
     QFile file(cookiePath);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        qWarning() << "ERROR: fail to save cookies!";
+        qWarning() << "ERROR: fail to save cookie!";
         return;
     }
     QTextStream out(&file);

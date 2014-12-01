@@ -27,7 +27,7 @@ void HttpPost::post(QString url, QString str, bool needSetCookie)
     // TODO: webwx use json as HTTP POST
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     if (needSetCookie) {
-        QFile file(QWXDIR + "/cookies");
+        QFile file(QWXDIR + "/" + COOKIE_FILENAME);
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QTextStream out(&file);
             QList<QNetworkCookie> cookies = QNetworkCookie::parseCookies(out.readAll().toUtf8());
