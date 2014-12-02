@@ -13,10 +13,11 @@ public:
     Monitor(HttpGet* parent = nullptr);
     ~Monitor();
 
-    Q_INVOKABLE void get(QString uin, QString sid);
+    Q_INVOKABLE void get(QString uin, QString sid, QStringList syncKey);
 
 Q_SIGNALS:
-    void messaged(QString uuid);
+    void error();
+    void received();
 
 protected:
     void finished(QNetworkReply* reply);

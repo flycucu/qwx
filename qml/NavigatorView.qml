@@ -12,7 +12,15 @@ Item {
     property string uin
     property string sid
     property string skey
+    property var syncKey
     property var initObj
+
+    Sync {
+        id: syncObj
+        Component.onCompleted: {
+            syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.syncKey)
+        }
+    }
 
     Monitor {
         id: monitorObj
@@ -22,7 +30,7 @@ Item {
         id: getMsgTimer                                                              
         interval: 8000; running: true; repeat: true                              
         onTriggered: {
-            monitorObj.get(navigatorView.uin, navigatorView.sid)
+            monitorObj.get(navigatorView.uin, navigatorView.sid, syncObj.syncKey)
         }                                              
     }
 

@@ -14,7 +14,10 @@ public:
     ~GetMsg();
 
 public:
-    Q_INVOKABLE void post(QString uin, QString sid);
+    Q_INVOKABLE void post(QString uin, QString sid, QStringList syncKey);
+
+Q_SIGNALS:
+    void error();
 
 protected:
     void finished(QNetworkReply* reply);

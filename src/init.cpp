@@ -96,9 +96,9 @@ void Init::finished(QNetworkReply* reply)
 #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;                           
 #endif 
-    QStringList synckey;
+    QStringList syncKey;
     foreach (const QJsonValue & val, obj["SyncKey"].toObject()["List"].toArray()) {
-        synckey.append(QString::number(val.toObject()["Val"].toInt()));
+        syncKey.append(QString::number(val.toObject()["Val"].toInt()));
     }
-    emit skeyChanged(skey, synckey);
+    emit skeyChanged(skey, syncKey);
 }

@@ -87,18 +87,14 @@ Item {
         id: initObj
         onSkeyChanged: {
             if (skey != "") { loginView.skey = skey }
-            syncObj.post(loginView.uin, loginView.sid, synckey)
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
                              skey: loginView.skey, 
+                             syncKey: syncKey, 
                              initObj: initObj}})
         }
-    }
-
-    Sync {
-        id: syncObj
     }
 }
