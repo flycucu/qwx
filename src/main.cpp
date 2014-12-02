@@ -10,7 +10,7 @@
 #include "cookie.h"
 #include "statreport.h"
 #include "init.h"
-#include "modcontact.h"
+#include "sync.h"
 #include "contact.h"
 #include "headimg.h"
 #include "statusnotify.h"
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<Cookie>("cn.com.isoft.qwx", 1, 0, "Cookie");
     qmlRegisterType<StatReport>("cn.com.isoft.qwx", 1, 0, "StatReport");
     qmlRegisterType<Init>("cn.com.isoft.qwx", 1, 0, "Init");
-    qmlRegisterType<ModContact>("cn.com.isoft.qwx", 1, 0, "ModContact");
+    qmlRegisterType<Sync>("cn.com.isoft.qwx", 1, 0, "Sync");
     qmlRegisterType<Contact>("cn.com.isoft.qwx", 1, 0, "Contact");
     qmlRegisterType<HeadImg>("cn.com.isoft.qwx", 1, 0, "HeadImg");
     qmlRegisterType<StatusNotify>("cn.com.isoft.qwx", 1, 0, "StatusNotify");

@@ -9,7 +9,7 @@ HEADERS += \
     $$PWD/httppost.h   \
     $$PWD/statreport.h \
     $$PWD/init.h    \
-    $$PWD/modcontact.h   \
+    $$PWD/sync.h   \
     $$PWD/contact.h \
     $$PWD/userobject.h  \
     $$PWD/headimg.h    \
@@ -31,7 +31,7 @@ SOURCES += \
     $$PWD/httppost.cpp \
     $$PWD/statreport.cpp   \
     $$PWD/init.cpp  \
-    $$PWD/modcontact.cpp \
+    $$PWD/sync.cpp \
     $$PWD/contact.cpp   \
     $$PWD/headimg.cpp  \
     $$PWD/download.cpp  \

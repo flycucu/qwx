@@ -88,14 +88,16 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388976086218
 {"BaseRequest":{"Uin":0,"Sid":0},"Count":1,"List":[{"Type":1,"Text":"/cgi-bin/mmwebwx-bin/login, Second Request Success, uuid: 454d958c7f6243, time: 190765ms"}]}
 
 
-## post 表示登陆成功-返回重要的数据skey
+## post 表示登陆成功-返回重要的数据SKey
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1388976086484
 
 {"BaseRequest":{"Uin":"750366800","Sid":"e75TXbI7TnKUevmI","Skey":"","DeviceID":"e519062714508114"}}
 
 
-## post 可能是获取列表
+## post 应该是向服务器端提供的一次验证-返回SyncKey
+
+> http://freezingsky.iteye.com/blog/2055502
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=e75TXbI7TnKUevmI&r=1388976086734
 

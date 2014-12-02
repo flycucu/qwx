@@ -83,8 +83,7 @@ void Init::finished(QNetworkReply* reply)
     emit loginUserNameChanged();
     emit loginHeadImgUrlChanged();
 
-    QJsonArray arr = obj["ContactList"].toArray(); 
-    foreach (const QJsonValue & val, arr) {
+    foreach (const QJsonValue & val, obj["ContactList"].toArray()) {
         QJsonObject user = val.toObject();
         m_contactList.append(new UserObject(
             user["UserName"].toString(), 
@@ -96,6 +95,10 @@ void Init::finished(QNetworkReply* reply)
     QString skey = obj["SKey"].toString();                                         
 #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << skey;                           
-#endif                                                                             
-    emit skeyChanged(skey);
+#endif 
+    QStringList synckey;
+    foreach (const QJsonValue & val, obj["SyncKey"].toObject()["List"].toArray()) {
+        synckey.append(QString::number(val.toObject()["Val"].toInt()));
+    }
+    emit skeyChanged(skey, synckey);
 }

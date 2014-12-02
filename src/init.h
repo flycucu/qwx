@@ -27,7 +27,7 @@ public:
 
 Q_SIGNALS:
     void error();
-    void skeyChanged(QString skey);
+    void skeyChanged(QString skey, QStringList synckey);
     void loginUserNameChanged();
     void contactListChanged();
     void loginHeadImgUrlChanged();
