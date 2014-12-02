@@ -18,7 +18,7 @@ Item {
 
     GetMsg {                                                                       
         id: getMsgObj
-        fromUserName: chatView.fromUserName
+        fromUserName: chatView.toUserName
         onReceived: {
             chatListModel.append({"content": content})
         }

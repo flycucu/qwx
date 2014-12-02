@@ -10,6 +10,7 @@ class GetMsg : public HttpPost
     Q_OBJECT
 
     Q_PROPERTY(QString fromUserName READ fromUserName WRITE setFromUserName NOTIFY fromUserNameChanged)
+    Q_PROPERTY(QString toUserName READ toUserName WRITE setToUserName NOTIFY toUserNameChanged)
 
 public:
     GetMsg(HttpPost* parent = nullptr);
@@ -18,10 +19,14 @@ public:
     QString fromUserName() const;
     void setFromUserName(const QString & fromUserName);
 
+    QString toUserName() const;
+    void setToUserName(const QString & toUserName);
+
     Q_INVOKABLE void post(QString uin, QString sid, QStringList syncKey);
 
 Q_SIGNALS:
     void fromUserNameChanged();
+    void toUserNameChanged();
     void error();
     void received(QString content);
 
@@ -30,6 +35,7 @@ protected:
 
 private:
     QString m_fromUserName;
+    QString m_toUserName;
 };
 
 #endif // GET_MSG_H

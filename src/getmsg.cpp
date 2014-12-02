@@ -12,7 +12,8 @@
 
 GetMsg::GetMsg(HttpPost* parent) 
   : HttpPost(parent), 
-    m_fromUserName("")
+    m_fromUserName(""), 
+    m_toUserName("")
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -32,6 +33,15 @@ void GetMsg::setFromUserName(const QString & fromUserName)
     if (m_fromUserName != fromUserName) {
         m_fromUserName = fromUserName;
         emit fromUserNameChanged();
+    }
+}
+
+QString GetMsg::toUserName() const { return m_toUserName; }
+void GetMsg::setToUserName(const QString & toUserName) 
+{
+    if (m_toUserName != toUserName) {
+        m_toUserName = toUserName;
+        emit toUserNameChanged();
     }
 }
 
@@ -75,8 +85,7 @@ void GetMsg::finished(QNetworkReply* reply)
     QJsonObject obj = doc.object();
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
-        if (msg["FromUserName"] == m_fromUserName || 
-            msg["ToUserName"] == m_fromUserName) {
+        if (msg["FromUserName"] == m_fromUserName) {
             if (time(NULL) - msg["CreateTime"].toInt() < 8) {
                 emit received(msg["Content"].toString());
             }

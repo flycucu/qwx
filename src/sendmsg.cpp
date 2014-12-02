@@ -31,7 +31,6 @@ void SendMsg::post(QString uin,
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    content += "  (消息发自qwx https://github.com/xiangzhai/qwx [呲牙])";
     QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid 
         + "\",\"Skey\":\"" + skey + "\",\"DeviceID\":\"" + DEVICE_ID 
         + "\"},\"Msg\":{\"FromUserName\":\"" + fromUserName 
