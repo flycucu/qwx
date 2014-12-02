@@ -85,9 +85,10 @@ void GetMsg::finished(QNetworkReply* reply)
     QJsonObject obj = doc.object();
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
-        if (msg["FromUserName"] == m_fromUserName) {
-            if (time(NULL) - msg["CreateTime"].toInt() < 8) {
-                emit received(msg["Content"].toString());
+        QString fromUserNameStr = msg["FromUserName"].toString();
+        if (fromUserNameStr == m_fromUserName) {
+            if (time(NULL) - msg["CreateTime"].toInt() <= 8) {
+                emit received(msg["Content"].toString(), fromUserNameStr);
             }
             break;
         }

@@ -28,7 +28,7 @@ Q_SIGNALS:
     void fromUserNameChanged();
     void toUserNameChanged();
     void error();
-    void received(QString content);
+    void received(QString content, QString userName);
 
 protected:
     void finished(QNetworkReply* reply);

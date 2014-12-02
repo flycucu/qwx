@@ -20,7 +20,8 @@ Item {
         id: getMsgObj
         fromUserName: chatView.toUserName
         onReceived: {
-            chatListModel.append({"content": content})
+            chatListModel.append({"content": content, 
+                                  "curUserName": userName})
         }
     }                                                                              
                                                                                    
@@ -39,7 +40,7 @@ Item {
     ListModel {
         id: chatListModel
 
-        ListElement { content: "" }
+        ListElement { content: ""; curUserName: "" }
     }
 
     ListView {
@@ -54,7 +55,7 @@ Item {
    
             HeadImg {
                 id: fromUserHeadImgObj 
-                userName: chatView.fromUserName 
+                userName: curUserName 
                 onFilePathChanged: { 
                     fromUserHeadImage.source = fromUserHeadImgObj.filePath 
                 }
@@ -132,7 +133,8 @@ Item {
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text)
-            chatListModel.append({"content": sendMsgTextField.text})
+            chatListModel.append({"content": sendMsgTextField.text, 
+                                  "curUserName": chatView.fromUserName})
             sendMsgTextField.text = ""
         }
     }
