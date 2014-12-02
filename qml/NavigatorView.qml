@@ -27,8 +27,8 @@ Item {
     }
 
     Timer {                                                                        
-        id: getMsgTimer                                                              
-        interval: 8000; running: true; repeat: true                              
+        id: monitorTimer                                                              
+        interval: 8000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
             monitorObj.get(navigatorView.uin, navigatorView.sid, syncObj.syncKey)
         }                                              
@@ -52,6 +52,7 @@ Item {
                         sid: navigatorView.sid
                         skey: navigatorView.skey
                         loginUserName: navigatorView.initObj.loginUserName
+                        syncKey: syncObj.syncKey
                         initObj: navigatorView.initObj
                     }
                 }
@@ -84,7 +85,7 @@ Item {
                             id: iconImage
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.top: parent.top
-                            anchors.topMargin: 10
+                            anchors.topMargin: 3
                             imageSource: navigatorTabView.getTab(styleData.index).iconSource
                             width: 30; height: 30
                         }

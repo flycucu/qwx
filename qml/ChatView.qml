@@ -14,6 +14,23 @@ Item {
     property string fromUserName
     property string toUserName
     property string toNickName
+    property var syncKey
+
+    GetMsg {                                                                       
+        id: getMsgObj
+        fromUserName: chatView.fromUserName
+        onReceived: {
+            chatListModel.append({"content": content})
+        }
+    }                                                                              
+                                                                                   
+    Timer {                                                                        
+        id: getMsgTimer                                                            
+        interval: 8000; running: true; repeat: true; triggeredOnStart: true 
+        onTriggered: {                                                             
+            getMsgObj.post(chatView.uin, chatView.sid, chatView.syncKey)
+        }                                                                          
+    }
 
     SendMsg {
         id: sendMsgObj
@@ -28,9 +45,9 @@ Item {
     ListView {
         id: chatListView
         model: chatListModel
-        width: parent.width; height: parent.height - backImage.height - 
+        width: parent.width; height: parent.height - chatHeader.height - 
         sendMsgTextField.height
-        anchors.top: backImage.bottom
+        anchors.top: chatHeader.bottom
         spacing: 10
         delegate: Item {
             height: 60

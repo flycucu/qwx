@@ -12,6 +12,7 @@ Item {
     property string sid
     property string skey
     property string loginUserName
+    property var syncKey
     property var initObj
 
     ListView {
@@ -63,7 +64,8 @@ Item {
                             skey: wxView.skey,                                 
                             fromUserName: wxView.loginUserName,                 
                             toUserName: modelData.userName,                    
-                            toNickName: modelData.nickName}})                  
+                            toNickName: modelData.nickName, 
+                            syncKey: wxView.syncKey}})                  
                 }                                                              
             }
         }
