@@ -31,7 +31,7 @@ Item {
         id: monitorTimer                                                              
         interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
-            monitorObj.get(navigatorView.uin, navigatorView.sid, syncObj.syncKey)
+            monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncObj.syncKey)
         }                                              
     }
 

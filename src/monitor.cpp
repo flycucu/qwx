@@ -18,13 +18,14 @@ Monitor::~Monitor()
 #endif
 }
 
-void Monitor::get(QString uin, QString sid, QStringList syncKey) 
+void Monitor::get(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
     if (syncKey.size() != 5) { emit error(); return; }
     
     QString ts = QString::number(time(NULL));
     QString url = "https://webpush.weixin.qq.com" + WX_CGI_PATH + 
-        "synccheck?callback=jQuery18308660551080269895_1388975862078&r=" + ts + 
+        "synccheck?skey=" + skey + 
+        "&callback=jQuery18308660551080269895_1388975862078&r=" + ts + 
         "&sid=" + sid + "&uin=" + uin + "&deviceid=" + DEVICE_ID + 
         "&synckey=1_" + syncKey[0] + "%7C2_" + syncKey[1] + "%7C3_" + 
         syncKey[2] + "%7C11_" + syncKey[3] + "%7C1000_" + syncKey[4] + "&_=" + 
