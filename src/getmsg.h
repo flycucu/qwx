@@ -24,7 +24,7 @@ public:
     QString toUserName() const;
     void setToUserName(const QString & toUserName);
 
-    Q_INVOKABLE void post(QString uin, QString sid, QStringList syncKey);
+    Q_INVOKABLE void post(QString uin, QString sid, QString skey, QStringList syncKey);
 
 Q_SIGNALS:
     void fromUserNameChanged();

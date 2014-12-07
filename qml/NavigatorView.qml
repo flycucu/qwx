@@ -12,6 +12,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string loginUserName
     property var syncKey
     property var initObj
 
@@ -51,7 +52,7 @@ Item {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
                         skey: navigatorView.skey
-                        loginUserName: navigatorView.initObj.loginUserName
+                        loginUserName: navigatorView.loginUserName
                         syncKey: syncObj.syncKey
                         initObj: navigatorView.initObj
                     }
@@ -64,7 +65,7 @@ Item {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
                         skey: navigatorView.skey 
-                        loginUserName: navigatorView.initObj.loginUserName 
+                        loginUserName: navigatorView.loginUserName 
                         syncKey: syncObj.syncKey
                     }
                 }

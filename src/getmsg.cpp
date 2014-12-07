@@ -45,13 +45,13 @@ void GetMsg::setToUserName(const QString & toUserName)
     }
 }
 
-void GetMsg::post(QString uin, QString sid, QStringList syncKey) 
+void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
     if (syncKey.size() != 5) { emit error(); return; }
 
     QString ts = QString::number(time(NULL));
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&r=" + ts;
+        "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif

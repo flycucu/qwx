@@ -28,8 +28,8 @@ void SendMsg::send(QString uin,
 {
     post(uin, sid, skey, fromUserName, toUserName, content);
     QString ts = QString::number(time(NULL));                                      
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid         
-        + "&r=" + ts;                                                              
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
+        "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;                            
 #endif
@@ -37,7 +37,7 @@ void SendMsg::send(QString uin,
     QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid 
         + "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" + 
         syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + "},{\"Key\":3,"
-        "\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" + syncKey[3] 
+        "\"Val\":" + syncKey[2] + "},{\"Key\":11,\"Val\":" + syncKey[3] 
         + "},{\"Key\":1000,\"Val\":" + syncKey[4] + "}]},\"rr\":" + ts + "}";
     #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;                           

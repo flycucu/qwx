@@ -37,7 +37,7 @@ Rectangle {
         id: getMsgTimer                                                            
         interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {                                                             
-            getMsgObj.post(chatView.uin, chatView.sid, chatView.syncKey)
+            getMsgObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
         }                                                                          
     }
 

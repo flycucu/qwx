@@ -13,7 +13,7 @@ Item {
 
         property color strokeStyle:  Qt.darker(fillStyle, 1.3)
         property color fillStyle: "#14aaff" // blue
-        property int lineWidth: lineWidthCtrl.value
+        property int lineWidth: 1
         property bool fill: true
         property bool stroke: true
         property real alpha: 1.0
