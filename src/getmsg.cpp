@@ -88,11 +88,6 @@ void GetMsg::finished(QNetworkReply* reply)
         QString fromUserNameStr = msg["FromUserName"].toString();
         QString toUserNameStr = msg["ToUserName"].toString();
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
-#if QWX_DEBUG
-        qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << createTimeStr 
-                 << fromUserNameStr << toUserNameStr << m_fromUserName 
-                 << m_toUserName;
-#endif
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
