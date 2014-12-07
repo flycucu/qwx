@@ -4,6 +4,7 @@
 - [ ] 获取聊天室的HeadImgUrl
 - [x] 在手机上发送消息，qwx上也要同步更新
 - [x] 在qwx上接收聊天室消息
+- [ ] 和服务器保持心跳 SyncKey4 -> SyncKey5 -> SyncKey6
 - [ ] 像手机/Pad版微信一样，推送刷新WXView
 - [ ] 伪装cookie的expires=2114年
 - [ ] 反向 weixin.apk 替代扫描二维码

@@ -13,6 +13,7 @@ class GetMsg : public HttpPost
 
     Q_PROPERTY(QString fromUserName READ fromUserName WRITE setFromUserName NOTIFY fromUserNameChanged)
     Q_PROPERTY(QString toUserName READ toUserName WRITE setToUserName NOTIFY toUserNameChanged)
+    Q_PROPERTY(QStringList syncKey READ syncKey NOTIFY syncKeyChanged)
 
 public:
     GetMsg(HttpPost* parent = nullptr);
@@ -24,6 +25,8 @@ public:
     QString toUserName() const;
     void setToUserName(const QString & toUserName);
 
+    QStringList syncKey() const;
+
     Q_INVOKABLE void post(QString uin, QString sid, QString skey, QStringList syncKey);
 
 Q_SIGNALS:
@@ -31,6 +34,7 @@ Q_SIGNALS:
     void toUserNameChanged();
     void error();
     void received(QString content, QString userName);
+    void syncKeyChanged();
 
 protected:
     void finished(QNetworkReply* reply);
@@ -39,6 +43,7 @@ private:
     QString m_fromUserName;
     QString m_toUserName;
     QMap<QString, int> m_map;
+    QStringList m_syncKey;
 };
 
 #endif // GET_MSG_H

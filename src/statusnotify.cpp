@@ -18,10 +18,11 @@ StatusNotify::~StatusNotify()
 #endif
 }
 
-void StatusNotify::post(QString uin, QString sid, QString userName) 
+void StatusNotify::post(QString uin, QString sid, QString skey, QString userName) 
 {
     QString ts = QString::number(time(NULL));
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxstatusnotify?r=" + ts;
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxstatusnotify?skey=" + 
+        skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
@@ -32,7 +33,7 @@ void StatusNotify::post(QString uin, QString sid, QString userName)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
-    HttpPost::post(url, json);
+    HttpPost::post(url, json, true);
 }
 
 void StatusNotify::finished(QNetworkReply* reply) 

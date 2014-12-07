@@ -27,13 +27,13 @@ Sync::~Sync()
 
 QStringList Sync::syncKey() const { return m_syncKey; }
 
-void Sync::post(QString uin, QString sid, QStringList syncKey) 
+void Sync::post(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
     if (syncKey.size() != 4) { emit error(); return; }
     
     QString ts = QString::number(time(NULL));
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&r=" + ts;
+        "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
@@ -65,7 +65,7 @@ void Sync::finished(QNetworkReply* reply)
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();
     foreach (const QJsonValue & val, obj["SyncKey"].toObject()["List"].toArray()) {
-        m_syncKey.append(QString::number(val.toObject()["Val"].toInt()));            
+        m_syncKey.append(QString::number(val.toObject()["Val"].toInt()));
     }                                                                              
     emit syncKeyChanged();
 }

@@ -18,6 +18,7 @@ GetMsg::GetMsg(HttpPost* parent)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
+    m_syncKey.clear();
 }
 
 GetMsg::~GetMsg() 
@@ -45,21 +46,23 @@ void GetMsg::setToUserName(const QString & toUserName)
     }
 }
 
+QStringList GetMsg::syncKey() const { return m_syncKey; }
+
 void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
-    if (syncKey.size() != 5) { emit error(); return; }
-
     QString ts = QString::number(time(NULL));
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
         "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid 
-        + "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" + 
+    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
+        "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" + 
         syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + 
         "},{\"Key\":3,\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" + 
-        syncKey[3] + "},{\"Key\":1000,\"Val\":" + syncKey[4] + "}]},"
+        (syncKey.size() == 6 ? syncKey[4] : syncKey[3]) + 
+        "},{\"Key\":1000,\"Val\":" + 
+        (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) + "}]},"
         "\"rr\":" + ts + "}";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
@@ -80,6 +83,8 @@ void GetMsg::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;                                   
     qDebug() << "DEBUG:" << replyStr;                                              
 #endif
+    if (m_fromUserName == "" || m_toUserName == "") return;
+
     QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());                
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();
@@ -96,5 +101,13 @@ void GetMsg::finished(QNetworkReply* reply)
             m_map.insert(fromUserNameStr + toUserNameStr + createTimeStr, 
                          msg["CreateTime"].toInt());
         }
+    }
+    // TODO: when need to refresh SyncKey?
+    if (m_syncKey.size() == 0) {
+        foreach (const QJsonValue & val, 
+                 obj["SyncKey"].toObject()["List"].toArray()) {
+            m_syncKey.append(QString::number(val.toObject()["Val"].toInt()));
+        }
+        emit syncKeyChanged();
     }
 }

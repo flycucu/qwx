@@ -31,6 +31,9 @@ Rectangle {
                                   "curUserName": userName})
             moveToTheEnd()
         }
+        onSyncKeyChanged: {
+            chatView.syncKey = getMsgObj.syncKey
+        }
     }                                                                              
                                                                                    
     Timer {                                                                        
