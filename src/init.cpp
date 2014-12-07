@@ -32,10 +32,13 @@ void Init::m_clear()
         if (obj) delete obj; obj = nullptr;
     }
     m_contactList.clear();
+    m_map.clear();
 }
 
 void Init::post(QString uin, QString sid, QString ticket) 
 {
+    m_clear();
+
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxinit?pass_ticket=" + 
         ticket + "&r=" + QString::number(time(NULL));
 #if QWX_DEBUG
@@ -85,10 +88,14 @@ void Init::finished(QNetworkReply* reply)
 
     foreach (const QJsonValue & val, obj["ContactList"].toArray()) {
         QJsonObject user = val.toObject();
-        m_contactList.append(new UserObject(
-            user["UserName"].toString(), 
-            user["NickName"].toString(), 
-            WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+        QString userName = user["UserName"].toString();
+        QString nickName = user["NickName"].toString();
+        if (!m_map.contains(userName)) {
+            m_contactList.append(new UserObject(
+                        userName, nickName, 
+                        WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+        }
+        m_map.insert(userName, nickName);
     }
     emit contactListChanged();
 

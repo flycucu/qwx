@@ -3,6 +3,8 @@
 #ifndef INIT_H
 #define INIT_H
 
+#include <QMap>
+
 #include "httppost.h"
 
 class Init : public HttpPost 
@@ -38,6 +40,7 @@ protected:
 private:
     QString m_loginUserName;
     QList<QObject*> m_contactList;
+    QMap<QString, QString> m_map;
 
 private:
     void m_clear();
