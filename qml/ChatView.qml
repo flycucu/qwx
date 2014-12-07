@@ -12,23 +12,26 @@ Rectangle {
     property string uin
     property string sid
     property string skey
+    property string ticket
     property string fromUserName
     property string toUserName
     property string toNickName
     property var syncKey
-    property var oldSyncKey
 
     function moveToTheEnd() 
     {
         chatListView.positionViewAtIndex(chatListView.count - 1, ListView.End)
     }
 
-    Sync {                                                                      
-        id: syncObj                                                             
-        Component.onCompleted: {                                                
-            chatView.oldSyncKey = chatView.syncKey
-            syncObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.oldSyncKey)
+    Init {
+        id: initObj
+        onSkeyChanged: {
+            syncObj.post(chatView.uin, chatView.sid, chatView.skey, syncKey)
         }
+    }
+
+    Sync {                                                                      
+        id: syncObj                     
         onSyncKeyChanged: {
             chatView.syncKey = syncObj.syncKey
         }
@@ -47,7 +50,7 @@ Rectangle {
             chatView.syncKey = getMsgObj.syncKey
         }
         onNeedReSync: {
-            syncObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.oldSyncKey)
+            initObj.post(chatView.uin, chatView.sid, chatView.ticket)
         }
     }                                                                              
                                                                                    

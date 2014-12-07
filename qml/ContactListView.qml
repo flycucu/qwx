@@ -11,6 +11,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string ticket
     property string loginUserName
     property var syncKey
 
@@ -71,7 +72,8 @@ Item {
                         properties: {                                          
                             uin: contactListView.uin,                          
                             sid: contactListView.sid,                          
-                            skey: contactListView.skey,                        
+                            skey: contactListView.skey,                
+                            ticket: contactListView.ticket,         
                             fromUserName: contactListView.loginUserName,       
                             toUserName: modelData.userName,                    
                             toNickName: modelData.nickName, 

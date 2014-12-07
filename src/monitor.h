@@ -17,6 +17,7 @@ public:
 
 Q_SIGNALS:
     void error();
+    void needReSync();
 
 protected:
     void finished(QNetworkReply* reply);

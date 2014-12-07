@@ -11,6 +11,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string ticket
     property string loginUserName
     property var syncKey
     property var initObj
@@ -61,7 +62,8 @@ Item {
                         properties: {                                          
                             uin: wxView.uin,                                   
                             sid: wxView.sid,                                   
-                            skey: wxView.skey,                                 
+                            skey: wxView.skey,      
+                            ticket: wxView.ticket,                            
                             fromUserName: wxView.loginUserName,                 
                             toUserName: modelData.userName,                    
                             toNickName: modelData.nickName, 

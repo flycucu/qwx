@@ -8,11 +8,12 @@ Item {
     id: loginView
     width: parent.width; height: parent.height
 
-    property string uuid: ""
+    property string uuid
     property string tip: "1"
-    property string uin: ""
-    property string sid: ""
-    property string skey: ""
+    property string uin
+    property string sid
+    property string skey
+    property string ticket
 
     Text {
         id: titleText
@@ -67,15 +68,17 @@ Item {
         onInfoV1Changed: {
             loginView.uin = uin
             loginView.sid = sid
+            loginView.ticket = ticket
             statReportObj.post(loginView.uuid)
-            initObj.post(loginView.uin, loginView.sid, ticket)
+            initObj.post(loginView.uin, loginView.sid, loginView.ticket)
         }
         onInfoV2Changed: {
             loginView.uin = uin
             loginView.sid = sid
             loginView.skey = skey
+            loginView.ticket = ticket
             statReportObj.post(loginView.uuid)
-            initObj.post(loginView.uin, loginView.sid, ticket)
+            initObj.post(loginView.uin, loginView.sid, loginView.ticket)
         }
     }
 
@@ -93,6 +96,7 @@ Item {
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
                              skey: loginView.skey, 
+                             ticket: loginView.ticket, 
                              loginUserName: initObj.loginUserName, 
                              syncKey: syncKey, 
                              initObj: initObj}})

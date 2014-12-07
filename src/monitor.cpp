@@ -43,4 +43,8 @@ void Monitor::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
 #endif
+    
+    if (replyStr == "window.synccheck={retcode:\"1100\",selector:\"0\"}") {
+        emit needReSync(); return;
+    }
 }

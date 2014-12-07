@@ -12,9 +12,17 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string ticket
     property string loginUserName
     property var syncKey
     property var initObj
+
+    Init {
+        id: initObj
+        onSkeyChanged: {                                                           
+            syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncKey)       
+        }
+    }
 
     Sync {
         id: syncObj
@@ -32,6 +40,9 @@ Item {
 
     Monitor {
         id: monitorObj
+        onNeedReSync: {
+            initObj.post(navigatorView.uin, navigatorView.sid, navigatorView.ticket)
+        }
     }
 
     Timer {                                                                        
@@ -59,8 +70,9 @@ Item {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
                         skey: navigatorView.skey
+                        ticket: navigatorView.ticket
                         loginUserName: navigatorView.loginUserName
-                        syncKey: navigatorView.syncKey
+                        syncKey: syncObj.syncKey
                         initObj: navigatorView.initObj
                     }
                 }
@@ -71,9 +83,10 @@ Item {
                     ContactListView {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
-                        skey: navigatorView.skey 
+                        skey: navigatorView.skey
+                        ticket: navigatorView.ticket 
                         loginUserName: navigatorView.loginUserName 
-                        syncKey: navigatorView.syncKey
+                        syncKey: syncObj.syncKey
                     }
                 }
 
