@@ -18,7 +18,8 @@ Item {
 
     GetMsg {                                                                       
         id: getMsgObj
-        fromUserName: chatView.toUserName
+        fromUserName: chatView.fromUserName
+        toUserName: chatView.toUserName
         onReceived: {
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
@@ -27,7 +28,7 @@ Item {
                                                                                    
     Timer {                                                                        
         id: getMsgTimer                                                            
-        interval: 8000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {                                                             
             getMsgObj.post(chatView.uin, chatView.sid, chatView.syncKey)
         }                                                                          

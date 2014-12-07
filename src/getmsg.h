@@ -3,6 +3,8 @@
 #ifndef GET_MSG_H
 #define GET_MSG_H
 
+#include <QMap>
+
 #include "httppost.h"
 
 class GetMsg : public HttpPost 
@@ -36,6 +38,7 @@ protected:
 private:
     QString m_fromUserName;
     QString m_toUserName;
+    QMap<QString, int> m_map;
 };
 
 #endif // GET_MSG_H

@@ -86,11 +86,20 @@ void GetMsg::finished(QNetworkReply* reply)
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
         QString fromUserNameStr = msg["FromUserName"].toString();
-        if (fromUserNameStr == m_fromUserName) {
-            if (time(NULL) - msg["CreateTime"].toInt() <= 8) {
+        QString toUserNameStr = msg["ToUserName"].toString();
+        QString createTimeStr = QString::number(msg["CreateTime"].toInt());
+#if QWX_DEBUG
+        qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << createTimeStr 
+                 << fromUserNameStr << toUserNameStr << m_fromUserName 
+                 << m_toUserName;
+#endif
+        if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
+            (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
+            if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
                 emit received(msg["Content"].toString(), fromUserNameStr);
             }
-            break;
+            m_map.insert(fromUserNameStr + toUserNameStr + createTimeStr, 
+                         msg["CreateTime"].toInt());
         }
     }
 }
