@@ -12,6 +12,7 @@ Item {
     property string sid
     property string skey
     property string loginUserName
+    property var syncKey
 
     Contact {
         id: contactObj
@@ -29,7 +30,7 @@ Item {
         anchors.fill: parent
 
         delegate: Item {
-            height: 60
+            width: parent.width; height: 60
 
             HeadImg {                                                              
                 id: headImgObj                                                     
@@ -73,7 +74,8 @@ Item {
                             skey: contactListView.skey,                        
                             fromUserName: contactListView.loginUserName,       
                             toUserName: modelData.userName,                    
-                            toNickName: modelData.nickName}})                  
+                            toNickName: modelData.nickName, 
+                            syncKey: contactListView.syncKey}})                  
                 }                                                              
             }
         }

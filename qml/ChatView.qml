@@ -128,12 +128,13 @@ Rectangle {
         anchors.top: sendMsgTextField.top
         anchors.right: parent.right
         onClicked: {
-            sendMsgObj.post(chatView.uin, 
+            sendMsgObj.send(chatView.uin, 
                             chatView.sid, 
                             chatView.skey, 
                             chatView.fromUserName, 
                             chatView.toUserName, 
-                            sendMsgTextField.text)
+                            sendMsgTextField.text, 
+                            chatView.syncKey)
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
             sendMsgTextField.text = ""

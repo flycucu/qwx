@@ -65,6 +65,7 @@ Item {
                         sid: navigatorView.sid 
                         skey: navigatorView.skey 
                         loginUserName: navigatorView.initObj.loginUserName 
+                        syncKey: syncObj.syncKey
                     }
                 }
 
