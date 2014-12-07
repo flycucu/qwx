@@ -23,6 +23,7 @@ OTHER_FILES += \
     qml/IconTab.qml \
     qml/WXView.qml  \
     qml/ChatView.qml    \
+    qml/TalkBubble.qml  \
     qml/ContactListView.qml \
     qml/IView.qml
 

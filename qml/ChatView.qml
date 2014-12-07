@@ -4,9 +4,10 @@ import QtQuick 2.2
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
 
-Item {
+Rectangle {
     id: chatView
     width: parent.width; height: parent.height
+    color: "white"
 
     property string uin
     property string sid
@@ -16,6 +17,11 @@ Item {
     property string toNickName
     property var syncKey
 
+    function moveToTheEnd() 
+    {
+        chatListView.positionViewAtIndex(chatListView.count - 1, ListView.End)
+    }
+
     GetMsg {                                                                       
         id: getMsgObj
         fromUserName: chatView.fromUserName
@@ -23,6 +29,7 @@ Item {
         onReceived: {
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
+            moveToTheEnd()
         }
     }                                                                              
                                                                                    
@@ -40,6 +47,9 @@ Item {
 
     ListModel {
         id: chatListModel
+        Component.onCompleted: {
+            chatListModel.clear()
+        }
 
         ListElement { content: ""; curUserName: "" }
     }
@@ -52,36 +62,26 @@ Item {
         anchors.top: chatHeader.bottom
         spacing: 10
         delegate: Item {
-            height: 60
+            height: 280
    
             HeadImg {
                 id: fromUserHeadImgObj 
                 userName: curUserName 
                 onFilePathChanged: { 
-                    fromUserHeadImage.source = fromUserHeadImgObj.filePath 
+                    fromUserHeadImage.imageSource = fromUserHeadImgObj.filePath 
                 }
             }
 
-            Image {
+            TalkBubble {
+                text: content
+            }
+
+            CircleImage {
                 id: fromUserHeadImage
                 width: 42; height: 42
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-            }
-
-            Rectangle {
-                color: "#b3d073"
-                width: content.length * 12; height: parent.height
-                anchors.left: fromUserHeadImage.right
-                anchors.leftMargin: 10
-
-                Text { 
-                    text: content 
-                    font.pixelSize: 12 
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                }
+                anchors.bottom: parent.bottom
             }
         }
     }
@@ -137,6 +137,7 @@ Item {
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
             sendMsgTextField.text = ""
+            moveToTheEnd()
         }
     }
 }

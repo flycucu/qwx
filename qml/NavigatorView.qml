@@ -28,7 +28,7 @@ Item {
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 8000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
             monitorObj.get(navigatorView.uin, navigatorView.sid, syncObj.syncKey)
         }                                              

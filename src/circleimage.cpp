@@ -40,6 +40,7 @@ void CircleImage::setImageSource(const QString & imageSource)
 void CircleImage::paint(QPainter* painter) 
 {
     QImage image(m_imageSource);
+    if (image.isNull()) return;
     QPainterPath path;
     path.addRect(0, 0, width(), height());
     path.addEllipse(0, 0, width(), height());
