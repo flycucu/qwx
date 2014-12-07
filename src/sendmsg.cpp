@@ -25,8 +25,9 @@ void SendMsg::send(QString uin,
                    QString toUserName, 
                    QString content, 
                    QStringList syncKey) 
-{
+{   
     post(uin, sid, skey, fromUserName, toUserName, content);
+    if (syncKey.size() < 5) return;
     QString ts = QString::number(time(NULL));                                      
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
         "&skey=" + skey + "&r=" + ts;

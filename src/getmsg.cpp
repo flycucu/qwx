@@ -18,7 +18,6 @@ GetMsg::GetMsg(HttpPost* parent)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
-    m_syncKey.clear();
 }
 
 GetMsg::~GetMsg() 
@@ -50,6 +49,8 @@ QStringList GetMsg::syncKey() const { return m_syncKey; }
 
 void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
+    if (syncKey.size() < 5) return;
+
     QString ts = QString::number(time(NULL));
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
         "&skey=" + skey + "&r=" + ts;
@@ -102,12 +103,12 @@ void GetMsg::finished(QNetworkReply* reply)
                          msg["CreateTime"].toInt());
         }
     }
-    // TODO: when need to refresh SyncKey?
-    if (m_syncKey.size() == 0) {
-        foreach (const QJsonValue & val, 
-                 obj["SyncKey"].toObject()["List"].toArray()) {
-            m_syncKey.append(QString::number(val.toObject()["Val"].toInt()));
-        }
-        emit syncKeyChanged();
+    
+    m_syncKey.clear();
+    foreach (const QJsonValue & val, 
+             obj["SyncKey"].toObject()["List"].toArray()) {
+        m_syncKey.append(QString::number(val.toObject()["Val"].toInt()));
     }
+    if (m_syncKey.size() == 0) { emit needReSync(); return; }
+    emit syncKeyChanged();
 }

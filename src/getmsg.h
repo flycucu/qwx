@@ -35,6 +35,7 @@ Q_SIGNALS:
     void error();
     void received(QString content, QString userName);
     void syncKeyChanged();
+    void needReSync();
 
 protected:
     void finished(QNetworkReply* reply);
