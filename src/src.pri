@@ -18,7 +18,8 @@ HEADERS += \
     $$PWD/sendmsg.h    \
     $$PWD/monitor.h \
     $$PWD/getmsg.h  \
-    $$PWD/circleimage.h
+    $$PWD/circleimage.h \
+    $$PWD/rmbz.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -39,4 +40,5 @@ SOURCES += \
     $$PWD/sendmsg.cpp  \
     $$PWD/monitor.cpp   \
     $$PWD/getmsg.cpp    \
-    $$PWD/circleimage.cpp
+    $$PWD/circleimage.cpp   \
+    $$PWD/rmbz.cpp

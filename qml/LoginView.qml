@@ -59,7 +59,7 @@ Item {
 
     Timer {
         id: scanTimer
-        interval: 3000; running: true; repeat: true
+        interval: 3000; running: true; repeat: true; triggeredOnStart: true
         onTriggered: { scanQRcode() }
     }
 

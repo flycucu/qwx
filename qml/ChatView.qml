@@ -37,6 +37,23 @@ Rectangle {
         }
     }
 
+    Rmbz {
+        id: rmbzObj
+        onContentChanged: {
+            content = "小黄鸡贱贱地说：" + content
+            sendMsgObj.send(chatView.uin,                                          
+                            chatView.sid,                                          
+                            chatView.skey,                                         
+                            chatView.fromUserName,                                 
+                            chatView.toUserName,                                   
+                            content,                                 
+                            chatView.syncKey)                                      
+            chatListModel.append({"content": content,                
+                                  "curUserName": chatView.fromUserName})           
+            moveToTheEnd()
+        }
+    }
+
     GetMsg {                                                                       
         id: getMsgObj
         fromUserName: chatView.fromUserName
@@ -45,6 +62,7 @@ Rectangle {
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
             moveToTheEnd()
+            rmbzObj.get(content)
         }
         onSyncKeyChanged: {
             chatView.syncKey = getMsgObj.syncKey
