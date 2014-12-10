@@ -18,7 +18,7 @@
 #include "monitor.h"
 #include "getmsg.h"
 #include "circleimage.h"
-#include "rmbz.h"
+#include "xiaodoubi.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<Monitor>("cn.com.isoft.qwx", 1, 0, "Monitor");
     qmlRegisterType<GetMsg>("cn.com.isoft.qwx", 1, 0, "GetMsg");
     qmlRegisterType<CircleImage>("cn.com.isoft.qwx", 1, 0, "CircleImage");
-    qmlRegisterType<Rmbz>("cn.com.isoft.qwx", 1, 0, "Rmbz");
+    qmlRegisterType<XiaoDouBi>("cn.com.isoft.qwx", 1, 0, "XiaoDouBi");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

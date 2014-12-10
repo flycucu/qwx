@@ -37,10 +37,10 @@ Rectangle {
         }
     }
 
-    Rmbz {
-        id: rmbzObj
+    XiaoDouBi {
+        id: xiaodoubiObj
         onContentChanged: {
-            content = "小黄鸡贱贱地说：" + content
+            content = "小逗比：" + content
             sendMsgObj.send(chatView.uin,                                          
                             chatView.sid,                                          
                             chatView.skey,                                         
@@ -62,7 +62,7 @@ Rectangle {
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
             moveToTheEnd()
-            rmbzObj.get(content)
+            xiaodoubiObj.get(content)
         }
         onSyncKeyChanged: {
             chatView.syncKey = getMsgObj.syncKey

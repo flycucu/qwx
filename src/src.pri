@@ -19,7 +19,7 @@ HEADERS += \
     $$PWD/monitor.h \
     $$PWD/getmsg.h  \
     $$PWD/circleimage.h \
-    $$PWD/rmbz.h
+    $$PWD/xiaodoubi.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -41,4 +41,4 @@ SOURCES += \
     $$PWD/monitor.cpp   \
     $$PWD/getmsg.cpp    \
     $$PWD/circleimage.cpp   \
-    $$PWD/rmbz.cpp
+    $$PWD/xiaodoubi.cpp
