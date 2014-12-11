@@ -183,6 +183,7 @@ Rectangle {
                             chatView.syncKey)
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
+            xiaodoubiObj.get(sendMsgTextField.text)
             sendMsgTextField.text = ""
             moveToTheEnd()
         }
