@@ -16,6 +16,7 @@ Item {
     property string loginUserName
     property var syncKey
     property var initObj
+    property var sendMsgSyncKey
 
     Init {
         id: initObj
@@ -45,11 +46,24 @@ Item {
         }
     }
 
+    GetMsg {                                                                       
+        id: naviGetMsgObj 
+        onSyncKeyChanged: {                                                        
+            navigatorView.sendMsgSyncKey = getMsgObj.syncKey 
+        }                                                                          
+    }
+
+    SendMsg {
+        id: naviSendMsgObj
+    }
+
     Timer {                                                                        
         id: monitorTimer                                                              
         interval: 13000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
             monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncObj.syncKey)
+            naviGetMsgObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncObj.syncObj)
+            naviSendMsgObj.sync(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.sendMsgSyncKey)
         }                                              
     }
 

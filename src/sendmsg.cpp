@@ -27,25 +27,7 @@ void SendMsg::send(QString uin,
                    QStringList syncKey) 
 {   
     post(uin, sid, skey, fromUserName, toUserName, content);
-    if (syncKey.size() < 5) return;
-    QString ts = QString::number(time(NULL));                                      
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&skey=" + skey + "&r=" + ts;
-#if QWX_DEBUG                                                                      
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;                            
-#endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
-        "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" + 
-        syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + "},{\"Key\":3,"
-        "\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" + 
-        (syncKey.size() == 6 ? syncKey[4] : syncKey[3]) + 
-        "},{\"Key\":1000,\"Val\":" + 
-        (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) + 
-        "}]},\"rr\":" + ts + "}";
-    #if QWX_DEBUG                                                                      
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;                           
-#endif                                                                             
-    HttpPost::post(url, json, true);
+    sync(uin, sid, skey, syncKey);
 }
 
 void SendMsg::post(QString uin, 
@@ -71,6 +53,29 @@ void SendMsg::post(QString uin,
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
     HttpPost::post(url, json, true);
+}
+
+void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey) 
+{                                                                                  
+    if (syncKey.size() < 5) return;                                                
+    QString ts = QString::number(time(NULL));                                      
+    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid +          
+        "&skey=" + skey + "&r=" + ts;                                              
+#if QWX_DEBUG                                                                      
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;                            
+#endif                                                                             
+    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid +   
+        "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" +             
+        syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + "},{\"Key\":3,"        
+        "\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" +                      
+        (syncKey.size() == 6 ? syncKey[4] : syncKey[3]) +                          
+        "},{\"Key\":1000,\"Val\":" +                                               
+        (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) +                          
+        "}]},\"rr\":" + ts + "}";                                                  
+    #if QWX_DEBUG                                                                  
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;                           
+#endif                                                                             
+    HttpPost::post(url, json, true);                                               
 }
 
 void SendMsg::finished(QNetworkReply* reply) 

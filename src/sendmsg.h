@@ -27,6 +27,10 @@ public:
                           QString fromUserName, 
                           QString toUserName, 
                           QString content);
+    Q_INVOKABLE void sync(QString uin, 
+                          QString sid, 
+                          QString skey, 
+                          QStringList syncKey);
 
 protected:
     void finished(QNetworkReply* reply);
