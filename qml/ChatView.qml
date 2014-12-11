@@ -101,7 +101,8 @@ Rectangle {
         anchors.top: chatHeader.bottom
         spacing: 10
         delegate: Item {
-            height: 280
+            width: parent.width 
+            height: chatText.contentHeight < fromUserHeadImage.height ? fromUserHeadImage.height : chatText.contentHeight
    
             HeadImg {
                 id: fromUserHeadImgObj 
@@ -111,16 +112,22 @@ Rectangle {
                 }
             }
 
-            TalkBubble {
-                text: content
-            }
-
             CircleImage {
                 id: fromUserHeadImage
                 width: 42; height: 42
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-                anchors.bottom: parent.bottom
+                anchors.top: parent.top
+            }
+
+            Text {
+                id: chatText
+                text: content
+                width: parent.width - fromUserHeadImage.width - 30 
+                wrapMode: Text.WordWrap
+                font.pixelSize: 11
+                anchors.left: fromUserHeadImage.right
+                anchors.leftMargin: 10
             }
         }
     }

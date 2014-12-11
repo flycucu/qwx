@@ -1,7 +1,7 @@
 qwx
 ===
 
-网页微信 Qt 前端
+微信 Qt 前端，使用网页微信协议 doc/protocol.md
 
 
 ## 编译、运行
