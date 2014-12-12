@@ -17,6 +17,7 @@ Rectangle {
     property string toUserName
     property string toNickName
     property var syncKey
+    property bool quitRobot: false
 
     function moveToTheEnd() 
     {
@@ -40,6 +41,9 @@ Rectangle {
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
+            if (quitRobot) {
+                return
+            }
             content = "小逗比：" + content
             sendMsgObj.send(chatView.uin,                                          
                             chatView.sid,                                          
@@ -59,10 +63,15 @@ Rectangle {
         fromUserName: chatView.fromUserName
         toUserName: chatView.toUserName
         onReceived: {
+            if (content == "逗比退下") {
+                quitRobot = true
+            }
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
             moveToTheEnd()
-            xiaodoubiObj.get(content)
+            if (!quitRobot) { 
+                xiaodoubiObj.get(content)
+            }
         }
         onSyncKeyChanged: {
             chatView.syncKey = getMsgObj.syncKey
@@ -183,7 +192,11 @@ Rectangle {
                             chatView.syncKey)
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
-            xiaodoubiObj.get(sendMsgTextField.text)
+            if (sendMsgTextField.text == "小逗比退下") {
+                quitRobot = true
+            } else {
+                xiaodoubiObj.get(sendMsgTextField.text)
+            }
             sendMsgTextField.text = ""
             moveToTheEnd()
         }
