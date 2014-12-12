@@ -4,6 +4,7 @@
 #define XIAODOUBI_H
 
 #include "httpget.h"
+#include "idiom.h"
 
 class XiaoDouBi : public HttpGet 
 {
@@ -20,6 +21,9 @@ Q_SIGNALS:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    Idiom m_idiom;
 };
 
 #endif // XIAODOUBI_H

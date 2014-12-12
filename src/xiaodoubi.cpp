@@ -9,22 +9,24 @@
 XiaoDouBi::XiaoDouBi(HttpGet* parent) 
   : HttpGet(parent)
 {
-#if QIRI_DEBUG
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
 }
 
 XiaoDouBi::~XiaoDouBi() 
 {
-#if QIRI_DEBUG
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
 }
 
 void XiaoDouBi::get(QString word) 
 { 
+    QString idiomStr = m_idiom.get(word);
+    if (idiomStr != "") { emit contentChanged(idiomStr); return; }
     QString url = XIAODOUBI_URL + word;
-#if QIRI_DEBUG
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     HttpGet::get(url); 

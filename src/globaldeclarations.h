@@ -15,7 +15,6 @@ const QString WX_SERVER_HOST = "https://wx.qq.com";
 const QString WX_CGI_PATH = "/cgi-bin/mmwebwx-bin/";
 const QString DEVICE_ID = "e519062714508114";
 
-const QString RMBZ_URL = "http://rmbz.net/Api/AiTalk.aspx?key=rmbznet&word=";
 const QString XIAODOUBI_URL = "http://www.xiaodoubi.com/bot/api.php?chat=";
 
 const QString QWXDIR = QDir::homePath() + "/." + CODE_NAME;
