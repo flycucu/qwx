@@ -23,8 +23,6 @@ XiaoDouBi::~XiaoDouBi()
 
 void XiaoDouBi::get(QString word) 
 { 
-    QString idiomStr = m_idiom.get(word);
-    if (idiomStr != "") { emit contentChanged(idiomStr); return; }
     QString url = XIAODOUBI_URL + word;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
