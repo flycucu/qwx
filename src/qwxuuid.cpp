@@ -1,9 +1,11 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#include "uuid.h"
+#include <time.h>
+
+#include "qwxuuid.h"
 #include "globaldeclarations.h"
 
-UUID::UUID(HttpGet* parent) 
+QwxUUID::QwxUUID(HttpGet* parent)
   : HttpGet(parent)
 {
 #if QWX_DEBUG
@@ -12,14 +14,14 @@ UUID::UUID(HttpGet* parent)
     get();
 }
 
-UUID::~UUID() 
+QwxUUID::~QwxUUID()
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
 }
 
-void UUID::get() 
+void QwxUUID::get()
 {
     QString url = LOGIN_SERVER_HOST + "/jslogin?appid=wx782c26e4c19acffb"
         "&redirect_uri=" + WX_SERVER_HOST + WX_CGI_PATH + "webwxnewloginpage"
@@ -30,7 +32,7 @@ void UUID::get()
     HttpGet::get(url);
 }
 
-void UUID::finished(QNetworkReply* reply) 
+void QwxUUID::finished(QNetworkReply* reply)
 {
     QString replyStr(reply->readAll());
     QString uuidStr = "";

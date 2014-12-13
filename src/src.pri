@@ -3,7 +3,7 @@ HEADERS += \
     $$PWD/qtsingleapplication/qtsingleapplication.h   \                      
     $$PWD/qtsingleapplication/qtlocalpeer.h \
     $$PWD/httpget.h    \
-    $$PWD/uuid.h    \
+    $$PWD/qwxuuid.h    \
     $$PWD/scan.h    \
     $$PWD/cookie.h  \
     $$PWD/httppost.h   \
@@ -19,15 +19,14 @@ HEADERS += \
     $$PWD/monitor.h \
     $$PWD/getmsg.h  \
     $$PWD/circleimage.h \
-    $$PWD/xiaodoubi.h   \
-    $$PWD/idiom.h
+    $$PWD/xiaodoubi.h
 
 SOURCES += \
     $$PWD/main.cpp  \
     $$PWD/qtsingleapplication/qtsingleapplication.cpp   \                      
     $$PWD/qtsingleapplication/qtlocalpeer.cpp   \
     $$PWD/httpget.cpp  \
-    $$PWD/uuid.cpp  \
+    $$PWD/qwxuuid.cpp  \
     $$PWD/scan.cpp  \
     $$PWD/cookie.cpp    \
     $$PWD/httppost.cpp \
@@ -42,5 +41,4 @@ SOURCES += \
     $$PWD/monitor.cpp   \
     $$PWD/getmsg.cpp    \
     $$PWD/circleimage.cpp   \
-    $$PWD/xiaodoubi.cpp \
-    $$PWD/idiom.cpp
+    $$PWD/xiaodoubi.cpp

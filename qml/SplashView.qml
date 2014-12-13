@@ -9,7 +9,7 @@ Rectangle {
     width: parent.width; height: parent.height
     color: "#010510"
 
-    UUID {
+    QwxUUID {
         id: uuidObj
         onError: {
             console.log("ERROR: 获取UUID失败!")

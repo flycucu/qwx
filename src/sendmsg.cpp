@@ -1,5 +1,7 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#include <time.h>
+
 #include "sendmsg.h"
 #include "globaldeclarations.h"
 

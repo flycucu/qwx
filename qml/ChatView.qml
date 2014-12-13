@@ -24,20 +24,6 @@ Rectangle {
         chatListView.positionViewAtIndex(chatListView.count - 1, ListView.End)
     }
 
-    Init {
-        id: initObj
-        onSkeyChanged: {
-            syncObj.post(chatView.uin, chatView.sid, chatView.skey, syncKey)
-        }
-    }
-
-    Sync {                                                                      
-        id: syncObj                     
-        onSyncKeyChanged: {
-            chatView.syncKey = syncObj.syncKey
-        }
-    }
-
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
@@ -75,9 +61,6 @@ Rectangle {
         }
         onSyncKeyChanged: {
             chatView.syncKey = getMsgObj.syncKey
-        }
-        onNeedReSync: {
-            initObj.post(chatView.uin, chatView.sid, chatView.ticket)
         }
     }                                                                              
                                                                                    

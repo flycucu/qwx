@@ -5,7 +5,7 @@
 
 #include "globaldeclarations.h"
 #include "qtsingleapplication/QtSingleApplication"
-#include "uuid.h"
+#include "qwxuuid.h"
 #include "scan.h"
 #include "cookie.h"
 #include "statreport.h"
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     app.setApplicationName(CODE_NAME);
     app.setApplicationVersion(APPLICATION_VERSION);
 
-    qmlRegisterType<UUID>("cn.com.isoft.qwx", 1, 0, "UUID");
+    qmlRegisterType<QwxUUID>("cn.com.isoft.qwx", 1, 0, "QwxUUID");
     qmlRegisterType<Scan>("cn.com.isoft.qwx", 1, 0, "Scan");
     qmlRegisterType<Cookie>("cn.com.isoft.qwx", 1, 0, "Cookie");
     qmlRegisterType<StatReport>("cn.com.isoft.qwx", 1, 0, "StatReport");

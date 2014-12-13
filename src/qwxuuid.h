@@ -1,17 +1,17 @@
 // Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#ifndef UUID_H
-#define UUID_H
+#ifndef QWXUUID_H
+#define QWXUUID_H
 
 #include "httpget.h"
 
-class UUID : public HttpGet 
+class QwxUUID : public HttpGet
 {
     Q_OBJECT
 
 public:
-    UUID(HttpGet* parent = nullptr);
-    ~UUID();
+    QwxUUID(HttpGet* parent = nullptr);
+    ~QwxUUID();
 
     Q_INVOKABLE void get();
 
@@ -23,4 +23,4 @@ protected:
     void finished(QNetworkReply* reply);
 };
 
-#endif // UUID_H
+#endif // QWXUUID_H

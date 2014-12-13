@@ -6,6 +6,7 @@
 #include <QJsonDocument>                                                           
 #include <QJsonObject>                                                             
 #include <QJsonArray>
+#include <time.h>
 
 #include "sync.h"
 #include "globaldeclarations.h"

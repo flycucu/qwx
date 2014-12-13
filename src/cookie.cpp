@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QDomDocument>
 #include <QDomElement>
+#include <time.h>
 
 #include "cookie.h"
 #include "globaldeclarations.h"
