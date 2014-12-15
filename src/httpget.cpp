@@ -22,14 +22,20 @@ HttpGet::~HttpGet()
 
 QList<QNetworkCookie> HttpGet::cookies() const { return m_cookies; }
 
-void HttpGet::get(QString url) 
+void HttpGet::get(QString url, bool needSetCookie) 
 {
     m_url = url;
+    QNetworkRequest request(m_url);
+    if (needSetCookie && m_cookies.size()) {
+        QVariant var;                                                          
+        var.setValue(m_cookies);                                                 
+        request.setHeader(QNetworkRequest::CookieHeader, var);                 
+    }
     connect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
             this, SLOT(m_finished(QNetworkReply*)));
     connect(&m_nam, &QNetworkAccessManager::sslErrors, 
             this, &HttpGet::m_sslErrors);
-    m_nam.get(QNetworkRequest(m_url));
+    m_nam.get(request);
 }
 
 void HttpGet::finished(QNetworkReply*) {}

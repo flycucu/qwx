@@ -39,7 +39,7 @@ void Monitor::get(QString uin,
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    HttpGet::get(url);
+    HttpGet::get(url, true);
 }
 
 void Monitor::finished(QNetworkReply* reply) 

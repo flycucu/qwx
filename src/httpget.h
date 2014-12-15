@@ -17,7 +17,7 @@ public:
     virtual ~HttpGet();
 
     QList<QNetworkCookie> cookies() const;
-    void get(QString url);
+    void get(QString url, bool needSetCookie = false);
 
 protected:
     virtual void finished(QNetworkReply* reply);

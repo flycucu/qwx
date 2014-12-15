@@ -20,7 +20,7 @@ Init::Init(HttpPost* parent)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
     std::mt19937 eng(time(NULL));
-    std::uniform_int_distribution<long> deviceId(1615250492, 519062714508114);
+    std::uniform_int_distribution<long long> deviceId(1615250492, 519062714508114);
     m_deviceId = QString::number(deviceId(eng));
     emit deviceIdChanged();
 }
