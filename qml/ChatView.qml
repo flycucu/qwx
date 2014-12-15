@@ -17,7 +17,7 @@ Rectangle {
     property string toUserName
     property string toNickName
     property var syncKey
-    property bool quitRobot: false
+    property bool quitRobot: true
 
     function moveToTheEnd() 
     {
@@ -49,8 +49,10 @@ Rectangle {
         fromUserName: chatView.fromUserName
         toUserName: chatView.toUserName
         onReceived: {
-            if (content == "逗比退下") {
+            if (content == "小逗比退下") {
                 quitRobot = true
+            } else if (content == "小逗比出来") {
+                quitRobot = false
             }
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
@@ -175,10 +177,11 @@ Rectangle {
                             chatView.syncKey)
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
-            if (sendMsgTextField.text == "小逗比退下") {
-                quitRobot = true
-            } else {
+            if (sendMsgTextField.text == "小逗比出来") {
+                quitRobot = false
                 xiaodoubiObj.get(sendMsgTextField.text)
+            } else if (sendMsgTextField.text == "小逗比退下") {
+                quitRobot = true
             }
             sendMsgTextField.text = ""
             moveToTheEnd()
