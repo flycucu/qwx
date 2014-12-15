@@ -96,6 +96,7 @@ Item {
                 properties: {uin: loginView.uin, 
                              sid: loginView.sid, 
                              skey: loginView.skey, 
+                             deviceId: initObj.deviceId,
                              ticket: loginView.ticket, 
                              loginUserName: initObj.loginUserName, 
                              syncKey: syncKey, 

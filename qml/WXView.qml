@@ -11,6 +11,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string deviceId
     property string ticket
     property string loginUserName
     property var syncKey
@@ -84,7 +85,8 @@ Item {
                         properties: {                                          
                             uin: wxView.uin,                                   
                             sid: wxView.sid,                                   
-                            skey: wxView.skey,      
+                            skey: wxView.skey,
+                            deviceId: wxView.deviceId,      
                             ticket: wxView.ticket,                            
                             fromUserName: wxView.loginUserName,                 
                             toUserName: modelData.userName,                    

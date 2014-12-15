@@ -13,7 +13,11 @@ public:
     Monitor(HttpGet* parent = nullptr);
     ~Monitor();
 
-    Q_INVOKABLE void get(QString uin, QString sid, QString skey, QStringList syncKey);
+    Q_INVOKABLE void get(QString uin, 
+                         QString sid, 
+                         QString skey, 
+                         QString deviceId, 
+                         QStringList syncKey);
 
 Q_SIGNALS:
     void error();

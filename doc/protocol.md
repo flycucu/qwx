@@ -92,6 +92,9 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxstatreport?type=1&r=1388976086218
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1388976086484
 
+DeviceID 是e + 随机数
+> http://www.tanhao.me/talk/1466.html
+
 {"BaseRequest":{"Uin":"750366800","Sid":"e75TXbI7TnKUevmI","Skey":"","DeviceID":"e519062714508114"}}
 
 

@@ -11,6 +11,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string deviceId
     property string ticket
     property string loginUserName
     property var syncKey
@@ -20,10 +21,6 @@ Item {
         onContactListChanged: {
             modContactListView.model = contactObj.contactList
         }
-    }
-
-    SendMsg {
-        id: sendMsgObj
     }
 
     ListView {
@@ -72,7 +69,8 @@ Item {
                         properties: {                                          
                             uin: contactListView.uin,                          
                             sid: contactListView.sid,                          
-                            skey: contactListView.skey,                
+                            skey: contactListView.skey,
+                            deviceId: contactListView.deviceId, 
                             ticket: contactListView.ticket,         
                             fromUserName: contactListView.loginUserName,       
                             toUserName: modelData.userName,                    

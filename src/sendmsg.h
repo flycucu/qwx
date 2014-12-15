@@ -16,14 +16,16 @@ public:
 public:
     Q_INVOKABLE void send(QString uin, 
                           QString sid, 
-                          QString skey, 
+                          QString skey,
+                          QString deviceId, 
                           QString fromUserName, 
                           QString toUserName, 
                           QString content, 
                           QStringList syncKey);
     Q_INVOKABLE void post(QString uin, 
                           QString sid, 
-                          QString skey, 
+                          QString skey,
+                          QString deviceId, 
                           QString fromUserName, 
                           QString toUserName, 
                           QString content);

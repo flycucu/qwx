@@ -20,7 +20,11 @@ StatusNotify::~StatusNotify()
 #endif
 }
 
-void StatusNotify::post(QString uin, QString sid, QString skey, QString userName) 
+void StatusNotify::post(QString uin, 
+                        QString sid, 
+                        QString skey, 
+                        QString deviceId, 
+                        QString userName) 
 {
     QString ts = QString::number(time(NULL));
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxstatusnotify?skey=" + 
@@ -29,7 +33,7 @@ void StatusNotify::post(QString uin, QString sid, QString skey, QString userName
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid 
-        + "\",\"Skey\":\"\",\"DeviceID\":\"" + DEVICE_ID + "\"},\"Code\":3,"
+        + "\",\"Skey\":\"\",\"DeviceID\":\"" + deviceId + "\"},\"Code\":3,"
         "\"FromUserName\":\"" + userName + "\",\"ToUserName\":\"" + userName 
         + "\",\"ClientMsgId\":\"" + ts + "\"}";
 #if QWX_DEBUG

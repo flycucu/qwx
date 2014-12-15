@@ -13,8 +13,11 @@ public:
     StatusNotify(HttpPost* parent = nullptr);
     ~StatusNotify();
 
-public:
-    Q_INVOKABLE void post(QString uin, QString sid, QString skey, QString userName);
+    Q_INVOKABLE void post(QString uin, 
+                          QString sid, 
+                          QString skey, 
+                          QString deviceId, 
+                          QString userName);
 
 protected:
     void finished(QNetworkReply* reply);

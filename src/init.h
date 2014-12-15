@@ -11,6 +11,8 @@ class Init : public HttpPost
 {
     Q_OBJECT
 
+    
+    Q_PROPERTY(QString deviceId NOTIFY deviceIdChanged)
     Q_PROPERTY(QString loginUserName READ loginUserName NOTIFY loginUserNameChanged)
     Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
     Q_PROPERTY(QString loginHeadImgUrl READ loginHeadImgUrl NOTIFY loginHeadImgUrlChanged)
@@ -18,6 +20,8 @@ class Init : public HttpPost
 public:
     Init(HttpPost* parent = nullptr);
     ~Init();
+
+    QString deviceId() const;
 
     QString loginUserName() const;
 
@@ -30,6 +34,7 @@ public:
 Q_SIGNALS:
     void error();
     void skeyChanged(QString skey, QStringList syncKey);
+    void deviceIdChanged();
     void loginUserNameChanged();
     void contactListChanged();
     void loginHeadImgUrlChanged();
@@ -38,6 +43,7 @@ protected:
     void finished(QNetworkReply* reply);
 
 private:
+    QString m_deviceId;
     QString m_loginUserName;
     QList<QObject*> m_contactList;
     QMap<QString, QString> m_map;

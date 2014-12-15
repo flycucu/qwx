@@ -12,6 +12,7 @@ Item {
     property string uin
     property string sid
     property string skey
+    property string deviceId
     property string ticket
     property string loginUserName
     property var syncKey
@@ -24,7 +25,7 @@ Item {
     StatusNotify {
         id: statusNotifyObj
         Component.onCompleted: {
-            statusNotifyObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.loginUserName)
+            statusNotifyObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
         }
     }
 
@@ -37,7 +38,7 @@ Item {
         interval: 300000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
             syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
-            monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncObj.syncKey)
+            monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, syncObj.syncKey)
         }
     }
 
@@ -58,6 +59,7 @@ Item {
                         uin: navigatorView.uin
                         sid: navigatorView.sid
                         skey: navigatorView.skey
+                        deviceId: navigatorView.deviceId
                         ticket: navigatorView.ticket
                         loginUserName: navigatorView.loginUserName
                         syncKey: syncObj.syncKey
@@ -72,6 +74,7 @@ Item {
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
                         skey: navigatorView.skey
+                        deviceId: navigatorView.deviceId
                         ticket: navigatorView.ticket 
                         loginUserName: navigatorView.loginUserName 
                         syncKey: syncObj.syncKey

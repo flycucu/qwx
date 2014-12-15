@@ -6,6 +6,7 @@
 #include <QJsonDocument>                                                           
 #include <QJsonObject>                                                             
 #include <QJsonArray>
+#include <random>
 #include <time.h>
 
 #include "init.h"
@@ -18,6 +19,10 @@ Init::Init(HttpPost* parent)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
+    std::mt19937 eng(time(NULL));
+    std::uniform_int_distribution<long> deviceId(1615250492, 519062714508114);
+    m_deviceId = QString::number(deviceId(eng));
+    emit deviceIdChanged();
 }
 
 Init::~Init() 
@@ -46,12 +51,14 @@ void Init::post(QString uin, QString sid, QString ticket)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{\"BaseRequest\":{\"Uin\":\"" + uin + "\",\"Sid\":\"" + 
-        sid + "\",\"Skey\":\"\",\"DeviceID\":\"" + DEVICE_ID + "\"}}";
+        sid + "\",\"Skey\":\"\",\"DeviceID\":\"" + m_deviceId + "\"}}";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
     HttpPost::post(url, json, true);
 }
+
+QString Init::deviceId() const { return m_deviceId; }
 
 QString Init::loginUserName() const { return m_loginUserName; }
 

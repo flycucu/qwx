@@ -12,6 +12,7 @@ Rectangle {
     property string uin
     property string sid
     property string skey
+    property string deviceId
     property string ticket
     property string fromUserName
     property string toUserName
@@ -33,7 +34,8 @@ Rectangle {
             content = "小逗比：" + content
             sendMsgObj.send(chatView.uin,                                          
                             chatView.sid,                                          
-                            chatView.skey,                                         
+                            chatView.skey,
+                            chatView.deviceId, 
                             chatView.fromUserName,                                 
                             chatView.toUserName,                                   
                             content,                                 
@@ -170,7 +172,8 @@ Rectangle {
         onClicked: {
             sendMsgObj.send(chatView.uin, 
                             chatView.sid, 
-                            chatView.skey, 
+                            chatView.skey,
+                            chatView.deviceId, 
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text, 

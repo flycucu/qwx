@@ -22,19 +22,21 @@ SendMsg::~SendMsg()
 
 void SendMsg::send(QString uin, 
                    QString sid, 
-                   QString skey, 
+                   QString skey,
+                   QString deviceId, 
                    QString fromUserName, 
                    QString toUserName, 
                    QString content, 
                    QStringList syncKey) 
 {   
-    post(uin, sid, skey, fromUserName, toUserName, content);
+    post(uin, sid, skey, deviceId, fromUserName, toUserName, content);
     sync(uin, sid, skey, syncKey);
 }
 
 void SendMsg::post(QString uin, 
                    QString sid, 
-                   QString skey, 
+                   QString skey,
+                   QString deviceId, 
                    QString fromUserName, 
                    QString toUserName, 
                    QString content) 
@@ -46,7 +48,7 @@ void SendMsg::post(QString uin,
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid 
-        + "\",\"Skey\":\"" + skey + "\",\"DeviceID\":\"" + DEVICE_ID 
+        + "\",\"Skey\":\"" + skey + "\",\"DeviceID\":\"" + deviceId 
         + "\"},\"Msg\":{\"FromUserName\":\"" + fromUserName 
         + "\",\"ToUserName\":\"" + toUserName 
         + "\",\"Type\":1,\"Content\":\"" + content + "\",\"ClientMsgId\":" + ts 
