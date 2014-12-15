@@ -95,14 +95,20 @@ void GetMsg::finished(QNetworkReply* reply)
         QString fromUserNameStr = msg["FromUserName"].toString();
         QString toUserNameStr = msg["ToUserName"].toString();
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
+        
+        if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
+            emit newMsg(msg["Content"].toString(), fromUserNameStr, toUserNameStr);
+        }
+        
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
                 emit received(msg["Content"].toString(), fromUserNameStr);
             }
-            m_map.insert(fromUserNameStr + toUserNameStr + createTimeStr, 
-                         msg["CreateTime"].toInt());
         }
+
+        m_map.insert(fromUserNameStr + toUserNameStr + createTimeStr, 
+                     msg["CreateTime"].toInt());
     }
     
     m_syncKey.clear();

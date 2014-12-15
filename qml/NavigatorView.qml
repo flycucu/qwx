@@ -19,9 +19,6 @@ Item {
 
     Sync {
         id: syncObj
-        Component.onCompleted: {
-            syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
-        }
     }
 
     StatusNotify {
@@ -33,15 +30,13 @@ Item {
 
     Monitor {
         id: monitorObj
-        onNeedReSync: {
-            initObj.post(navigatorView.uin, navigatorView.sid, navigatorView.ticket)
-        }
     }
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 13000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 300000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
+            syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
             monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, syncObj.syncKey)
         }
     }

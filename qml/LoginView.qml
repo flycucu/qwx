@@ -43,13 +43,13 @@ Item {
         id: scanObj
         onError: { console.log("ERROR:", strerror) }
         onScanedButWaitConfirm: {
-            console.log("DEBUG: 已扫描等待确认 ...")
+            console.log("DEBUG: scanned but waiting for confirm...")
             loginView.tip = "0"
             statReportObj.firstRequestSuccess(loginView.uuid)
             statReportObj.secondRequestStart(loginView.uuid)
         }
         onScanedAndConfirmed: {
-            console.log("DEBUG: 已确认")
+            console.log("DEBUG: confirmed!")
             scanTimer.stop()
             cookieObj.get(redirect_uri)
         }
