@@ -26,10 +26,16 @@ void HttpGet::get(QString url, bool needSetCookie)
 {
     m_url = url;
     QNetworkRequest request(m_url);
-    if (needSetCookie && m_cookies.size()) {
-        QVariant var;                                                          
-        var.setValue(m_cookies);                                                 
-        request.setHeader(QNetworkRequest::CookieHeader, var);                 
+    if (needSetCookie) { 
+        QFile file(QWXDIR + "/" + COOKIE_FILENAME);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream out(&file);
+            QList<QNetworkCookie> cookies = 
+                QNetworkCookie::parseCookies(out.readAll().toUtf8());
+            QVariant var;
+            var.setValue(cookies);
+            request.setHeader(QNetworkRequest::CookieHeader, var);
+        }
     }
     connect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
             this, SLOT(m_finished(QNetworkReply*)));
