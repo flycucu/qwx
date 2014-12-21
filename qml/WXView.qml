@@ -17,18 +17,9 @@ Item {
     property var syncKey
     property var initObj
 
-    Init {
-        id: wxInitObj
-        Component.onCompleted: {
-            wxInitObj.post(wxView.uin, wxView.sid, wxView.ticket)
-        }
-    }
-
     GetMsg {
         id: wxGetMsgObj
-        onNewMsg: {
-            wxInitObj.post(wxView.uin, wxView.sid, wxView.ticket)
-        }
+        onNewMsg: {}
     }
 
     Timer {
@@ -41,7 +32,7 @@ Item {
 
     ListView {
         id: wxListView
-        model: wxInitObj.contactList
+        model: wxView.initObj.contactList
         anchors.fill: parent
 
         delegate: Item {
