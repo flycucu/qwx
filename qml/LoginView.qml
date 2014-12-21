@@ -73,12 +73,7 @@ Item {
             initObj.post(loginView.uin, loginView.sid, loginView.ticket)
         }
         onInfoV2Changed: {
-            loginView.uin = uin
-            loginView.sid = sid
-            loginView.skey = skey
-            loginView.ticket = ticket
-            statReportObj.post(loginView.uuid)
-            initObj.post(loginView.uin, loginView.sid, loginView.ticket)
+            cookieObj.getV2(url)
         }
     }
 

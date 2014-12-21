@@ -78,6 +78,10 @@ window.redirect_uri="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?tic
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=03f725a8039d418ab79c69b6ffbd771b&lang=zh_CN&scan=1388975896&fun=new
 
 
+## WX2新协议
+https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=b03aa3dfbe8d4130981ddf771137ae7b&lang=zh_CN&scan=1419126125&fun=old
+
+
 ## 设置Cookie 返回一个状态
 
 

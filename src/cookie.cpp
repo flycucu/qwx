@@ -33,6 +33,14 @@ void Cookie::get(QString redirect_uri)
     HttpGet::get(url);
 }
 
+void Cookie::getV2(QString url) 
+{
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
+#endif
+    HttpGet::get(url);
+}
+
 void Cookie::finished(QNetworkReply* reply) 
 {
     QString replyStr(reply->readAll());
@@ -80,34 +88,16 @@ void Cookie::finished(QNetworkReply* reply)
         else if (cookie.name() == "webwx_data_ticket") 
             ticketStr = QString(cookie.value());
     }
-    // TODO: so if webwx V1 fail to get uin and sid, parse xml in this way
+    // TODO: so if webwx V1 fail to get uin and sid, switch to V2
     if (uinStr == "" || sidStr == "" || ticketStr == "") {
-        QDomDocument doc;
-        if (doc.setContent(replyStr) == false) {
-            qWarning() << "ERROR:" << __PRETTY_FUNCTION__ << "fail to parse";
+        QString href = "window.location.href=";
+        int index = replyStr.indexOf(href);
+        if (index == -1) {
+            qWarning() << "ERROR:" << __PRETTY_FUNCTION__ << "href not found!";
             return;
         }
-        QDomElement root = doc.documentElement();
-        QDomElement skey = root.firstChildElement("skey");
-        QDomElement sid = root.firstChildElement("wxsid");
-        QDomElement uin = root.firstChildElement("wxuin");
-        QDomElement ticket = root.firstChildElement("pass_ticket");
-        uinStr = uin.text();
-        sidStr = sid.text();
-        ticketStr = ticket.text();
-        out << "wxuin=" << uinStr << "; expires=" << expires << "; domain=" 
-            << domain << "; path=" << path << endl;
-        out << "wxsid=" << sidStr << "; expires=" << expires << "; domain=" 
-            << domain << "; path=" << path << endl;
-        out << "wxloadtime=" << QString::number(time(NULL)) << "; expires=" 
-            << expires << "; domain=" << domain << "; path=" << path << endl;
-        out << "mm_lang=zh_CN; expires=" << expires << "; domain=" << domain 
-            << "; path=" << path << endl;
-        out << "webwx_data_ticket=" << ticketStr << "; expires=" << expires 
-            << "; domain=" << domain << "; path=" << path << endl;
-        out << "webwxuvid=" << webwxuvid << "; expires=" << expires << "; domain=" 
-            << domain << "; path=" << path << endl;
-        emit infoV2Changed(uinStr, sidStr, skey.text(), ticketStr);
+        index += href.size();
+        emit infoV2Changed(replyStr.mid(index + 1, replyStr.size() - index - 11));
     } else 
         emit infoV1Changed(uinStr, sidStr, ticketStr);
     file.close();
