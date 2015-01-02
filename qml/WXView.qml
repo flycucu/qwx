@@ -8,6 +8,7 @@ Item {
     id: wxView
     width: parent.width; height: parent.height
 
+    property bool v2: false
     property string uin
     property string sid
     property string skey
@@ -26,7 +27,11 @@ Item {
         id: wxGetMsgTimer
         interval: 3000; running: true; repeat: true; triggeredOnStart: true
         onTriggered: {
-            wxGetMsgObj.post(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            if (wxView.v2) {
+                wxGetMsgObj.postV2(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            } else {
+                wxGetMsgObj.post(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            }
         }
     }
 
@@ -40,6 +45,7 @@ Item {
 
             HeadImg {
                 id: headImgObj
+                v2: wxView.v2
                 userName: modelData.userName
                 onFilePathChanged: {
                     headImage.imageSource = headImgObj.filePath
@@ -74,7 +80,8 @@ Item {
                     navigatorStackView.push({                                  
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {                                          
-                            uin: wxView.uin,                                   
+                            v2: wxView.v2,
+                            uin: wxView.uin,
                             sid: wxView.sid,                                   
                             skey: wxView.skey,
                             deviceId: wxView.deviceId,      

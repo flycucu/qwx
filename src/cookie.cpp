@@ -33,8 +33,9 @@ void Cookie::get(QString redirect_uri)
     HttpGet::get(url);
 }
 
-void Cookie::getV2(QString url) 
+void Cookie::getV2(QString redirect_uri)
 {
+    QString url = redirect_uri.replace(WX_SERVER_HOST, WX_V2_SERVER_HOST) + "&fun=old";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
@@ -93,12 +94,12 @@ void Cookie::finished(QNetworkReply* reply)
         QString href = "window.location.href=";
         int index = replyStr.indexOf(href);
         if (index == -1) {
-            qWarning() << "ERROR:" << __PRETTY_FUNCTION__ << "href not found!";
+            qWarning() << "V2 still use XML format for cookie?";
             return;
+        } else {
+            emit switchToV2();
         }
-        index += href.size();
-        emit infoV2Changed(replyStr.mid(index + 1, replyStr.size() - index - 11));
     } else 
-        emit infoV1Changed(uinStr, sidStr, ticketStr);
+        emit infoChanged(uinStr, sidStr, ticketStr);
     file.close();
 }

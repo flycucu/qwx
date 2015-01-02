@@ -68,6 +68,22 @@ void StatReport::post(QString uuid)
     HttpPost::post(url, json, true);
 }
 
+void StatReport::postV2(QString uuid)
+{
+    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxstatreport?type=1&r=" +
+        QString::number(time(NULL));
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
+#endif
+    QString json = "{\"BaseRequest\":{\"Uin\":0,\"Sid\":0},\"Count\":1,"
+        "\"List\":[{\"Type\":1,\"Text\":\"" + WX_CGI_PATH + "login, "
+        "Second Request Success, uuid: " + uuid + ", time: 190765ms\"}]}";
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
+#endif
+    HttpPost::post(url, json, true);
+}
+
 void StatReport::finished(QNetworkReply* reply) 
 {
     QString replyStr = QString(reply->readAll());

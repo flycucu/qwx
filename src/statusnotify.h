@@ -18,6 +18,11 @@ public:
                           QString skey, 
                           QString deviceId, 
                           QString userName);
+    Q_INVOKABLE void postV2(QString uin,
+                          QString sid,
+                          QString skey,
+                          QString deviceId,
+                          QString userName);
 
 protected:
     void finished(QNetworkReply* reply);

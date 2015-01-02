@@ -14,11 +14,11 @@ public:
     ~Cookie();
 
     Q_INVOKABLE void get(QString redirect_uri);
-    Q_INVOKABLE void getV2(QString url);
+    Q_INVOKABLE void getV2(QString redirect_uri);
 
 Q_SIGNALS:
-    void infoV1Changed(QString uin, QString sid, QString ticket);
-    void infoV2Changed(QString url);
+    void infoChanged(QString uin, QString sid, QString ticket);
+    void switchToV2();
 
 protected:
     void finished(QNetworkReply* reply);

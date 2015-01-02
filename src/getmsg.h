@@ -28,6 +28,7 @@ public:
     QStringList syncKey() const;
 
     Q_INVOKABLE void post(QString uin, QString sid, QString skey, QStringList syncKey);
+    Q_INVOKABLE void postV2(QString uin, QString sid, QString skey, QStringList syncKey);
 
 Q_SIGNALS:
     void fromUserNameChanged();

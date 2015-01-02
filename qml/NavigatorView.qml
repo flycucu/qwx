@@ -9,6 +9,7 @@ Item {
     id: navigatorView
     width: parent.width; height: parent.height
 
+    property bool v2: false
     property string uin
     property string sid
     property string skey
@@ -21,14 +22,22 @@ Item {
     Sync {
         id: syncObj
         Component.onCompleted: {
-            syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
+            if (navigatorView.v2) {
+                syncObj.postV2(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
+            } else {
+                syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
+            }
         }
     }
 
     StatusNotify {
         id: statusNotifyObj
         Component.onCompleted: {
-            statusNotifyObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
+            if (navigatorView.v2) {
+                statusNotifyObj.postV2(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
+            } else {
+                statusNotifyObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
+            }
         }
     }
 
@@ -58,6 +67,7 @@ Item {
                     title: "微信"
                     iconSource: "images/messages.png"
                     WXView {
+                        v2: navigatorView.v2
                         uin: navigatorView.uin
                         sid: navigatorView.sid
                         skey: navigatorView.skey
@@ -73,6 +83,7 @@ Item {
                     title: "通讯录"
                     iconSource: "images/contacts.png"
                     ContactListView {
+                        v2: navigatorView.v2
                         uin: navigatorView.uin 
                         sid: navigatorView.sid 
                         skey: navigatorView.skey

@@ -22,6 +22,14 @@ public:
                           QString toUserName, 
                           QString content, 
                           QStringList syncKey);
+    Q_INVOKABLE void sendV2(QString uin,
+                          QString sid,
+                          QString skey,
+                          QString deviceId,
+                          QString fromUserName,
+                          QString toUserName,
+                          QString content,
+                          QStringList syncKey);
     Q_INVOKABLE void post(QString uin, 
                           QString sid, 
                           QString skey,
@@ -29,9 +37,20 @@ public:
                           QString fromUserName, 
                           QString toUserName, 
                           QString content);
+    Q_INVOKABLE void postV2(QString uin,
+                          QString sid,
+                          QString skey,
+                          QString deviceId,
+                          QString fromUserName,
+                          QString toUserName,
+                          QString content);
     Q_INVOKABLE void sync(QString uin, 
                           QString sid, 
                           QString skey, 
+                          QStringList syncKey);
+    Q_INVOKABLE void syncV2(QString uin,
+                          QString sid,
+                          QString skey,
                           QStringList syncKey);
 
 protected:

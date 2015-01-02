@@ -30,6 +30,7 @@ public:
     QString loginHeadImgUrl() const;
 
     Q_INVOKABLE void post(QString uin, QString sid, QString ticket);
+    Q_INVOKABLE void postV2(QString uin, QString sid, QString ticket);
 
 Q_SIGNALS:
     void error();
@@ -43,6 +44,7 @@ protected:
     void finished(QNetworkReply* reply);
 
 private:
+    bool m_v2;
     QString m_deviceId;
     QString m_loginUserName;
     QList<QObject*> m_contactList;

@@ -13,6 +13,7 @@ const QString APPLICATION_ENCODING = "UTF-8";
 
 const QString LOGIN_SERVER_HOST = "https://login.weixin.qq.com";
 const QString WX_SERVER_HOST = "https://wx.qq.com";
+const QString WX_V2_SERVER_HOST = "https://wx2.qq.com";
 const QString WX_CGI_PATH = "/cgi-bin/mmwebwx-bin/";
 
 const QString XIAODOUBI_URL = "http://www.xiaodoubi.com/bot/api.php?chat=";

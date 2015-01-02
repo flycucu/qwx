@@ -9,6 +9,7 @@ Rectangle {
     width: parent.width; height: parent.height
     color: "white"
 
+    property bool v2: false
     property string uin
     property string sid
     property string skey
@@ -32,7 +33,8 @@ Rectangle {
                 return
             }
             content = "小逗比：" + content
-            sendMsgObj.send(chatView.uin,                                          
+            if (chatView.v2) {
+                sendMsgObj.sendV2(chatView.uin,
                             chatView.sid,                                          
                             chatView.skey,
                             chatView.deviceId, 
@@ -40,6 +42,17 @@ Rectangle {
                             chatView.toUserName,                                   
                             content,                                 
                             chatView.syncKey)                                      
+            } else {
+                sendMsgObj.send(chatView.uin,
+                                chatView.sid,
+                                chatView.skey,
+                                chatView.deviceId,
+                                chatView.fromUserName,
+                                chatView.toUserName,
+                                content,
+                                chatView.syncKey)
+            }
+
             chatListModel.append({"content": content,                
                                   "curUserName": chatView.fromUserName})           
             moveToTheEnd()
@@ -72,7 +85,11 @@ Rectangle {
         id: getMsgTimer                                                            
         interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {                                                             
-            getMsgObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
+            if (chatView.v2) {
+                getMsgObj.postV2(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
+            } else {
+                getMsgObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
+            }
         }                                                                          
     }
 
@@ -170,7 +187,8 @@ Rectangle {
         anchors.top: sendMsgTextField.top
         anchors.right: parent.right
         onClicked: {
-            sendMsgObj.send(chatView.uin, 
+            if (chatView.v2) {
+                sendMsgObj.sendV2(chatView.uin,
                             chatView.sid, 
                             chatView.skey,
                             chatView.deviceId, 
@@ -178,6 +196,16 @@ Rectangle {
                             chatView.toUserName, 
                             sendMsgTextField.text, 
                             chatView.syncKey)
+            } else {
+                sendMsgObj.send(chatView.uin,
+                                chatView.sid,
+                                chatView.skey,
+                                chatView.deviceId,
+                                chatView.fromUserName,
+                                chatView.toUserName,
+                                sendMsgTextField.text,
+                                chatView.syncKey)
+            }
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
             if (sendMsgTextField.text == "小逗比出来") {

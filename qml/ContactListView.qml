@@ -8,6 +8,7 @@ Item {
     id: contactListView
     width: parent.width; height: parent.height
 
+    property bool v2: false
     property string uin
     property string sid
     property string skey
@@ -31,7 +32,8 @@ Item {
             width: parent.width; height: 60
 
             HeadImg {                                                              
-                id: headImgObj                                                     
+                id: headImgObj
+                v2: contactListView.v2
                 userName: modelData.userName                                       
                 onFilePathChanged: {                                               
                     headImage.imageSource = headImgObj.filePath
@@ -66,7 +68,8 @@ Item {
                 onClicked: {                                                   
                     navigatorStackView.push({                                  
                         item: Qt.resolvedUrl("ChatView.qml"),                  
-                        properties: {                                          
+                        properties: {
+                            v2: contactListView.v2,
                             uin: contactListView.uin,                          
                             sid: contactListView.sid,                          
                             skey: contactListView.skey,

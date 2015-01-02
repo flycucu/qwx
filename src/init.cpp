@@ -14,7 +14,8 @@
 #include "globaldeclarations.h"
 
 Init::Init(HttpPost* parent) 
-  : HttpPost(parent) 
+  : HttpPost(parent),
+    m_v2(false)
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -51,6 +52,25 @@ void Init::post(QString uin, QString sid, QString ticket)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{\"BaseRequest\":{\"Uin\":\"" + uin + "\",\"Sid\":\"" + 
+        sid + "\",\"Skey\":\"\",\"DeviceID\":\"" + m_deviceId + "\"}}";
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
+#endif
+    HttpPost::post(url, json, true);
+}
+
+void Init::postV2(QString uin, QString sid, QString ticket)
+{
+    m_v2 = true;
+
+    m_clear();
+
+    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxinit?pass_ticket=" +
+        ticket + "&r=" + QString::number(time(NULL));
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
+#endif
+    QString json = "{\"BaseRequest\":{\"Uin\":\"" + uin + "\",\"Sid\":\"" +
         sid + "\",\"Skey\":\"\",\"DeviceID\":\"" + m_deviceId + "\"}}";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
@@ -101,6 +121,8 @@ void Init::finished(QNetworkReply* reply)
         if (!m_map.contains(userName)) {
             m_contactList.append(new UserObject(
                         userName, nickName, 
+                        m_v2 ?
+                        WX_V2_SERVER_HOST + user["HeadImgUrl"].toString() :
                         WX_SERVER_HOST + user["HeadImgUrl"].toString()));
         }
         m_map.insert(userName, nickName);

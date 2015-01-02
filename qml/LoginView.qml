@@ -8,6 +8,7 @@ Item {
     id: loginView
     width: parent.width; height: parent.height
 
+    property bool v2: false
     property string uuid
     property string tip: "1"
     property string uin
@@ -51,7 +52,11 @@ Item {
         onScanedAndConfirmed: {
             console.log("DEBUG: confirmed!")
             scanTimer.stop()
-            cookieObj.get(redirect_uri)
+            if (loginView.v2) {
+                cookieObj.getV2(redirect_uri)
+            } else {
+                cookieObj.get(redirect_uri)
+            }
         }
     }
 
@@ -65,15 +70,23 @@ Item {
 
     Cookie {
         id: cookieObj
-        onInfoV1Changed: {
+        onInfoChanged: {
             loginView.uin = uin
             loginView.sid = sid
             loginView.ticket = ticket
-            statReportObj.post(loginView.uuid)
-            initObj.post(loginView.uin, loginView.sid, loginView.ticket)
+            if (loginView.v2) {
+                statReportObj.postV2(loginView.uuid)
+                initObj.postV2(loginView.uin, loginView.sid, loginView.ticket)
+            } else {
+                statReportObj.post(loginView.uuid)
+                initObj.post(loginView.uin, loginView.sid, loginView.ticket)
+            }
         }
-        onInfoV2Changed: {
-            cookieObj.getV2(url)
+        onSwitchToV2: {
+            rootWindowStackView.clear()
+            rootWindowStackView.push({
+                item: Qt.resolvedUrl("SplashView.qml"),
+                properties: {v2: true}})
         }
     }
 
@@ -88,7 +101,8 @@ Item {
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  
-                properties: {uin: loginView.uin, 
+                properties: {v2: loginView.v2,
+                             uin: loginView.uin,
                              sid: loginView.sid, 
                              skey: loginView.skey, 
                              deviceId: initObj.deviceId,
