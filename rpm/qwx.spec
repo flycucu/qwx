@@ -16,29 +16,31 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+%define qt5version 5.2
+
 Name:           qwx
 Summary:        WeChat for linux
-Version:        0.0git20141212
+Version:        0.0git20150104
 Release:        1
 License:        GPL-3.0
 Url:            https://github.com/xiangzhai/qwx
 Group:          Productivity/Networking/Instant Messenger
 Source:        %{name}-%{version}.tar.bz2
 %if 0%{?fedora}
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtbase-devel >= %{qt5version}
 %endif
 %if 0%{?suse_version}
-BuildRequires:  libqt5-qtbase-common-devel
+BuildRequires:  libqt5-qtbase-common-devel >= %{qt5version}
 %endif
-BuildRequires:  pkgconfig(Qt5Xml) >= 5.2
-BuildRequires:  pkgconfig(Qt5Network) >= 5.2
-BuildRequires:  pkgconfig(Qt5QuickParticles) >= 5.2
-BuildRequires:  pkgconfig(Qt5Declarative) >= 5.2
+BuildRequires:  pkgconfig(Qt5Xml) >= %{qt5version}
+BuildRequires:  pkgconfig(Qt5Network) >= %{qt5version}
+BuildRequires:  pkgconfig(Qt5QuickParticles) >= %{qt5version}
+BuildRequires:  pkgconfig(Qt5Declarative) >= %{qt5version}
 %if 0%{?suse_version}
-Requires:       libqt5-qtquickcontrols
+Requires:       libqt5-qtquickcontrols >= %{qt5version}
 %endif
 %if 0%{?fedora}
-Requires:       qt5-qtquickcontrols
+Requires:       qt5-qtquickcontrols >= %{qt5version}
 %endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
