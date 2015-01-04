@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #if QWX_DEBUG                                                                      
 #include <QFile>                                                                   
@@ -18,7 +18,6 @@ Contact::Contact(HttpPost* parent)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
-    post();
 }
 
 Contact::~Contact() 
@@ -33,6 +32,17 @@ QList<QObject*> Contact::contactList() const { return m_contactList; }
 void Contact::post() 
 {
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
+        QString::number(time(NULL));
+#if QWX_DEBUG
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
+#endif
+    QString json = "{}";
+    HttpPost::post(url, json, true);
+}
+
+void Contact::postV2() 
+{
+    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
         QString::number(time(NULL));
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;

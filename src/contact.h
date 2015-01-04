@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #ifndef CONTACT_H
 #define CONTACT_H
@@ -18,6 +18,7 @@ public:
     QList<QObject*> contactList() const;
 
     Q_INVOKABLE void post();
+    Q_INVOKABLE void postV2();
 
 Q_SIGNALS:
     void error();

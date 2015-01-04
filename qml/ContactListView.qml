@@ -19,6 +19,13 @@ Item {
 
     Contact {
         id: contactObj
+        Component.onCompleted: {
+            if (contactListView.v2) {
+                contactObj.postV2()
+            } else {
+                contactObj.post()
+            }
+        }
         onContactListChanged: {
             modContactListView.model = contactObj.contactList
         }
