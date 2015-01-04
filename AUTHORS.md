@@ -10,7 +10,7 @@ langyeie http://www.langyeweb.com/
 
 ## 贡献者
 
-Hillwood Yang <hillwood@gmail.com>
+Hillwood Yang <hillwood@opensuse.org>
 
 
 ## 设计师
