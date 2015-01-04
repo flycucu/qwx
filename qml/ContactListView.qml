@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
@@ -32,11 +32,10 @@ Item {
             width: parent.width; height: 60
 
             HeadImg {                                                              
-                id: headImgObj
                 v2: contactListView.v2
                 userName: modelData.userName                                       
                 onFilePathChanged: {                                               
-                    headImage.imageSource = headImgObj.filePath
+                    headImage.imageSource = filePath
                 }                                                                  
             }                                                                      
                                                                                    

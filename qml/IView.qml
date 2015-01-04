@@ -1,5 +1,5 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 
-Item {}
+Item { Text { text: "建设当中" } }

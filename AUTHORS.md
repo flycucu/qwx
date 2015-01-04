@@ -8,7 +8,11 @@ Leslie Zhai <xiang.zhai@i-soft.com.cn>
 langyeie http://www.langyeweb.com/
 
 
+## 贡献者
+
+Hillwood Yang <hillwood@gmail.com>
+
+
 ## 设计师
 
 还木有 -_-|||
-

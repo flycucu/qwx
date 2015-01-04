@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #include <QFile>
 #include <QDir>
@@ -31,7 +31,6 @@ void HeadImg::setV2(bool v2)
         return;
     m_v2 = v2;
     emit v2Changed();
-    emit m_getV2();
 }
 
 QString HeadImg::userName() const { return m_userName; }

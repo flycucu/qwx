@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #if QWX_DEBUG
 #include <QFile>
@@ -120,10 +120,9 @@ void Init::finished(QNetworkReply* reply)
         QString nickName = user["NickName"].toString();
         if (!m_map.contains(userName)) {
             m_contactList.append(new UserObject(
-                        userName, nickName, 
-                        m_v2 ?
-                        WX_V2_SERVER_HOST + user["HeadImgUrl"].toString() :
-                        WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+                userName, 
+                nickName, 
+                m_v2 ? WX_V2_SERVER_HOST + user["HeadImgUrl"].toString() : WX_SERVER_HOST + user["HeadImgUrl"].toString()));
         }
         m_map.insert(userName, nickName);
     }

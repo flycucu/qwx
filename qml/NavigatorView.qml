@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
@@ -53,6 +53,12 @@ Item {
         }
     }
 
+    HeadImg {
+        id: loginUserHeadImg
+        v2: navigatorView.v2                                             
+        userName: navigatorView.loginUserName
+    }
+
     StackView {
         id:navigatorStackView
         anchors.fill: parent
@@ -96,7 +102,7 @@ Item {
 
                 IconTab {
                     title: "我"
-                    iconSource: navigatorView.initObj.loginHeadImgUrl
+                    iconSource: loginUserHeadImg.filePath
                     IView {}
                 }
 
