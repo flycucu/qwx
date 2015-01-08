@@ -77,3 +77,15 @@ void Contact::finished(QNetworkReply* reply)
     }                                                                              
     emit contactListChanged();
 }
+
+QString Contact::getNickName(QString userName) 
+{
+    foreach (QObject* obj, m_contactList) {
+        UserObject* user = reinterpret_cast<UserObject*>(obj);
+        if (user->userName() == userName) {
+            return user->nickName();
+        }
+    }
+
+    return "";
+}

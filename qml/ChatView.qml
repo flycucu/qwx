@@ -59,6 +59,22 @@ Rectangle {
         }
     }
 
+    Contact {                                                                      
+        id: contactObj                                                             
+        Component.onCompleted: {                                                   
+            if (chatView.v2) {                                                       
+                contactObj.postV2()                                                
+            } else {                                                               
+                contactObj.post()                                                  
+            }                                                                      
+        }                                                                          
+    }
+
+    Process {
+        id: processObj
+        program: "notify-send"
+    }
+
     GetMsg {                                                                       
         id: getMsgObj
         fromUserName: chatView.fromUserName
@@ -74,6 +90,19 @@ Rectangle {
             moveToTheEnd()
             if (!quitRobot) { 
                 xiaodoubiObj.get(content)
+            }
+        }
+        onNewMsg: {
+            if (fromUserName != chatView.fromUserName || 
+            fromUserName != chatView.toUserName) {
+                var nickName = ""
+                if (chatView.fromUserName == fromUserName) {
+                    nickName = contactObj.getNickName(toUserName)
+                } else {
+                    nickName = contactObj.getNickName(fromUserName)
+                }
+                processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000']
+                processObj.start()
             }
         }
         onSyncKeyChanged: {

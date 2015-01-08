@@ -31,3 +31,5 @@ make
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/contact.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/modcontact.png)
+
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/notify-send.png)

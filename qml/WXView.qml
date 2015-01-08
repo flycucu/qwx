@@ -34,10 +34,39 @@ Item {
         }
     }
 
+    Contact {                                                                      
+        id: contactObj                                                             
+        Component.onCompleted: {                                                   
+            if (wxView.v2) {                                              
+                contactObj.postV2()                                                
+            } else {                                                               
+                contactObj.post()                                                  
+            }                                                                      
+        }                                                                          
+    }
+
     GetMsg {
         id: getMsgObj
         onNewMsg: {
-            
+            var isExist = false
+            for (var i = 0; i < wxListModel.count; i++) {
+                var userName = wxListModel.get(i).mUserName
+                if (userName == fromUserName || 
+                    userName == toUserName) {
+                    isExist = true
+                    break
+                }
+            }
+
+            if (isExist == false) {
+                if (wxView.loginUserName == fromUserName) {
+                    wxListModel.insert(0, {"mUserName": toUserName, 
+                            "mNickName": contactObj.getNickName(toUserName)})
+                } else {
+                    wxListModel.insert(0, {"mUserName": fromUserName, 
+                            "mNickName": contactObj.getNickName(fromUserName)})
+                }
+            }
         }
     }
 
@@ -103,7 +132,7 @@ Item {
                             sid: wxView.sid,                                   
                             skey: wxView.skey,
                             deviceId: wxView.deviceId,      
-                            ticket: wxView.ticket,                            
+                            ticket: wxView.ticket, 
                             fromUserName: wxView.loginUserName,                 
                             toUserName: mUserName,                    
                             toNickName: mNickName, 

@@ -19,6 +19,7 @@ public:
 
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
+    Q_INVOKABLE QString getNickName(QString nickName);
 
 Q_SIGNALS:
     void error();
