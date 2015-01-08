@@ -18,6 +18,11 @@ public:
                          QString skey, 
                          QString deviceId, 
                          QStringList syncKey);
+    Q_INVOKABLE void getV2(QString uin,                                              
+                         QString sid,                                              
+                         QString skey,                                             
+                         QString deviceId,                                         
+                         QStringList syncKey);
 
 Q_SIGNALS:
     void error();

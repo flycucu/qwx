@@ -20,6 +20,7 @@ Item {
         }
         Component.onCompleted: {
             if (Global.v2) {
+                // TODO: from Init syncKey
                 syncObj.postV2(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
             } else {
                 syncObj.post(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
@@ -40,13 +41,23 @@ Item {
 
     Monitor {
         id: monitorObj
+        onNeedReSync: {
+            if (Global.v2) {                                                       
+                syncObj.postV2(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)            } else {                                                            
+                syncObj.post(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
+            }
+        }
     }
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 13000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 300000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
-            monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+            if (Global.v2) {
+                monitorObj.getV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+            } else {
+                monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+            }
         }
     }
 
