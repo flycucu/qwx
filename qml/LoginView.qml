@@ -98,11 +98,11 @@ Item {
             }
             Global.deviceId = initObj.deviceId
             Global.loginUserName = initObj.loginUserName
+            Global.initContactList = initObj.contactList
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  
-                properties: {syncKey: syncKey, 
-                             initObj: initObj}})
+                properties: {syncKey: syncKey}})
         }
     }
 }

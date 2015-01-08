@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #include "process.h"
 
@@ -46,7 +46,9 @@ const QString &Process::program() const
 void Process::setProgram(const QString &program)
 {
     if (program == d->program) return;
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << program;
+#endif
     d->program = program;
     emit programChanged(d->program);
 }
@@ -59,7 +61,9 @@ const QStringList &Process::arguments() const
 void Process::setArguments(const QStringList &arguments)
 {
     if (arguments == d->arguments) return;
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << arguments;
+#endif
     d->arguments = arguments;
     emit argumentsChanged(d->arguments);
 }

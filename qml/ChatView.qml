@@ -17,7 +17,7 @@ Rectangle {
 
     function moveToTheEnd() 
     {
-        chatListView.positionViewAtIndex(chatListView.count - 1, ListView.End)
+        chatListView.positionViewAtEnd()
     }
 
     XiaoDouBi {

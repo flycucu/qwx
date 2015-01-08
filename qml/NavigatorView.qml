@@ -11,7 +11,6 @@ Item {
     width: parent.width; height: parent.height
 
     property var syncKey
-    property var initObj
 
     Sync {
         id: syncObj
@@ -80,9 +79,7 @@ Item {
                 IconTab {
                     title: "微信"
                     iconSource: "images/messages.png"
-                    WXView {
-                        contactList: navigatorView.initObj.contactList
-                    }
+                    WXView {}
                 }
 
                 IconTab {

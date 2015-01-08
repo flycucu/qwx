@@ -39,6 +39,9 @@ void CircleImage::setImageSource(const QString & imageSource)
 
 void CircleImage::paint(QPainter* painter) 
 {
+    QFile file(m_imageSource);
+    if (!file.exists())
+        return;
     QImage image(m_imageSource);
     if (image.isNull()) return;
     QPainterPath path;

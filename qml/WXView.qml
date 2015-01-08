@@ -9,21 +9,20 @@ Item {
     id: wxView
     width: parent.width; height: parent.height
 
-    property var contactList
-
     ListModel {                                                                    
         id: wxListModel                                                          
         Component.onCompleted: {                                                   
             wxListModel.remove(0)                                          
         }                                                                          
                                                                                    
-        ListElement { mUserName: ""; mNickName: "" } 
+        ListElement { mUserName: ""; mNickName: ""; mContent: "" } 
     }
 
     Component.onCompleted: {
-        for (var i = 0; i < wxView.contactList.length; i++) {
-            wxListModel.append({"mUserName": wxView.contactList[i].userName, 
-                                "mNickName": wxView.contactList[i].nickName}) 
+        for (var i = 0; i < Global.initContactList.length; i++) {
+            wxListModel.append({"mUserName": Global.initContactList[i].userName, 
+            "mNickName": Global.initContactList[i].nickName, 
+            "mContent": ""}) 
         }
     }
 
@@ -47,6 +46,8 @@ Item {
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true
+                    wxListModel.move(i, 0, 1)
+                    wxListModel.get(i).mContent = content
                     break
                 }
             }
@@ -101,12 +102,21 @@ Item {
             }
 
             Text {
+                id: nickNameText
                 text: mNickName
                 font.pixelSize: 13
                 anchors.top: parent.top
                 anchors.topMargin: 14
                 anchors.left: headImage.right
                 anchors.leftMargin: 11
+            }
+
+            Text {
+                text: mContent
+                font.pixelSize: 11
+                anchors.top: nickNameText.bottom
+                anchors.topMargin: 6
+                anchors.left: nickNameText.left
             }
 
             Rectangle {

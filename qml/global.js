@@ -9,3 +9,4 @@ var ticket = "";
 var deviceId = "";
 var loginUserName = "";
 var syncKey;
+var initContactList;

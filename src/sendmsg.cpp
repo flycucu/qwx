@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #include <time.h>
 
@@ -115,7 +115,7 @@ void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey)
         "},{\"Key\":1000,\"Val\":" +                                               
         (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) +                          
         "}]},\"rr\":" + ts + "}";                                                  
-    #if QWX_DEBUG                                                                  
+#if QWX_DEBUG                                                                  
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;                           
 #endif                                                                             
     HttpPost::post(url, json, true);                                               
@@ -138,7 +138,7 @@ void SendMsg::syncV2(QString uin, QString sid, QString skey, QStringList syncKey
         "},{\"Key\":1000,\"Val\":" +
         (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) +
         "}]},\"rr\":" + ts + "}";
-    #if QWX_DEBUG
+#if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
     HttpPost::post(url, json, true);
