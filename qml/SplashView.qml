@@ -17,7 +17,6 @@ Rectangle {
             console.log("ERROR: 获取UUID失败!")
         }
         onUuidChanged: {
-            console.log("DEBUG:", splashView.v2)
             rootWindowStackView.clear()                                            
             rootWindowStackView.push({                                             
                 item: Qt.resolvedUrl("LoginView.qml"),                         

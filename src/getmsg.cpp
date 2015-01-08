@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #if QWX_DEBUG
 #include <QFile>
@@ -109,8 +109,6 @@ void GetMsg::finished(QNetworkReply* reply)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;                                   
     qDebug() << "DEBUG:" << replyStr;                                              
 #endif
-    if (m_fromUserName == "" || m_toUserName == "") return;
-
     QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());                
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();

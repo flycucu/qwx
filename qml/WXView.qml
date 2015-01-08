@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
@@ -18,26 +18,44 @@ Item {
     property var syncKey
     property var initObj
 
-    GetMsg {
-        id: wxGetMsgObj
-        onNewMsg: {}
+    ListModel {                                                                    
+        id: wxListModel                                                          
+        Component.onCompleted: {                                                   
+            wxListModel.remove(0)                                          
+        }                                                                          
+                                                                                   
+        ListElement { mUserName: ""; mNickName: "" } 
     }
 
-    Timer {
-        id: wxGetMsgTimer
-        interval: 3000; running: true; repeat: true; triggeredOnStart: true
-        onTriggered: {
-            if (wxView.v2) {
-                wxGetMsgObj.postV2(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
-            } else {
-                wxGetMsgObj.post(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
-            }
+    Component.onCompleted: {
+        for (var i = 0; i < wxView.initObj.contactList.length; i++) {
+            wxListModel.append({"mUserName": wxView.initObj.contactList[i].userName, 
+                                "mNickName": wxView.initObj.contactList[i].nickName}) 
         }
+    }
+
+    GetMsg {
+        id: getMsgObj
+        onNewMsg: {
+            
+        }
+    }
+
+    Timer {                                                                        
+        id: getMsgTimer                                                            
+        interval: 1000; running: true; repeat: true; triggeredOnStart: true        
+        onTriggered: {                                                             
+            if (wxView.v2) {                                                     
+                getMsgObj.postV2(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            } else {                                                               
+                getMsgObj.post(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            }                                                                      
+        }                                                                          
     }
 
     ListView {
         id: wxListView
-        model: wxView.initObj.contactList
+        model: wxListModel
         anchors.fill: parent
 
         delegate: Item {
@@ -46,7 +64,7 @@ Item {
             HeadImg {
                 id: headImgObj
                 v2: wxView.v2
-                userName: modelData.userName
+                userName: mUserName
                 onFilePathChanged: {
                     headImage.imageSource = headImgObj.filePath
                 }
@@ -61,7 +79,7 @@ Item {
             }
 
             Text {
-                text: modelData.nickName
+                text: mNickName
                 font.pixelSize: 13
                 anchors.top: parent.top
                 anchors.topMargin: 14
@@ -87,8 +105,8 @@ Item {
                             deviceId: wxView.deviceId,      
                             ticket: wxView.ticket,                            
                             fromUserName: wxView.loginUserName,                 
-                            toUserName: modelData.userName,                    
-                            toNickName: modelData.nickName, 
+                            toUserName: mUserName,                    
+                            toNickName: mNickName, 
                             syncKey: wxView.syncKey}})                  
                 }                                                              
             }
