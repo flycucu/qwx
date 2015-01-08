@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=Network;
+Comment[zh_CN]=微信Qt前端
+Comment=WeChat Qt frontend
+Exec=qwx
+GenericName[zh_CN]=微信Qt前端
+GenericName=WeChat Qt frontend
+Icon=qwx
+MimeType=
+Name[zh_CN]=微信Qt前端
+Name=WeChat Qt frontend
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

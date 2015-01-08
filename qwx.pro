@@ -47,10 +47,13 @@ unix {
     DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
 
     #MAKE INSTALL
-    INSTALLS += target desktop
+    INSTALLS += target desktop icon
 
     target.path = $$BINDIR
 
     desktop.path = $$DATADIR/applications
     desktop.files += $${TARGET}.desktop
+
+    icon.path = $$DATADIR/icons/hicolor/512x512/apps
+    icon.files += images/$${TARGET}.png
 }
