@@ -3,24 +3,16 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
+import "global.js" as Global
 
 Item {
     id: contactListView
     width: parent.width; height: parent.height
 
-    property bool v2: false
-    property string uin
-    property string sid
-    property string skey
-    property string deviceId
-    property string ticket
-    property string loginUserName
-    property var syncKey
-
     Contact {
         id: contactObj
         Component.onCompleted: {
-            if (contactListView.v2) {
+            if (Global.v2) {
                 contactObj.postV2()
             } else {
                 contactObj.post()
@@ -39,7 +31,7 @@ Item {
             width: parent.width; height: 60
 
             HeadImg {                                                              
-                v2: contactListView.v2
+                v2: Global.v2
                 userName: modelData.userName                                       
                 onFilePathChanged: {                                               
                     headImage.imageSource = filePath
@@ -75,16 +67,8 @@ Item {
                     navigatorStackView.push({                                  
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {
-                            v2: contactListView.v2,
-                            uin: contactListView.uin,                          
-                            sid: contactListView.sid,                          
-                            skey: contactListView.skey,
-                            deviceId: contactListView.deviceId, 
-                            ticket: contactListView.ticket,         
-                            fromUserName: contactListView.loginUserName,       
                             toUserName: modelData.userName,                    
-                            toNickName: modelData.nickName, 
-                            syncKey: contactListView.syncKey}})                  
+                            toNickName: modelData.nickName}})                  
                 }                                                              
             }
         }

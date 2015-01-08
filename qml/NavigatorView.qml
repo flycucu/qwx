@@ -4,28 +4,25 @@ import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
 import cn.com.isoft.qwx 1.0
+import "global.js" as Global
 
 Item {
     id: navigatorView
     width: parent.width; height: parent.height
 
-    property bool v2: false
-    property string uin
-    property string sid
-    property string skey
-    property string deviceId
-    property string ticket
-    property string loginUserName
     property var syncKey
     property var initObj
 
     Sync {
         id: syncObj
+        onSyncKeyChanged: {
+            Global.syncKey = syncObj.syncKey
+        }
         Component.onCompleted: {
-            if (navigatorView.v2) {
-                syncObj.postV2(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
+            if (Global.v2) {
+                syncObj.postV2(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
             } else {
-                syncObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.syncKey)
+                syncObj.post(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
             }
         }
     }
@@ -33,10 +30,10 @@ Item {
     StatusNotify {
         id: statusNotifyObj
         Component.onCompleted: {
-            if (navigatorView.v2) {
-                statusNotifyObj.postV2(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
+            if (Global.v2) {
+                statusNotifyObj.postV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName)
             } else {
-                statusNotifyObj.post(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, navigatorView.loginUserName)
+                statusNotifyObj.post(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName)
             }
         }
     }
@@ -49,14 +46,14 @@ Item {
         id: monitorTimer                                                              
         interval: 13000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
-            monitorObj.get(navigatorView.uin, navigatorView.sid, navigatorView.skey, navigatorView.deviceId, syncObj.syncKey)
+            monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
         }
     }
 
     HeadImg {
         id: loginUserHeadImg
-        v2: navigatorView.v2                                             
-        userName: navigatorView.loginUserName
+        v2: Global.v2                                             
+        userName: Global.loginUserName
     }
 
     StackView {
@@ -73,31 +70,14 @@ Item {
                     title: "微信"
                     iconSource: "images/messages.png"
                     WXView {
-                        v2: navigatorView.v2
-                        uin: navigatorView.uin
-                        sid: navigatorView.sid
-                        skey: navigatorView.skey
-                        deviceId: navigatorView.deviceId
-                        ticket: navigatorView.ticket
-                        loginUserName: navigatorView.loginUserName
-                        syncKey: syncObj.syncKey
-                        initObj: navigatorView.initObj
+                        contactList: navigatorView.initObj.contactList
                     }
                 }
 
                 IconTab {
                     title: "通讯录"
                     iconSource: "images/contacts.png"
-                    ContactListView {
-                        v2: navigatorView.v2
-                        uin: navigatorView.uin 
-                        sid: navigatorView.sid 
-                        skey: navigatorView.skey
-                        deviceId: navigatorView.deviceId
-                        ticket: navigatorView.ticket 
-                        loginUserName: navigatorView.loginUserName 
-                        syncKey: syncObj.syncKey
-                    }
+                    ContactListView {}
                 }
 
                 IconTab {

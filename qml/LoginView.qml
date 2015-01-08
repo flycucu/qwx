@@ -1,20 +1,16 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
+import "global.js" as Global
 
 Item {
     id: loginView
     width: parent.width; height: parent.height
 
-    property bool v2: false
     property string uuid
     property string tip: "1"
-    property string uin
-    property string sid
-    property string skey
-    property string ticket
 
     Text {
         id: titleText
@@ -52,7 +48,7 @@ Item {
         onScanedAndConfirmed: {
             console.log("DEBUG: confirmed!")
             scanTimer.stop()
-            if (loginView.v2) {
+            if (Global.v2) {
                 cookieObj.getV2(redirect_uri)
             } else {
                 cookieObj.get(redirect_uri)
@@ -71,22 +67,22 @@ Item {
     Cookie {
         id: cookieObj
         onInfoChanged: {
-            loginView.uin = uin
-            loginView.sid = sid
-            loginView.ticket = ticket
-            if (loginView.v2) {
+            Global.uin = uin
+            Global.sid = sid
+            Global.ticket = ticket
+            if (Global.v2) {
                 statReportObj.postV2(loginView.uuid)
-                initObj.postV2(loginView.uin, loginView.sid, loginView.ticket)
+                initObj.postV2(Global.uin, Global.sid, Global.ticket)
             } else {
                 statReportObj.post(loginView.uuid)
-                initObj.post(loginView.uin, loginView.sid, loginView.ticket)
+                initObj.post(Global.uin, Global.sid, Global.ticket)
             }
         }
         onSwitchToV2: {
+            Global.v2 = true
             rootWindowStackView.clear()
             rootWindowStackView.push({
-                item: Qt.resolvedUrl("SplashView.qml"),
-                properties: {v2: true}})
+                item: Qt.resolvedUrl("SplashView.qml")})
         }
     }
 
@@ -97,18 +93,15 @@ Item {
     Init {
         id: initObj
         onSkeyChanged: {
-            if (skey != "") { loginView.skey = skey }
+            if (skey != "") { 
+                Global.skey = skey 
+            }
+            Global.deviceId = initObj.deviceId
+            Global.loginUserName = initObj.loginUserName
             rootWindowStackView.clear()
             rootWindowStackView.push({
                 item: Qt.resolvedUrl("NavigatorView.qml"),  
-                properties: {v2: loginView.v2,
-                             uin: loginView.uin,
-                             sid: loginView.sid, 
-                             skey: loginView.skey, 
-                             deviceId: initObj.deviceId,
-                             ticket: loginView.ticket, 
-                             loginUserName: initObj.loginUserName, 
-                             syncKey: syncKey, 
+                properties: {syncKey: syncKey, 
                              initObj: initObj}})
         }
     }

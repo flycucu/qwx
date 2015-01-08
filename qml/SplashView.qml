@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
@@ -9,18 +9,16 @@ Rectangle {
     width: parent.width; height: parent.height
     color: "#010510"
 
-    property bool v2: false
-
     QwxUUID {
         id: uuidObj
         onError: {
-            console.log("ERROR: 获取UUID失败!")
+            console.log("ERROR: fail to get UUID!")
         }
         onUuidChanged: {
             rootWindowStackView.clear()                                            
             rootWindowStackView.push({                                             
                 item: Qt.resolvedUrl("LoginView.qml"),                         
-                properties: {uuid: uuid, v2: splashView.v2}})
+                properties: {uuid: uuid}})
         }
     }
 

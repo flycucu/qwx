@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
+  <file>qml/global.js</file>
   <file>qml/main.qml</file>
   <file>qml/SplashView.qml</file>
   <file>qml/LoginView.qml</file>

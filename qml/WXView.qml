@@ -3,20 +3,13 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
+import "global.js" as Global
 
 Item {
     id: wxView
     width: parent.width; height: parent.height
 
-    property bool v2: false
-    property string uin
-    property string sid
-    property string skey
-    property string deviceId
-    property string ticket
-    property string loginUserName
-    property var syncKey
-    property var initObj
+    property var contactList
 
     ListModel {                                                                    
         id: wxListModel                                                          
@@ -28,16 +21,16 @@ Item {
     }
 
     Component.onCompleted: {
-        for (var i = 0; i < wxView.initObj.contactList.length; i++) {
-            wxListModel.append({"mUserName": wxView.initObj.contactList[i].userName, 
-                                "mNickName": wxView.initObj.contactList[i].nickName}) 
+        for (var i = 0; i < wxView.contactList.length; i++) {
+            wxListModel.append({"mUserName": wxView.contactList[i].userName, 
+                                "mNickName": wxView.contactList[i].nickName}) 
         }
     }
 
     Contact {                                                                      
         id: contactObj                                                             
         Component.onCompleted: {                                                   
-            if (wxView.v2) {                                              
+            if (Global.v2) {                                              
                 contactObj.postV2()                                                
             } else {                                                               
                 contactObj.post()                                                  
@@ -59,7 +52,7 @@ Item {
             }
 
             if (isExist == false) {
-                if (wxView.loginUserName == fromUserName) {
+                if (Global.loginUserName == fromUserName) {
                     wxListModel.insert(0, {"mUserName": toUserName, 
                             "mNickName": contactObj.getNickName(toUserName)})
                 } else {
@@ -72,12 +65,12 @@ Item {
 
     Timer {                                                                        
         id: getMsgTimer                                                            
-        interval: 1000; running: true; repeat: true; triggeredOnStart: true        
+        interval: 3000; running: true; repeat: true; triggeredOnStart: true        
         onTriggered: {                                                             
-            if (wxView.v2) {                                                     
-                getMsgObj.postV2(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+            if (Global.v2) {                                                     
+                getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey)
             } else {                                                               
-                getMsgObj.post(wxView.uin, wxView.sid, wxView.skey, wxView.syncKey)
+                getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
             }                                                                      
         }                                                                          
     }
@@ -92,7 +85,7 @@ Item {
 
             HeadImg {
                 id: headImgObj
-                v2: wxView.v2
+                v2: Global.v2
                 userName: mUserName
                 onFilePathChanged: {
                     headImage.imageSource = headImgObj.filePath
@@ -127,16 +120,9 @@ Item {
                     navigatorStackView.push({                                  
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {                                          
-                            v2: wxView.v2,
-                            uin: wxView.uin,
-                            sid: wxView.sid,                                   
-                            skey: wxView.skey,
-                            deviceId: wxView.deviceId,      
-                            ticket: wxView.ticket, 
-                            fromUserName: wxView.loginUserName,                 
+                            fromUserName: Global.loginUserName,
                             toUserName: mUserName,                    
-                            toNickName: mNickName, 
-                            syncKey: wxView.syncKey}})                  
+                            toNickName: mNickName}})                  
                 }                                                              
             }
         }

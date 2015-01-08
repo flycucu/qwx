@@ -1,24 +1,18 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import cn.com.isoft.qwx 1.0
+import "global.js" as Global
 
 Rectangle {
     id: chatView
     width: parent.width; height: parent.height
     color: "white"
 
-    property bool v2: false
-    property string uin
-    property string sid
-    property string skey
-    property string deviceId
-    property string ticket
     property string fromUserName
     property string toUserName
     property string toNickName
-    property var syncKey
     property bool quitRobot: true
 
     function moveToTheEnd() 
@@ -33,24 +27,24 @@ Rectangle {
                 return
             }
             content = "小逗比：" + content
-            if (chatView.v2) {
-                sendMsgObj.sendV2(chatView.uin,
-                            chatView.sid,                                          
-                            chatView.skey,
-                            chatView.deviceId, 
+            if (Global.v2) {
+                sendMsgObj.sendV2(Global.uin,
+                            Global.sid,                                          
+                            Global.skey,
+                            Global.deviceId, 
                             chatView.fromUserName,                                 
                             chatView.toUserName,                                   
                             content,                                 
-                            chatView.syncKey)                                      
+                            Global.syncKey)                                      
             } else {
-                sendMsgObj.send(chatView.uin,
-                                chatView.sid,
-                                chatView.skey,
-                                chatView.deviceId,
+                sendMsgObj.send(Global.uin,
+                                Global.sid,
+                                Global.skey,
+                                Global.deviceId,
                                 chatView.fromUserName,
                                 chatView.toUserName,
                                 content,
-                                chatView.syncKey)
+                                Global.syncKey)
             }
 
             chatListModel.append({"content": content,                
@@ -62,7 +56,7 @@ Rectangle {
     Contact {                                                                      
         id: contactObj                                                             
         Component.onCompleted: {                                                   
-            if (chatView.v2) {                                                       
+            if (Global.v2) {                                                       
                 contactObj.postV2()                                                
             } else {                                                               
                 contactObj.post()                                                  
@@ -106,18 +100,18 @@ Rectangle {
             }
         }
         onSyncKeyChanged: {
-            chatView.syncKey = getMsgObj.syncKey
+            Global.syncKey = getMsgObj.syncKey
         }
     }                                                                              
                                                                                    
     Timer {                                                                        
         id: getMsgTimer                                                            
-        interval: 1000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 3000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {                                                             
-            if (chatView.v2) {
-                getMsgObj.postV2(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
+            if (Global.v2) {
+                getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey)
             } else {
-                getMsgObj.post(chatView.uin, chatView.sid, chatView.skey, chatView.syncKey)
+                getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
             }
         }                                                                          
     }
@@ -216,24 +210,24 @@ Rectangle {
         anchors.top: sendMsgTextField.top
         anchors.right: parent.right
         onClicked: {
-            if (chatView.v2) {
-                sendMsgObj.sendV2(chatView.uin,
-                            chatView.sid, 
-                            chatView.skey,
-                            chatView.deviceId, 
+            if (Global.v2) {
+                sendMsgObj.sendV2(Global.uin,
+                            Global.sid, 
+                            Global.skey,
+                            Global.deviceId, 
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text, 
-                            chatView.syncKey)
+                            Global.syncKey)
             } else {
-                sendMsgObj.send(chatView.uin,
-                                chatView.sid,
-                                chatView.skey,
-                                chatView.deviceId,
+                sendMsgObj.send(Global.uin,
+                                Global.sid,
+                                Global.skey,
+                                Global.deviceId,
                                 chatView.fromUserName,
                                 chatView.toUserName,
                                 sendMsgTextField.text,
-                                chatView.syncKey)
+                                Global.syncKey)
             }
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
