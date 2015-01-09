@@ -48,28 +48,55 @@ Item {
         }
     }
 
+    SendMsg {
+        id: sendMsgObj
+    }
+
     GetMsg {
         id: getMsgObj
         onNewMsg: {
-            var isExist = false
+            var isExist = false;
+
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).mUserName
                 if (userName == fromUserName || 
                     userName == toUserName) {
-                    isExist = true
-                    wxListModel.get(i).mContent = content
-                    wxListModel.move(i, 0, 1)
-                    break
+                    isExist = true;
+                    wxListModel.get(i).mContent = content;
+                    wxListModel.move(i, 0, 1);
+                    break;
                 }
             }
 
             if (isExist == false) {
                 if (Global.loginUserName == fromUserName) {
                     wxListModel.insert(0, {"mUserName": toUserName, 
-                            "mNickName": contactObj.getNickName(toUserName)})
+                            "mNickName": contactObj.getNickName(toUserName)});
                 } else {
                     wxListModel.insert(0, {"mUserName": fromUserName, 
-                            "mNickName": contactObj.getNickName(fromUserName)})
+                            "mNickName": contactObj.getNickName(fromUserName)});
+                }
+            }
+
+            if (Global.isAway) {
+                if (Global.v2) {
+                    sendMsgObj.sendV2(Global.uin,
+                            Global.sid,                                          
+                            Global.skey,
+                            Global.deviceId, 
+                            toUserName,                                 
+                            fromUserName,                                   
+                            contactObj.getNickName(Global.loginUserName) + "不在，请在滴声音后留言 ;)",
+                            Global.syncKey)                                      
+                } else {
+                    sendMsgObj.send(Global.uin,
+                                Global.sid,
+                                Global.skey,
+                                Global.deviceId,
+                                toUserName,
+                                fromUserName,
+                                contactObj.getNickName(Global.loginUserName) + "不在，请在滴声音后留言",
+                                Global.syncKey)
                 }
             }
         }

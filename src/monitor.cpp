@@ -29,7 +29,6 @@ void Monitor::get(QString uin,
                   QString deviceId, 
                   QStringList syncKey) 
 {
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << syncKey;
     QString ts = QString::number(time(NULL));
     QString url = "https://webpush.weixin.qq.com" + WX_CGI_PATH + 
         "synccheck?skey=" + skey + 

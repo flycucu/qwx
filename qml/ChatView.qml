@@ -100,8 +100,11 @@ Rectangle {
             }
         }
         onNewMsg: {
+            if (!quitRobot) {
+                xiaodoubiObj.get(content)
+            }
             if (fromUserName != chatView.fromUserName || 
-            fromUserName != chatView.toUserName) {
+                fromUserName != chatView.toUserName) {
                 var nickName = ""
                 if (chatView.fromUserName == fromUserName) {
                     nickName = contactObj.getNickName(toUserName)
@@ -111,9 +114,6 @@ Rectangle {
                 processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000']
                 processObj.start()
             }
-        }
-        onSyncKeyChanged: {
-            Global.syncKey = getMsgObj.syncKey
         }
     }                                                                              
 
@@ -232,7 +232,11 @@ Rectangle {
             }
             chatListModel.append({"content": sendMsgTextField.text, 
                                   "curUserName": chatView.fromUserName})
-            if (sendMsgTextField.text == "小逗比出来") {
+            if (sendMsgTextField.text == "away") {
+                Global.isAway = true;                     
+            } else if (sendMsgTextField.text == "back") {
+                Global.isAway = false;
+            } else if (sendMsgTextField.text == "小逗比出来") {
                 quitRobot = false
                 xiaodoubiObj.get(sendMsgTextField.text)
             } else if (sendMsgTextField.text == "小逗比退下") {

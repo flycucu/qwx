@@ -2,6 +2,7 @@
 
 .pragma library
 var v2 = false;
+var isAway = false;
 var uin = "";
 var sid = "";
 var skey = "";
@@ -19,6 +20,6 @@ function monitorNewMsg()
     if (typeof(wxView) != 'undefined')
         wxView.doNewMsg();
 
-    if (typeof(chatView) != 'undefined')
+    if (typeof(chatView) != 'undefined' && typeof(chatView.doNewMsg) == 'function')
         chatView.doNewMsg();
 }
