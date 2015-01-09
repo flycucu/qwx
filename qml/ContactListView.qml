@@ -67,6 +67,7 @@ Item {
                     navigatorStackView.push({                                  
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {
+                            fromUserName: Global.loginUserName,
                             toUserName: modelData.userName,                    
                             toNickName: modelData.nickName}})                  
                 }                                                              

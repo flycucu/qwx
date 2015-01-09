@@ -117,15 +117,20 @@ void GetMsg::finished(QNetworkReply* reply)
         QString fromUserNameStr = msg["FromUserName"].toString();
         QString toUserNameStr = msg["ToUserName"].toString();
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
-        
+        QString content = msg["Content"] .toString();
+
+        // TODO: filter the click HeadImgUrl generated new content
+        if (content.indexOf("op id='2'") != -1)
+            continue;
+
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
-            emit newMsg(msg["Content"].toString(), fromUserNameStr, toUserNameStr);
+            emit newMsg(content, fromUserNameStr, toUserNameStr);
         }
         
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
-                emit received(msg["Content"].toString(), fromUserNameStr);
+                emit received(content, fromUserNameStr);
             }
         }
 

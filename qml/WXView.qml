@@ -57,8 +57,8 @@ Item {
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true
-                    wxListModel.move(i, 0, 1)
                     wxListModel.get(i).mContent = content
+                    wxListModel.move(i, 0, 1)
                     break
                 }
             }
