@@ -134,7 +134,8 @@ void Init::finished(QNetworkReply* reply)
 #endif 
     QStringList syncKey;
     foreach (const QJsonValue & val, obj["SyncKey"].toObject()["List"].toArray()) {
-        syncKey.append(QString::number(val.toObject()["Val"].toInt()));
+        syncKey.append(QString::number(val.toObject()["Key"].toInt()) + "|" + 
+                QString::number(val.toObject()["Val"].toInt()));
     }
     emit skeyChanged(skey, syncKey);
 }

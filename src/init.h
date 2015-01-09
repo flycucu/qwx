@@ -3,8 +3,6 @@
 #ifndef INIT_H
 #define INIT_H
 
-#include <QMap>
-
 #include "httppost.h"
 
 class Init : public HttpPost 

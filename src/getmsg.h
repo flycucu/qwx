@@ -1,9 +1,7 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #ifndef GET_MSG_H
 #define GET_MSG_H
-
-#include <QMap>
 
 #include "httppost.h"
 
@@ -37,7 +35,6 @@ Q_SIGNALS:
     void received(QString content, QString userName);
     void newMsg(QString content, QString fromUserName, QString toUserName);
     void syncKeyChanged();
-    void needReSync();
 
 protected:
     void finished(QNetworkReply* reply);

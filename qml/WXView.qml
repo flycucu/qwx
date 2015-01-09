@@ -62,6 +62,10 @@ Item {
                 }
             }
         }
+        onSyncKeyChanged: {
+            // FIXME: 什么时候用GetMsg的6个元素的SyncKey
+            //Global.syncKey = getMsgObj.syncKey
+        }
     }
 
     Timer {                                                                        

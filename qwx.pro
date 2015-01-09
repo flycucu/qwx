@@ -32,6 +32,7 @@ RESOURCES += \
 
 !isEmpty(QWX_DEBUG) {
     DEFINES += QWX_DEBUG
+    QMAKE_CXXFLAGS += -g
 }
 
 unix {

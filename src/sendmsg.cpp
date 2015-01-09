@@ -1,5 +1,8 @@
 // Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#if QWX_DEBUG
+#include <QFile>
+#endif
 #include <time.h>
 
 #include "sendmsg.h"
@@ -100,21 +103,22 @@ void SendMsg::postV2(QString uin,
 
 void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey) 
 {                                                                                  
-    if (syncKey.size() < 5) return;                                                
     QString ts = QString::number(time(NULL));                                      
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid +          
         "&skey=" + skey + "&r=" + ts;                                              
 #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;                            
 #endif                                                                             
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid +   
-        "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" +             
-        syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + "},{\"Key\":3,"        
-        "\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" +                      
-        (syncKey.size() == 6 ? syncKey[4] : syncKey[3]) +                          
-        "},{\"Key\":1000,\"Val\":" +                                               
-        (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) +                          
-        "}]},\"rr\":" + ts + "}";                                                  
+    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
+        "\"},\"SyncKey\":{\"Count\":" + QString::number(syncKey.size()) + 
+        ",\"List\":[";
+    for (int i = 0; i < syncKey.size(); i++) {
+        if (i != 0)
+            json += ",";
+        QStringList result = syncKey[i].split("|");
+        json += "{\"Key\":" + result[0] + ",\"Val\":" + result[1] + "}";
+    }
+    json += "]},\"rr\":" + ts + "}";                                                 
 #if QWX_DEBUG                                                                  
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;                           
 #endif                                                                             
@@ -123,21 +127,22 @@ void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey)
 
 void SendMsg::syncV2(QString uin, QString sid, QString skey, QStringList syncKey)
 {
-    if (syncKey.size() < 5) return;
     QString ts = QString::number(time(NULL));
     QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid +
         "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid +
-        "\"},\"SyncKey\":{\"Count\":5,\"List\":[{\"Key\":1,\"Val\":" +
-        syncKey[0] + "},{\"Key\":2,\"Val\":" + syncKey[1] + "},{\"Key\":3,"
-        "\"Val\":" + syncKey[2] + "},{\"Key\":201,\"Val\":" +
-        (syncKey.size() == 6 ? syncKey[4] : syncKey[3]) +
-        "},{\"Key\":1000,\"Val\":" +
-        (syncKey.size() == 6 ? syncKey[5] : syncKey[4]) +
-        "}]},\"rr\":" + ts + "}";
+    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
+        "\"},\"SyncKey\":{\"Count\":" + QString::number(syncKey.size()) + 
+        ",\"List\":[";
+    for (int i = 0; i < syncKey.size(); i++) {
+        if (i != 0)
+            json += ",";
+        QStringList result = syncKey[i].split("|");
+        json += "{\"Key\":" + result[0] + ",\"Val\":" + result[1] + "}";
+    }
+    json += "]},\"rr\":" + ts + "}";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
 #endif
@@ -150,5 +155,11 @@ void SendMsg::finished(QNetworkReply* reply)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
+    QFile file("sendmsg.json");
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {                       
+        QTextStream out(&file);                                                    
+        out << replyStr;                                                           
+        file.close();                                                              
+    }
 #endif
 }
