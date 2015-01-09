@@ -1,5 +1,8 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#if QWX_DEBUG
+#include <QFile>
+#endif
 #include <time.h>
 
 #include "monitor.h"
@@ -70,10 +73,18 @@ void Monitor::finished(QNetworkReply* reply)
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
+    QFile file("synccheck.json"); 
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {                       
+        QTextStream out(&file);                                                    
+        out << replyStr;                                                           
+        file.close();                                                              
+    }
 #endif
     
     if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
+#if QWX_DEBUG
         qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << "needReSync";
+#endif
         emit needReSync(); 
         return;
     }

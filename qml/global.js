@@ -8,5 +8,6 @@ var skey = "";
 var ticket = "";
 var deviceId = "";
 var loginUserName = "";
+var initSyncKey;
 var syncKey;
 var initContactList;

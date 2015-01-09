@@ -10,8 +10,6 @@ Item {
     id: navigatorView
     width: parent.width; height: parent.height
 
-    property var syncKey
-
     Sync {
         id: syncObj
         onSyncKeyChanged: {
@@ -20,9 +18,9 @@ Item {
         Component.onCompleted: {
             if (Global.v2) {
                 // TODO: from Init syncKey
-                syncObj.postV2(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
+                syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
             } else {
-                syncObj.post(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
+                syncObj.post(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
             }
         }
     }
@@ -38,25 +36,34 @@ Item {
         }
     }
 
+    function doMonitor() 
+    {
+        if (Global.v2) {
+            monitorObj.getV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+        } else {
+            monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+        }
+    }
+
     Monitor {
         id: monitorObj
+        Component.onCompleted: {
+            doMonitor()
+        }
         onNeedReSync: {
-            if (Global.v2) {                                                       
-                syncObj.postV2(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)            } else {                                                            
-                syncObj.post(Global.uin, Global.sid, Global.skey, navigatorView.syncKey)
+            if (Global.v2) {
+                syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey) 
+            } else {
+                syncObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
             }
         }
     }
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 300000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 27000; running: true; repeat: true; triggeredOnStart: true 
         onTriggered: {
-            if (Global.v2) {
-                monitorObj.getV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
-            } else {
-                monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
-            }
+            doMonitor()
         }
     }
 

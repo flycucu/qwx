@@ -99,10 +99,9 @@ Item {
             Global.deviceId = initObj.deviceId
             Global.loginUserName = initObj.loginUserName
             Global.initContactList = initObj.contactList
+            Global.initSyncKey = syncKey
             rootWindowStackView.clear()
-            rootWindowStackView.push({
-                item: Qt.resolvedUrl("NavigatorView.qml"),  
-                properties: {syncKey: syncKey}})
+            rootWindowStackView.push({item: Qt.resolvedUrl("NavigatorView.qml")})
         }
     }
 }
