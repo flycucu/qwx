@@ -13,7 +13,6 @@ Rectangle {
     property string fromUserName
     property string toUserName
     property string toNickName
-    property bool quitRobot: true
 
     function moveToTheEnd() 
     {
@@ -27,7 +26,7 @@ Rectangle {
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
-            if (quitRobot) {
+            if (!Global.isRobot) {
                 return
             }
             content = "小逗比：" + content
@@ -88,19 +87,19 @@ Rectangle {
         toUserName: chatView.toUserName
         onReceived: {
             if (content == "小逗比退下") {
-                quitRobot = true
+                Global.isRobot = false
             } else if (content == "小逗比出来") {
-                quitRobot = false
+                Global.isRobot = true
             }
             chatListModel.append({"content": content, 
                                   "curUserName": userName})
             moveToTheEnd()
-            if (!quitRobot) { 
+            if (Global.isRobot) {
                 xiaodoubiObj.get(content)
             }
         }
         onNewMsg: {
-            if (!quitRobot) {
+            if (Global.isRobot) {
                 xiaodoubiObj.get(content)
             }
             if (fromUserName != chatView.fromUserName || 
@@ -185,7 +184,7 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: { navigatorStackView.pop() }
+                onClicked: { navigatorStackView.pop(); }
             }
         }
 
@@ -219,7 +218,7 @@ Rectangle {
                             chatView.fromUserName, 
                             chatView.toUserName, 
                             sendMsgTextField.text, 
-                            Global.syncKey)
+                            Global.syncKey);
             } else {
                 sendMsgObj.send(Global.uin,
                                 Global.sid,
@@ -228,22 +227,22 @@ Rectangle {
                                 chatView.fromUserName,
                                 chatView.toUserName,
                                 sendMsgTextField.text,
-                                Global.syncKey)
+                                Global.syncKey);
             }
             chatListModel.append({"content": sendMsgTextField.text, 
-                                  "curUserName": chatView.fromUserName})
+                                  "curUserName": chatView.fromUserName});
             if (sendMsgTextField.text == "away") {
                 Global.isAway = true;                     
             } else if (sendMsgTextField.text == "back") {
                 Global.isAway = false;
             } else if (sendMsgTextField.text == "小逗比出来") {
-                quitRobot = false
-                xiaodoubiObj.get(sendMsgTextField.text)
+                Global.isRobot = true;
+                xiaodoubiObj.get(sendMsgTextField.text);
             } else if (sendMsgTextField.text == "小逗比退下") {
-                quitRobot = true
+                Global.isRobot = false;
             }
-            sendMsgTextField.text = ""
-            moveToTheEnd()
+            sendMsgTextField.text = "";
+            moveToTheEnd();
         }
     }
 }

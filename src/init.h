@@ -10,7 +10,7 @@ class Init : public HttpPost
     Q_OBJECT
 
     
-    Q_PROPERTY(QString deviceId NOTIFY deviceIdChanged)
+    Q_PROPERTY(QString deviceId READ deviceId NOTIFY deviceIdChanged)
     Q_PROPERTY(QString loginUserName READ loginUserName NOTIFY loginUserNameChanged)
     Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
     Q_PROPERTY(QString loginHeadImgUrl READ loginHeadImgUrl NOTIFY loginHeadImgUrlChanged)

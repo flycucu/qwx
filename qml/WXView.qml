@@ -54,6 +54,9 @@ Item {
 
     GetMsg {
         id: getMsgObj
+        onSyncKeyChanged: {
+            Global.syncKey = getMsgObj.syncKey
+        }
         onNewMsg: {
             var isExist = false;
 

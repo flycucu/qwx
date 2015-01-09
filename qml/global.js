@@ -3,6 +3,7 @@
 .pragma library
 var v2 = false;
 var isAway = false;
+var isRobot = false;
 var uin = "";
 var sid = "";
 var skey = "";

@@ -25,7 +25,8 @@ OTHER_FILES += \
     qml/ChatView.qml    \
     qml/TalkBubble.qml  \
     qml/ContactListView.qml \
-    qml/IView.qml
+    qml/IView.qml \
+    qml/global.js
 
 RESOURCES += \
     resources.qrc
