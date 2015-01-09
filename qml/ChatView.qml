@@ -20,6 +20,10 @@ Rectangle {
         chatListView.positionViewAtEnd()
     }
 
+    Component.onCompleted: {
+        Global.chatView = chatView
+    }
+
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
@@ -69,6 +73,15 @@ Rectangle {
         program: "notify-send"
     }
 
+    function doNewMsg()                                                            
+    {                                                                              
+        if (Global.v2) {                                                           
+            getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey);
+        } else {                                                                   
+            getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey);
+        }                                                                          
+    }
+
     GetMsg {                                                                       
         id: getMsgObj
         fromUserName: chatView.fromUserName
@@ -103,18 +116,6 @@ Rectangle {
             Global.syncKey = getMsgObj.syncKey
         }
     }                                                                              
-                                                                                   
-    Timer {                                                                        
-        id: getMsgTimer                                                            
-        interval: 3000; running: true; repeat: true; triggeredOnStart: true 
-        onTriggered: {                                                             
-            if (Global.v2) {
-                getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey)
-            } else {
-                getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
-            }
-        }                                                                          
-    }
 
     SendMsg {
         id: sendMsgObj

@@ -14,10 +14,10 @@ Item {
         id: syncObj
         onSyncKeyChanged: {
             Global.syncKey = syncObj.syncKey
+            doMonitor()
         }
         Component.onCompleted: {
             if (Global.v2) {
-                // TODO: from Init syncKey
                 syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
             } else {
                 syncObj.post(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
@@ -47,21 +47,14 @@ Item {
 
     Monitor {
         id: monitorObj
-        Component.onCompleted: {
-            doMonitor()
-        }
-        onNeedReSync: {
-            if (Global.v2) {
-                syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey) 
-            } else {
-                syncObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
-            }
+        onNewMsg: {
+            Global.monitorNewMsg()
         }
     }
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 27000; running: true; repeat: true; triggeredOnStart: true 
+        interval: 3000; running: true; repeat: true 
         onTriggered: {
             doMonitor()
         }

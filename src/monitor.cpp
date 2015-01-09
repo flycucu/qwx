@@ -29,10 +29,11 @@ void Monitor::get(QString uin,
                   QString deviceId, 
                   QStringList syncKey) 
 {
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << syncKey;
     QString ts = QString::number(time(NULL));
     QString url = "https://webpush.weixin.qq.com" + WX_CGI_PATH + 
         "synccheck?skey=" + skey + 
-        "&callback=jQuery18308660551080269895_1388975862078&r=" + ts + 
+        "&callback=jQuery183084135492448695_1420782130686&r=" + ts + 
         "&sid=" + sid + "&uin=" + uin + "&deviceid=" + deviceId + 
         "&synckey=";
     for (int i = 0; i < syncKey.size(); i++) {
@@ -89,9 +90,9 @@ void Monitor::finished(QNetworkReply* reply)
     
     if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
 #if QWX_DEBUG
-        qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << "needReSync";
+        qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << "newMsg";
 #endif
-        emit needReSync(); 
+        emit newMsg(); 
         return;
     }
 }

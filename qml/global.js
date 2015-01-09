@@ -11,3 +11,14 @@ var loginUserName = "";
 var initSyncKey;
 var syncKey;
 var initContactList;
+var wxView;
+var chatView;
+
+function monitorNewMsg() 
+{
+    if (typeof(wxView) != 'undefined')
+        wxView.doNewMsg();
+
+    if (typeof(chatView) != 'undefined')
+        chatView.doNewMsg();
+}

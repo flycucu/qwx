@@ -25,8 +25,7 @@ public:
                          QStringList syncKey);
 
 Q_SIGNALS:
-    void error();
-    void needReSync();
+    void newMsg();
 
 protected:
     void finished(QNetworkReply* reply);

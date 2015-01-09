@@ -159,10 +159,6 @@ https://webpush.weixin.qq.com/cgi-bin/mmwebwx-bin/synccheck?callback=jQuery18308
 https://webpush.weixin.qq.com/cgi-bin/mmwebwx-bin/synccheck?callback=jQuery18308660551080269895_1388975862078&r=1388976146265&sid=e75TXbI7TnKUevmI&uin=750366800&deviceid=e519062714508114&synckey=1_620916854%7C2_620917963%7C3_620917948%7C11_1388976090%7C1000_1388967977&_=1388976146265
 
 
-例子：
-https://webpush.weixin.qq.com/cgi-bin/mmwebwx-bin/synccheck?skey=%40{skey值}callback=jQuery183017694299132563174_1418627760946&r={时间戳}&sid={sid值}&uin={uin值}&deviceid=e{随机数}&synckey=1_631888572%7C2_631894617%7C3_631894218%7C11_631894254%7C1000_1418604986&_=1418627806591
-
-
 ### 正常返回结果
 
 window.synccheck={retcode:"0",selector:"0"}

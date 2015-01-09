@@ -19,6 +19,8 @@ Item {
     }
 
     Component.onCompleted: {
+        Global.wxView = wxView
+        
         for (var i = 0; i < Global.initContactList.length; i++) {
             wxListModel.append({"mUserName": Global.initContactList[i].userName, 
             "mNickName": Global.initContactList[i].nickName, 
@@ -35,6 +37,15 @@ Item {
                 contactObj.post()                                                  
             }                                                                      
         }                                                                          
+    }
+
+    function doNewMsg() 
+    {
+        if (Global.v2) {
+            getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey);
+        } else {
+            getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey);
+        }
     }
 
     GetMsg {
@@ -62,22 +73,6 @@ Item {
                 }
             }
         }
-        onSyncKeyChanged: {
-            // FIXME: 什么时候用GetMsg的6个元素的SyncKey
-            //Global.syncKey = getMsgObj.syncKey
-        }
-    }
-
-    Timer {                                                                        
-        id: getMsgTimer                                                            
-        interval: 3000; running: true; repeat: true; triggeredOnStart: true        
-        onTriggered: {                                                             
-            if (Global.v2) {                                                     
-                getMsgObj.postV2(Global.uin, Global.sid, Global.skey, Global.syncKey)
-            } else {                                                               
-                getMsgObj.post(Global.uin, Global.sid, Global.skey, Global.syncKey)
-            }                                                                      
-        }                                                                          
     }
 
     ListView {
