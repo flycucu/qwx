@@ -85,7 +85,11 @@ Rectangle {
         id: getMsgObj
         fromUserName: chatView.fromUserName
         toUserName: chatView.toUserName
+        onNoMsg: {
+            rootWindow.title = "微信Qt前端";
+        }
         onReceived: {
+            rootWindow.title = "微信Qt前端 - 有新消息";
             if (content == "小逗比退下") {
                 Global.isRobot = false;
             } else if (content == "小逗比出来") {
