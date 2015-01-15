@@ -119,8 +119,8 @@ void GetMsg::finished(QNetworkReply* reply)
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
         QString content = msg["Content"] .toString();
 
-        // TODO: filter the click HeadImgUrl generated new content
-        if (content.indexOf("op id='2'") != -1)
+        // TODO: filter <msg></msg> temporarly
+        if (content.indexOf("msg") != -1)
             continue;
 
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {

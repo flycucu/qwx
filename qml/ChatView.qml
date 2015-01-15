@@ -87,15 +87,14 @@ Rectangle {
         toUserName: chatView.toUserName
         onReceived: {
             if (content == "小逗比退下") {
-                Global.isRobot = false
+                Global.isRobot = false;
             } else if (content == "小逗比出来") {
-                Global.isRobot = true
+                Global.isRobot = true;
             }
-            chatListModel.append({"content": content, 
-                                  "curUserName": userName})
-            moveToTheEnd()
+            chatListModel.append({"content": content, "curUserName": userName});
+            moveToTheEnd();
             if (Global.isRobot) {
-                xiaodoubiObj.get(content)
+                xiaodoubiObj.get(content);
             }
         }
         onNewMsg: {
@@ -240,6 +239,8 @@ Rectangle {
                 xiaodoubiObj.get(sendMsgTextField.text);
             } else if (sendMsgTextField.text == "小逗比退下") {
                 Global.isRobot = false;
+            } else if (Global.isRobot) {
+                xiaodoubiObj.get(sendMsgTextField.text);
             }
             sendMsgTextField.text = "";
             moveToTheEnd();
