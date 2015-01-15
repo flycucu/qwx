@@ -19,12 +19,12 @@ Item {
     }
 
     Component.onCompleted: {
-        Global.wxView = wxView
+        Global.wxView = wxView;
         
         for (var i = 0; i < Global.initContactList.length; i++) {
             wxListModel.append({"mUserName": Global.initContactList[i].userName, 
-            "mNickName": Global.initContactList[i].nickName, 
-            "mContent": ""}) 
+                                "mNickName": Global.initContactList[i].nickName, 
+                                "mContent": ""});
         }
     }
 

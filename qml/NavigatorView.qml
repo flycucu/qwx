@@ -47,8 +47,16 @@ Item {
 
     Monitor {
         id: monitorObj
+        onNoMsg: {
+            rootWindow.title = "微信Qt前端";
+        }
+        onError: {
+            rootWindow.title = "微信Qt前端";
+            Global.monitorNewMsg();
+        }
         onNewMsg: {
-            Global.monitorNewMsg()
+            rootWindow.title = "微信Qt前端 - 有新消息";
+            Global.monitorNewMsg();
         }
     }
 

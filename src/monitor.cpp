@@ -87,11 +87,13 @@ void Monitor::finished(QNetworkReply* reply)
     }
 #endif
     
-    if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
-#if QWX_DEBUG
-        qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << "newMsg";
-#endif
-        emit newMsg(); 
+    if (replyStr == "window.synccheck={retcode:\"1100\",selector:\"0\"}") {
+        emit error();
         return;
+    }
+    if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
+        emit newMsg(); 
+    } else {
+        emit noMsg();
     }
 }

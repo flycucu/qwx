@@ -25,6 +25,8 @@ public:
                          QStringList syncKey);
 
 Q_SIGNALS:
+    void error();
+    void noMsg();
     void newMsg();
 
 protected:
