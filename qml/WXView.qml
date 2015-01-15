@@ -55,11 +55,14 @@ Item {
     GetMsg {
         id: getMsgObj
         onSyncKeyChanged: {
-            Global.syncKey = getMsgObj.syncKey
+            Global.syncKey = getMsgObj.syncKey;
+        }
+        onNoMsg: {
+            rootWindow.title = "微信Qt前端";
         }
         onNewMsg: {
+            rootWindow.title = "微信Qt前端 - 有新消息";
             var isExist = false;
-
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).mUserName
                 if (userName == fromUserName || 

@@ -112,6 +112,8 @@ void GetMsg::finished(QNetworkReply* reply)
     QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());                
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();
+    if (obj["AddMsgCount"].toInt() == 0)
+        emit noMsg();
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
         QString fromUserNameStr = msg["FromUserName"].toString();

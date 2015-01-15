@@ -1,12 +1,12 @@
 qwx
 ===
 
-微信 Qt 前端，使用网页微信协议 doc/protocol.md
+微信 Qt 前端，使用网页微信协议 https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md
 
 
 ## 依赖
 
-Qt5.x（至少5.2）的qml、quick、network、xml 
+Qt5(>=5.2)的qml、quick、network、xml 
 
 
 ## 编译、运行
