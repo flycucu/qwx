@@ -79,10 +79,10 @@ Item {
             }
         }
         onSwitchToV2: {
-            Global.v2 = true
-            rootWindowStackView.clear()
+            Global.v2 = true;
+            rootWindowStackView.clear();
             rootWindowStackView.push({
-                item: Qt.resolvedUrl("SplashView.qml")})
+                item: Qt.resolvedUrl("SplashView.qml")});
         }
     }
 

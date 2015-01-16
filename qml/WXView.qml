@@ -55,6 +55,11 @@ Item {
     GetMsg {
         id: getMsgObj
         onSyncKeyChanged: {
+            if (getMsgObj.syncKey.length == 0) {
+                rootWindowStackView.clear(); 
+                rootWindowStackView.push({item: Qt.resolvedUrl("SplashView.qml")});
+                return;
+            }
             Global.syncKey = getMsgObj.syncKey;
         }
         onNoMsg: {
