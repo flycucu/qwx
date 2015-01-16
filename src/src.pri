@@ -1,7 +1,5 @@
 HEADERS += \
     $$PWD/globaldeclarations.h  \
-    $$PWD/qtsingleapplication/qtsingleapplication.h   \                      
-    $$PWD/qtsingleapplication/qtlocalpeer.h \
     $$PWD/httpget.h    \
     $$PWD/qwxuuid.h    \
     $$PWD/scan.h    \
@@ -24,8 +22,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/main.cpp  \
-    $$PWD/qtsingleapplication/qtsingleapplication.cpp   \                      
-    $$PWD/qtsingleapplication/qtlocalpeer.cpp   \
     $$PWD/httpget.cpp  \
     $$PWD/qwxuuid.cpp  \
     $$PWD/scan.cpp  \

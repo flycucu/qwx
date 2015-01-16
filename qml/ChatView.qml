@@ -67,11 +67,6 @@ Rectangle {
         }                                                                          
     }
 
-    Process {
-        id: processObj
-        program: "notify-send"
-    }
-
     function doNewMsg()                                                            
     {                                                                              
         if (Global.v2) {                                                           
@@ -113,8 +108,6 @@ Rectangle {
                 } else {
                     nickName = contactObj.getNickName(fromUserName)
                 }
-                processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000']
-                processObj.start()
             }
         }
     }                                                                              

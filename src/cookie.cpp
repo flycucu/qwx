@@ -61,7 +61,7 @@ void Cookie::finished(QNetworkReply* reply)
     if (!qwxDir.exists(cookiePath)) qwxDir.mkdir(QWXDIR);
     QFile file(cookiePath);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        qWarning() << "ERROR: fail to save cookie!";
+        qWarning() << "ERROR: fail to save cookie" << cookiePath;
         return;
     }
     QTextStream out(&file);

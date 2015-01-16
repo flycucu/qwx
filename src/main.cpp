@@ -1,10 +1,10 @@
 // Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
+#include <QtGui/QGuiApplication>
 #include <QtQml>
 #include <QtQuick/QQuickView>
 
 #include "globaldeclarations.h"
-#include "qtsingleapplication/QtSingleApplication"
 #include "qwxuuid.h"
 #include "scan.h"
 #include "cookie.h"
@@ -23,8 +23,7 @@
 
 int main(int argc, char* argv[]) 
 {                                                                        
-    QtSingleApplication app(argc, argv);
-    if (app.isRunning()) return 0;
+    QGuiApplication app(argc, argv);
     app.setApplicationName(CODE_NAME);
     app.setApplicationVersion(APPLICATION_VERSION);
 

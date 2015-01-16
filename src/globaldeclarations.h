@@ -18,7 +18,7 @@ const QString WX_CGI_PATH = "/cgi-bin/mmwebwx-bin/";
 
 const QString XIAODOUBI_URL = "http://www.xiaodoubi.com/bot/api.php?chat=";
 
-const QString QWXDIR = QDir::homePath() + "/." + CODE_NAME;
+const QString QWXDIR = "/storage/emulated/0/" + CODE_NAME;
 const QString COOKIE_FILENAME = ".cookie";
 
 #endif // GLOBAL_DECLARATIONS_H
