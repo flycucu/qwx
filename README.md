@@ -1,7 +1,7 @@
 qwx
 ===
 
-微信 Qt 前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/android/doc/protocol.md)
+微信 Qt 前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/android/doc/protocol.md) 请不要用于商业用途！图片、协议版权归腾讯所有。
 
 
 ## 依赖
