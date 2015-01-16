@@ -1,7 +1,7 @@
 qwx
 ===
 
-微信 Qt 前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md)
+微信 Qt 前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/android/doc/protocol.md)
 
 
 ## 依赖
@@ -32,8 +32,8 @@ sudo vim /etc/hosts
 
 ## 重度开发状态下的原型骨架截图
 
-![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/qrcode.jpg)
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/android/doc/qrcode.jpg)
 
-![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/chat.jpg)
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/android/doc/chat.jpg)
 
-![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/wechat.jpg)
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/android/doc/wechat.jpg)
