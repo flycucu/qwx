@@ -57,7 +57,7 @@ Item {
 
     Timer {                                                                        
         id: monitorTimer                                                              
-        interval: 3000; running: true; repeat: true 
+        interval: 6000; running: true; repeat: true 
         onTriggered: {
             doMonitor()
         }
