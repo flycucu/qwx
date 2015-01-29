@@ -9,11 +9,10 @@
 #include <time.h>
 
 #include "contact.h"
-#include "userobject.h"
 #include "globaldeclarations.h"
 
-Contact::Contact(HttpPost* parent) 
-  : HttpPost(parent)
+Contact::Contact(QObject* parent) 
+  : QAbstractListModel(parent)
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -27,8 +26,6 @@ Contact::~Contact()
 #endif
 }
 
-QList<QObject*> Contact::contactList() const { return m_contactList; }
-
 void Contact::post() 
 {
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
@@ -37,7 +34,8 @@ void Contact::post()
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{}";
-    HttpPost::post(url, json, true);
+    connect(&m_httpPost, &HttpPost::signalFinished, this, &Contact::m_slotFinished);
+    m_httpPost.post(url, json, true);
 }
 
 void Contact::postV2() 
@@ -48,10 +46,41 @@ void Contact::postV2()
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{}";
-    HttpPost::post(url, json, true);
+    connect(&m_httpPost, &HttpPost::signalFinished, this, &Contact::m_slotFinished);
+    m_httpPost.post(url, json, true);
 }
 
-void Contact::finished(QNetworkReply* reply) 
+int Contact::rowCount(const QModelIndex & parent) const 
+{
+    Q_UNUSED(parent);
+    return m_contactList.size();
+}
+
+QVariant Contact::data(const QModelIndex & index, int role) const 
+{
+    if (index.row() < 0 || index.row() >= m_contactList.size())
+        return QVariant();
+
+    UserObject* user = m_contactList[index.row()];
+    if (role == UserNameRole)
+        return user->userName();
+    else if (role == NickNameRole)
+        return user->nickName();
+    else if (role == HeadImgUrlRole)
+        return user->headImgUrl();
+    return QVariant(); 
+}
+                                                                                
+QHash<int, QByteArray> Contact::roleNames() const 
+{
+    QHash<int, QByteArray> roles;
+    roles[UserNameRole] = "contactUserName";
+    roles[NickNameRole] = "nickName";
+    roles[HeadImgUrlRole] = "headImgUrl";
+    return roles;
+}
+
+void Contact::m_slotFinished(QNetworkReply* reply) 
 {
     QString replyStr(reply->readAll());
 #if QWX_DEBUG
@@ -70,21 +99,20 @@ void Contact::finished(QNetworkReply* reply)
     QJsonArray arr = obj["MemberList"].toArray();                              
     foreach (const QJsonValue & val, arr) {                                        
         QJsonObject user = val.toObject();                                         
-        m_contactList.append(new UserObject(                                    
-            user["UserName"].toString(),                                           
-            user["NickName"].toString(),                                           
-            WX_SERVER_HOST + user["HeadImgUrl"].toString()));                      
+        beginInsertRows(QModelIndex(), rowCount(), rowCount());
+        m_contactList.append(new UserObject(user["UserName"].toString(), 
+                                    user["NickName"].toString(), 
+                                    WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+        endInsertRows();
     }                                                                              
     emit contactListChanged();
 }
 
 QString Contact::getNickName(QString userName) 
 {
-    foreach (QObject* obj, m_contactList) {
-        UserObject* user = reinterpret_cast<UserObject*>(obj);
-        if (user->userName() == userName) {
-            return user->nickName();
-        }
+    for (int i = 0; i < m_contactList.size(); i++) {
+        if (m_contactList[i]->userName() == userName)
+            return m_contactList[i]->nickName();
     }
 
     return "";

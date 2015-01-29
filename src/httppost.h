@@ -18,6 +18,9 @@ public:
 public:
     void post(QString url, QString str, bool needSetCookie = false);
 
+Q_SIGNALS:
+    void signalFinished(QNetworkReply* reply);
+
 protected:
     virtual void finished(QNetworkReply* reply);
 

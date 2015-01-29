@@ -19,7 +19,7 @@ Item {
             }
         }
         onContactListChanged: {
-            modContactListView.model = contactObj.contactList
+            modContactListView.model = contactObj
         }
     }
 
@@ -32,7 +32,7 @@ Item {
 
             HeadImg {                                                              
                 v2: Global.v2
-                userName: modelData.userName                                       
+                userName: contactUserName                                       
                 onFilePathChanged: {                                               
                     headImage.imageSource = filePath
                 }                                                                  
@@ -48,7 +48,7 @@ Item {
             }                                                                      
                                                                                    
             Text {                                                                 
-                text: modelData.nickName                                           
+                text: nickName                                           
                 font.pixelSize: 13                                                 
                 anchors.top: parent.top                                            
                 anchors.topMargin: 14                                              
@@ -68,8 +68,8 @@ Item {
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {
                             fromUserName: Global.loginUserName,
-                            toUserName: modelData.userName,                    
-                            toNickName: modelData.nickName}})                  
+                            toUserName: contactUserName,                    
+                            toNickName: nickName}})                  
                 }                                                              
             }
         }

@@ -47,6 +47,7 @@ void HttpPost::finished(QNetworkReply*) {}
 
 void HttpPost::m_finished(QNetworkReply* reply) 
 {
+    emit signalFinished(reply);
     this->finished(reply);
     disconnect(&m_nam, SIGNAL(finished(QNetworkReply*)), 
                this, SLOT(m_finished(QNetworkReply*)));

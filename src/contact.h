@@ -3,19 +3,27 @@
 #ifndef CONTACT_H
 #define CONTACT_H
 
-#include "httppost.h"
+#include <QAbstractListModel>
 
-class Contact : public HttpPost 
+#include "httppost.h"
+#include "userobject.h"
+
+class Contact : public QAbstractListModel 
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
-
 public:
-    Contact(HttpPost* parent = nullptr);
+    enum ContactRoles {
+        UserNameRole = Qt::UserRole + 1,
+        NickNameRole,
+        HeadImgUrlRole
+    };
+
+    explicit Contact(QObject* parent = nullptr);
     ~Contact();
 
-    QList<QObject*> contactList() const;
+    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
@@ -26,10 +34,14 @@ Q_SIGNALS:
     void contactListChanged();
 
 protected:
-    void finished(QNetworkReply* reply);
+    QHash<int, QByteArray> roleNames() const;
+
+private Q_SLOTS:
+    void m_slotFinished(QNetworkReply* reply);
 
 private:
-    QList<QObject*> m_contactList;
+    QList<UserObject*> m_contactList;
+    HttpPost m_httpPost;
 };
 
 #endif // CONTACT_H
