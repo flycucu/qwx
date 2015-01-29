@@ -8,6 +8,10 @@ qwx
 
 Qt5(>=5.2)的qml、quick、network、xml 
 
+### Rock for wayland 
+
+[QtWayland 5.4 with QtCompositor] (https://github.com/papyros/papyros-shell#dependencies)
+
 
 ## 编译、运行
 
