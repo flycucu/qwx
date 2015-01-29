@@ -24,6 +24,8 @@ make
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/login.png)
 
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/wayland-screenshot.png)
+
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/chat.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/wechat.png)

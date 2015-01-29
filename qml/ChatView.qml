@@ -29,7 +29,6 @@ Rectangle {
             if (!Global.isRobot) {
                 return
             }
-            content = "小逗比：" + content
             if (Global.v2) {
                 sendMsgObj.sendV2(Global.uin,
                             Global.sid,                                          
@@ -90,9 +89,9 @@ Rectangle {
         }
         onReceived: {
             rootWindow.title = "微信Qt前端 - 有新消息";
-            if (content == "小逗比退下") {
+            if (content == "小逗比退下" || content == "robot away") {
                 Global.isRobot = false;
-            } else if (content == "小逗比出来") {
+            } else if (content == "小逗比出来" || content == "robot come") {
                 Global.isRobot = true;
             }
             chatListModel.append({"content": content, "curUserName": userName});
@@ -238,10 +237,12 @@ Rectangle {
                 Global.isAway = true;                     
             } else if (sendMsgTextField.text == "back") {
                 Global.isAway = false;
-            } else if (sendMsgTextField.text == "小逗比出来") {
+            } else if (sendMsgTextField.text == "小逗比出来" || 
+                       sendMsgTextField.text == "robot come") {
                 Global.isRobot = true;
                 xiaodoubiObj.get(sendMsgTextField.text);
-            } else if (sendMsgTextField.text == "小逗比退下") {
+            } else if (sendMsgTextField.text == "小逗比退下" || 
+                       sendMsgTextField.text == "robot away") {
                 Global.isRobot = false;
             } else if (Global.isRobot) {
                 xiaodoubiObj.get(sendMsgTextField.text);
