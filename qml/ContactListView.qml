@@ -13,13 +13,13 @@ Item {
         id: contactObj
         Component.onCompleted: {
             if (Global.v2) {
-                contactObj.postV2()
+                contactObj.postV2();
             } else {
-                contactObj.post()
+                contactObj.post();
             }
         }
         onContactListChanged: {
-            modContactListView.model = contactObj
+            modContactListView.model = contactObj;
         }
     }
 

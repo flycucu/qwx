@@ -24,7 +24,8 @@ public:
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-
+    
+    Q_INVOKABLE void addContact(QString userName, QString nickName, QString headImgUrl);
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
     Q_INVOKABLE QString getNickName(QString nickName);

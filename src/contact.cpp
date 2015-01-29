@@ -26,6 +26,14 @@ Contact::~Contact()
 #endif
 }
 
+void Contact::addContact(QString userName, QString nickName, QString headImgUrl) 
+{
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_contactList.append(new UserObject(userName, nickName, WX_SERVER_HOST + headImgUrl));
+    endInsertRows();
+    emit contactListChanged();
+}
+
 void Contact::post() 
 {
     QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
