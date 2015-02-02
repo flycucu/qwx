@@ -55,22 +55,6 @@ Rectangle {
         }
     }
 
-    Contact {                                                                      
-        id: contactObj                                                             
-        Component.onCompleted: {                                                   
-            if (Global.v2) {                                                       
-                contactObj.postV2()                                                
-            } else {                                                               
-                contactObj.post()                                                  
-            }                                                                      
-        }                                                                          
-    }
-
-    Process {
-        id: processObj
-        program: "notify-send"
-    }
-
     function doNewMsg()                                                            
     {                                                                              
         if (Global.v2) {                                                           
@@ -103,17 +87,6 @@ Rectangle {
         onNewMsg: {
             if (Global.isRobot) {
                 xiaodoubiObj.get(content)
-            }
-            if (fromUserName != chatView.fromUserName || 
-                fromUserName != chatView.toUserName) {
-                var nickName = ""
-                if (chatView.fromUserName == fromUserName) {
-                    nickName = contactObj.getNickName(toUserName)
-                } else {
-                    nickName = contactObj.getNickName(fromUserName)
-                }
-                processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000']
-                processObj.start()
             }
         }
     }                                                                              

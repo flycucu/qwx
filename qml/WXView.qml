@@ -51,6 +51,11 @@ Item {
         id: sendMsgObj
     }
 
+    Process {                                                                      
+        id: processObj                                                             
+        program: "notify-send"                                                     
+    }
+
     GetMsg {
         id: getMsgObj
         onSyncKeyChanged: {
@@ -67,8 +72,10 @@ Item {
         onNewMsg: {
             rootWindow.title = "微信Qt前端 - 有新消息";
             var isExist = false;
+            var nickName = "";
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
+                nickName = contactObj.getNickName(userName);
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true;
@@ -80,12 +87,19 @@ Item {
 
             if (isExist == false) {
                 if (Global.loginUserName == fromUserName) {
+                    nickName = contactObj.getNickName(toUserName);
                     wxListModel.insert(0, {"wxUserName": toUserName, 
-                            "wxNickName": contactObj.getNickName(toUserName)});
+                                           "wxNickName": nickName});
                 } else {
+                    nickName = contactObj.getNickName(fromUserName);
                     wxListModel.insert(0, {"wxUserName": fromUserName, 
-                            "wxNickName": contactObj.getNickName(fromUserName)});
+                                           "wxNickName": nickName});
                 }
+            }
+
+            if (nickName != "") {
+                processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000'];
+                processObj.start();
             }
 
             if (Global.isAway) {
