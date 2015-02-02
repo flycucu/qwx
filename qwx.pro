@@ -56,6 +56,6 @@ unix {
     desktop.path = $$DATADIR/applications
     desktop.files += $${TARGET}.desktop
 
-    icon.path = $$DATADIR/icons/hicolor/512x512/apps
+    icon.path = $$DATADIR/icons/hicolor/64x64/apps
     icon.files += images/$${TARGET}.png
 }

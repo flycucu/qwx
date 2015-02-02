@@ -9,22 +9,21 @@ Item {
     id: wxView
     width: parent.width; height: parent.height
 
-    ListModel {                                                                    
-        id: wxListModel                                                          
-        Component.onCompleted: {                                                   
-            wxListModel.remove(0)                                          
-        }                                                                          
+    ListModel {
+        id: wxListModel
+        Component.onCompleted: {
+            wxListModel.remove(0);
+        } 
                                                                                    
-        ListElement { mUserName: ""; mNickName: ""; mContent: "" } 
+        ListElement { wxUserName: ""; wxNickName: ""; wxContent: "" } 
     }
 
     Component.onCompleted: {
         Global.wxView = wxView;
-        
         for (var i = 0; i < Global.initContactList.length; i++) {
-            wxListModel.append({"mUserName": Global.initContactList[i].userName, 
-                                "mNickName": Global.initContactList[i].nickName, 
-                                "mContent": ""});
+            wxListModel.append({"wxUserName": Global.initContactList[i].userName, 
+                                "wxNickName": Global.initContactList[i].nickName, 
+                                "wxContent": ""});
         }
     }
 
@@ -69,11 +68,11 @@ Item {
             rootWindow.title = "微信Qt前端 - 有新消息";
             var isExist = false;
             for (var i = 0; i < wxListModel.count; i++) {
-                var userName = wxListModel.get(i).mUserName
+                var userName = wxListModel.get(i).wxUserName;
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true;
-                    wxListModel.get(i).mContent = content;
+                    wxListModel.get(i).wxContent = content;
                     wxListModel.move(i, 0, 1);
                     break;
                 }
@@ -81,11 +80,11 @@ Item {
 
             if (isExist == false) {
                 if (Global.loginUserName == fromUserName) {
-                    wxListModel.insert(0, {"mUserName": toUserName, 
-                            "mNickName": contactObj.getNickName(toUserName)});
+                    wxListModel.insert(0, {"wxUserName": toUserName, 
+                            "wxNickName": contactObj.getNickName(toUserName)});
                 } else {
-                    wxListModel.insert(0, {"mUserName": fromUserName, 
-                            "mNickName": contactObj.getNickName(fromUserName)});
+                    wxListModel.insert(0, {"wxUserName": fromUserName, 
+                            "wxNickName": contactObj.getNickName(fromUserName)});
                 }
             }
 
@@ -124,7 +123,7 @@ Item {
             HeadImg {
                 id: headImgObj
                 v2: Global.v2
-                userName: mUserName
+                userName: wxUserName
                 onFilePathChanged: {
                     headImage.imageSource = headImgObj.filePath
                 }
@@ -140,7 +139,7 @@ Item {
 
             Text {
                 id: nickNameText
-                text: mNickName
+                text: wxNickName
                 font.pixelSize: 13
                 anchors.top: parent.top
                 anchors.topMargin: 14
@@ -149,7 +148,7 @@ Item {
             }
 
             Text {
-                text: mContent
+                text: wxContent
                 font.pixelSize: 11
                 anchors.top: nickNameText.bottom
                 anchors.topMargin: 6
@@ -168,8 +167,8 @@ Item {
                         item: Qt.resolvedUrl("ChatView.qml"),                  
                         properties: {                                          
                             fromUserName: Global.loginUserName,
-                            toUserName: mUserName,                    
-                            toNickName: mNickName}})                  
+                            toUserName: wxUserName,                    
+                            toNickName: wxNickName}})                  
                 }                                                              
             }
         }

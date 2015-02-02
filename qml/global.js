@@ -10,6 +10,7 @@ var skey = "";
 var ticket = "";
 var deviceId = "";
 var loginUserName = "";
+var loginNickName = "";
 var initSyncKey;
 var syncKey;
 var initContactList;

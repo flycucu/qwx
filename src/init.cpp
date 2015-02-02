@@ -78,12 +78,6 @@ void Init::postV2(QString uin, QString sid, QString ticket)
     HttpPost::post(url, json, true);
 }
 
-QString Init::deviceId() const { return m_deviceId; }
-
-QString Init::loginUserName() const { return m_loginUserName; }
-
-QList<QObject*> Init::contactList() const { return m_contactList; }
-
 QString Init::loginHeadImgUrl() const 
 { 
     return "file://" + QWXDIR + "/" + m_loginUserName;
@@ -107,7 +101,8 @@ void Init::finished(QNetworkReply* reply)
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();
     QJsonObject user = obj["User"].toObject();
-    m_loginUserName = user["UserName"].toString(); 
+    m_loginUserName = user["UserName"].toString();
+    m_loginNickName = user["NickName"].toString();
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << m_loginUserName;
 #endif

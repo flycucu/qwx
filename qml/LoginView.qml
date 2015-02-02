@@ -93,15 +93,16 @@ Item {
     Init {
         id: initObj
         onSkeyChanged: {
-            if (skey != "") { 
-                Global.skey = skey 
-            }
-            Global.deviceId = initObj.deviceId
-            Global.loginUserName = initObj.loginUserName
-            Global.initContactList = initObj.contactList
-            Global.initSyncKey = syncKey
-            rootWindowStackView.clear()
-            rootWindowStackView.push({item: Qt.resolvedUrl("NavigatorView.qml")})
+            if (skey != "")
+                Global.skey = skey;
+
+            Global.deviceId = initObj.deviceId;
+            Global.loginUserName = initObj.loginUserName;
+            Global.loginNickName = initObj.loginNickName;
+            Global.initContactList = initObj.contactList;
+            Global.initSyncKey = syncKey;
+            rootWindowStackView.clear();
+            rootWindowStackView.push({item: Qt.resolvedUrl("NavigatorView.qml")});
         }
     }
 }
