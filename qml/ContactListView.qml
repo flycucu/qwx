@@ -9,14 +9,18 @@ Item {
     id: contactListView
     width: parent.width; height: parent.height
 
+    function contactRefresh() 
+    {
+        if (Global.v2)
+            contactObj.postV2();
+        else
+            contactObj.post();
+    }
+
     Contact {
         id: contactObj
         Component.onCompleted: {
-            if (Global.v2) {
-                contactObj.postV2();
-            } else {
-                contactObj.post();
-            }
+            contactRefresh();
         }
         onContactListChanged: {
             modContactListView.model = contactObj;
@@ -26,7 +30,10 @@ Item {
     ListView {
         id: modContactListView
         anchors.fill: parent
-
+        onMovementEnded: {
+            if (modContactListView.contentY == 0)
+                contactRefresh();
+        }
         delegate: Item {
             width: parent.width; height: 60
 
@@ -69,7 +76,7 @@ Item {
                         properties: {
                             fromUserName: Global.loginUserName,
                             toUserName: contactUserName,                    
-                            toNickName: nickName}})                  
+                            toNickName: nickName}});
                 }                                                              
             }
         }

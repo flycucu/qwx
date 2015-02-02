@@ -6,7 +6,8 @@
 #include <QAbstractListModel>
 
 #include "httppost.h"
-#include "userobject.h"
+
+class ContactObject;
 
 class Contact : public QAbstractListModel 
 {
@@ -25,7 +26,7 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
     
-    Q_INVOKABLE void addContact(QString userName, QString nickName, QString headImgUrl);
+    Q_INVOKABLE void addContact(const ContactObject & contact);
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
     Q_INVOKABLE QString getNickName(QString nickName);
@@ -41,8 +42,31 @@ private Q_SLOTS:
     void m_slotFinished(QNetworkReply* reply);
 
 private:
-    QList<UserObject*> m_contactList;
+    void m_clear();
+
+private:
+    QList<ContactObject> m_contactList;
     HttpPost m_httpPost;
+};
+
+class ContactObject 
+{
+public:
+    ContactObject(const QString & userName, 
+                  const QString & nickName, 
+                  const QString & headImgUrl) 
+      : m_userName(userName), m_nickName(nickName), m_headImgUrl(headImgUrl)
+    {
+    }
+
+    QString userName() const { return m_userName; }
+    QString nickName() const { return m_nickName; }
+    QString headImgUrl() const { return m_headImgUrl; }
+
+private:
+    QString m_userName;
+    QString m_nickName;
+    QString m_headImgUrl;
 };
 
 #endif // CONTACT_H
