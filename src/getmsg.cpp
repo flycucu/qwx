@@ -141,7 +141,6 @@ void GetMsg::finished(QNetworkReply* reply)
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
-                m_saveLog(createTimeStr, fromUserNameStr, content);
                 emit received(content, fromUserNameStr);
             }
         }
