@@ -41,6 +41,9 @@ protected:
     void finished(QNetworkReply* reply);
 
 private:
+    void m_saveLog(QString createTimeStr, QString fromUserName, QString content);
+
+private:
     QString m_fromUserName;
     QString m_toUserName;
     QMap<QString, int> m_map;

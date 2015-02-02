@@ -138,6 +138,7 @@ Rectangle {
                 chatListModel.append({"curUserName": chatLogObj.chatLogList[i].userName, 
                                       "content": chatLogObj.chatLogList[i].content});
             }
+            moveToTheEnd();
         }
     }
 

@@ -12,7 +12,7 @@
 GetMsg::GetMsg(HttpPost* parent) 
   : HttpPost(parent), 
     m_fromUserName(""), 
-    m_toUserName("")
+    m_toUserName("") 
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -94,6 +94,16 @@ void GetMsg::postV2(QString uin, QString sid, QString skey, QStringList syncKey)
     HttpPost::post(url, json, true);
 }
 
+void GetMsg::m_saveLog(QString createTimeStr, QString fromUserName, QString content) 
+{
+    QFile file(QWXDIR + "/" + fromUserName + ".txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << createTimeStr << " " << fromUserName << " " << content << "\n";
+        file.close();
+    }
+}
+
 void GetMsg::finished(QNetworkReply* reply) 
 {
     QString replyStr = QString(reply->readAll());
@@ -124,18 +134,14 @@ void GetMsg::finished(QNetworkReply* reply)
             continue;
 
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
+            m_saveLog(createTimeStr, fromUserNameStr, content);
             emit newMsg(content, fromUserNameStr, toUserNameStr);
         }
         
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
-                QFile file(QWXDIR + "/" + fromUserNameStr + ".txt");
-                if (file.open(QIODevice::Append | QIODevice::Text)) {
-                    QTextStream out(&file);
-                    out << createTimeStr << " " << fromUserNameStr << " " << content << "\n";
-                    file.close();
-                }
+                m_saveLog(createTimeStr, fromUserNameStr, content);
                 emit received(content, fromUserNameStr);
             }
         }
