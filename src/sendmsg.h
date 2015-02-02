@@ -55,6 +55,9 @@ public:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    void m_saveLog(QString fromUserName, QString toUserName, QString content);
 };
 
 #endif // SEND_MSG_H

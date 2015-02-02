@@ -1,8 +1,6 @@
 // Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#if QWX_DEBUG
 #include <QFile>
-#endif
 #include <QJsonDocument>                                                           
 #include <QJsonObject>                                                             
 #include <QJsonArray>
@@ -132,6 +130,12 @@ void GetMsg::finished(QNetworkReply* reply)
         if ((fromUserNameStr == m_fromUserName && toUserNameStr == m_toUserName) || 
             (fromUserNameStr == m_toUserName && toUserNameStr == m_fromUserName)) {
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
+                QFile file(QWXDIR + "/" + fromUserNameStr + ".txt");
+                if (file.open(QIODevice::Append | QIODevice::Text)) {
+                    QTextStream out(&file);
+                    out << createTimeStr << " " << fromUserNameStr << " " << content << "\n";
+                    file.close();
+                }
                 emit received(content, fromUserNameStr);
             }
         }

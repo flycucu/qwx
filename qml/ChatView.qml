@@ -124,11 +124,21 @@ Rectangle {
 
     ListModel {
         id: chatListModel
-        Component.onCompleted: {
-            chatListModel.clear()
-        }
 
         ListElement { content: ""; curUserName: "" }
+    }
+
+    ChatLog {
+        id: chatLogObj
+        Component.onCompleted: {
+            chatLogObj.load(chatView.toUserName);
+        }
+        onChatLogListChanged: {
+            for (var i = 0; i < chatLogObj.chatLogList.length; i++) {
+                chatListModel.append({"curUserName": chatLogObj.chatLogList[i].userName, 
+                                      "content": chatLogObj.chatLogList[i].content});
+            }
+        }
     }
 
     ListView {
@@ -200,10 +210,54 @@ Rectangle {
         }                                                                  
     }
 
+    function sendMsg() 
+    {
+        if (Global.v2) {
+            sendMsgObj.sendV2(Global.uin,
+                              Global.sid, 
+                              Global.skey,
+                              Global.deviceId, 
+                              chatView.fromUserName, 
+                              chatView.toUserName, 
+                              sendMsgTextField.text, 
+                              Global.syncKey);
+        } else {
+            sendMsgObj.send(Global.uin,
+                            Global.sid,
+                            Global.skey,
+                            Global.deviceId,
+                            chatView.fromUserName,
+                            chatView.toUserName,
+                            sendMsgTextField.text,
+                            Global.syncKey);
+        }
+        chatListModel.append({"content": sendMsgTextField.text, 
+                              "curUserName": chatView.fromUserName});
+        if (sendMsgTextField.text == "away") {
+            Global.isAway = true;                     
+        } else if (sendMsgTextField.text == "back") {
+            Global.isAway = false;
+        } else if (sendMsgTextField.text == "小逗比出来" || 
+                   sendMsgTextField.text == "robot come") {
+            Global.isRobot = true;
+            xiaodoubiObj.get(sendMsgTextField.text);
+        } else if (sendMsgTextField.text == "小逗比退下" || 
+                   sendMsgTextField.text == "robot away") {
+            Global.isRobot = false;
+        } else if (Global.isRobot)
+            xiaodoubiObj.get(sendMsgTextField.text);
+
+        sendMsgTextField.text = "";
+        moveToTheEnd();
+    }
+
     TextField {
         id: sendMsgTextField
         width: parent.width - sendButton.width
         anchors.bottom: parent.bottom
+        onAccepted: {
+            sendMsg();
+        }
     }
 
     Button {
@@ -212,43 +266,7 @@ Rectangle {
         anchors.top: sendMsgTextField.top
         anchors.right: parent.right
         onClicked: {
-            if (Global.v2) {
-                sendMsgObj.sendV2(Global.uin,
-                            Global.sid, 
-                            Global.skey,
-                            Global.deviceId, 
-                            chatView.fromUserName, 
-                            chatView.toUserName, 
-                            sendMsgTextField.text, 
-                            Global.syncKey);
-            } else {
-                sendMsgObj.send(Global.uin,
-                                Global.sid,
-                                Global.skey,
-                                Global.deviceId,
-                                chatView.fromUserName,
-                                chatView.toUserName,
-                                sendMsgTextField.text,
-                                Global.syncKey);
-            }
-            chatListModel.append({"content": sendMsgTextField.text, 
-                                  "curUserName": chatView.fromUserName});
-            if (sendMsgTextField.text == "away") {
-                Global.isAway = true;                     
-            } else if (sendMsgTextField.text == "back") {
-                Global.isAway = false;
-            } else if (sendMsgTextField.text == "小逗比出来" || 
-                       sendMsgTextField.text == "robot come") {
-                Global.isRobot = true;
-                xiaodoubiObj.get(sendMsgTextField.text);
-            } else if (sendMsgTextField.text == "小逗比退下" || 
-                       sendMsgTextField.text == "robot away") {
-                Global.isRobot = false;
-            } else if (Global.isRobot) {
-                xiaodoubiObj.get(sendMsgTextField.text);
-            }
-            sendMsgTextField.text = "";
-            moveToTheEnd();
-        }
+            sendMsg();
+        }   
     }
 }

@@ -20,7 +20,8 @@ HEADERS += \
     $$PWD/getmsg.h  \
     $$PWD/circleimage.h \
     $$PWD/process.h \
-    $$PWD/xiaodoubi.h
+    $$PWD/xiaodoubi.h   \
+    $$PWD/chatlog.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -43,4 +44,5 @@ SOURCES += \
     $$PWD/getmsg.cpp    \
     $$PWD/circleimage.cpp   \
     $$PWD/process.cpp   \
-    $$PWD/xiaodoubi.cpp
+    $$PWD/xiaodoubi.cpp \
+    $$PWD/chatlog.cpp

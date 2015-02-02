@@ -1,8 +1,6 @@
 // Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
-#if QWX_DEBUG
 #include <QFile>
-#endif
 #include <time.h>
 
 #include "sendmsg.h"
@@ -23,6 +21,16 @@ SendMsg::~SendMsg()
 #endif
 }
 
+void SendMsg::m_saveLog(QString fromUserName, QString toUserName, QString content) 
+{
+    QFile file(QWXDIR + "/" + toUserName + ".txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << QString::number(time(NULL)) << " " << fromUserName << " " << content << "\n";
+        file.close();
+    }
+}
+
 void SendMsg::send(QString uin, 
                    QString sid, 
                    QString skey,
@@ -32,6 +40,7 @@ void SendMsg::send(QString uin,
                    QString content, 
                    QStringList syncKey) 
 {   
+    m_saveLog(fromUserName, toUserName, content);
     post(uin, sid, skey, deviceId, fromUserName, toUserName, content);
     sync(uin, sid, skey, syncKey);
 }
@@ -45,6 +54,7 @@ void SendMsg::sendV2(QString uin,
                    QString content,
                    QStringList syncKey)
 {
+    m_saveLog(fromUserName, toUserName, content);
     postV2(uin, sid, skey, deviceId, fromUserName, toUserName, content);
     syncV2(uin, sid, skey, syncKey);
 }

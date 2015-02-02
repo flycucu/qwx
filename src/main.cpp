@@ -20,6 +20,7 @@
 #include "circleimage.h"
 #include "process.h"
 #include "xiaodoubi.h"
+#include "chatlog.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -43,6 +44,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<CircleImage>("cn.com.isoft.qwx", 1, 0, "CircleImage");
     qmlRegisterType<Process>("cn.com.isoft.qwx", 1, 0, "Process");
     qmlRegisterType<XiaoDouBi>("cn.com.isoft.qwx", 1, 0, "XiaoDouBi");
+    qmlRegisterType<ChatLog>("cn.com.isoft.qwx", 1, 0, "ChatLog");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

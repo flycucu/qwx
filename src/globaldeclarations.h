@@ -8,7 +8,7 @@
 #include <random>
 
 const QString CODE_NAME = "qwx";
-const QString APPLICATION_VERSION = "0.1";
+const QString APPLICATION_VERSION = "0.1.1";
 const QString APPLICATION_ENCODING = "UTF-8";
 
 const QString LOGIN_SERVER_HOST = "https://login.weixin.qq.com";
