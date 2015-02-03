@@ -13,6 +13,7 @@ Rectangle {
     property string fromUserName
     property string toUserName
     property string toNickName
+    property bool showEmotion: false
 
     function moveToTheEnd() 
     {
@@ -229,22 +230,58 @@ Rectangle {
         moveToTheEnd();
     }
 
-    TextField {
-        id: sendMsgTextField
-        width: parent.width - sendButton.width
+    Rectangle {
+        id: inputRect
+        width: parent.width; height: 24
         anchors.bottom: parent.bottom
-        onAccepted: {
-            sendMsg();
-        }
-    }
 
-    Button {
-        id: sendButton
-        text: "发送"
-        anchors.top: sendMsgTextField.top
-        anchors.right: parent.right
-        onClicked: {
-            sendMsg();
-        }   
+        TextField {
+            id: sendMsgTextField
+            width: parent.width - emotionImage.width - sendButton.width
+            onAccepted: {
+                sendMsg();
+            }
+        }
+
+        EmotionImage {
+            id: emotionImage
+            name: "得意"
+            width: 24; height: 24
+            anchors.right: sendButton.left
+        
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    emotionGridView.visible = !chatView.showEmotion;
+                }
+            }
+        }
+
+        Button {
+            id: sendButton
+            text: "发送"
+            anchors.right: parent.right
+            onClicked: {
+                sendMsg();
+            }
+        }
+
+        GridView {
+            id: emotionGridView
+            model: emotionImage.icons
+            width: parent.width; height: 100
+            anchors.bottom: parent.bottom
+            cellWidth: 30; cellHeight: 50
+            focus: true
+            visible: false
+
+            delegate: Item {
+
+                EmotionImage {
+                    name: modelData
+                    width: 24; height: 24
+                }
+            }
+        }
     }
 }

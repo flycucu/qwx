@@ -21,7 +21,8 @@ HEADERS += \
     $$PWD/circleimage.h \
     $$PWD/process.h \
     $$PWD/xiaodoubi.h   \
-    $$PWD/chatlog.h
+    $$PWD/chatlog.h \
+    $$PWD/emotionimage.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -45,4 +46,5 @@ SOURCES += \
     $$PWD/circleimage.cpp   \
     $$PWD/process.cpp   \
     $$PWD/xiaodoubi.cpp \
-    $$PWD/chatlog.cpp
+    $$PWD/chatlog.cpp   \
+    $$PWD/emotionimage.cpp

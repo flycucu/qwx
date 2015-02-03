@@ -15,5 +15,6 @@
   <file>images/back.png</file>
   <file>images/messages.png</file>
   <file>images/contacts.png</file>
+  <file>images/emotion.png</file>
 </qresource>
 </RCC>
