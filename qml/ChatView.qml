@@ -256,7 +256,8 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    emotionGridView.visible = !chatView.showEmotion;
+                    chatView.showEmotion = !chatView.showEmotion;
+                    emotionGridView.visible = chatView.showEmotion;
                 }
             }
         }
@@ -273,8 +274,8 @@ Rectangle {
         GridView {
             id: emotionGridView
             model: emotionObj
-            width: parent.width; height: 100
-            anchors.bottom: parent.bottom
+            width: parent.width; height: 168
+            anchors.bottom: inputRect.top
             cellWidth: 30; cellHeight: 50
             focus: true
             visible: false
@@ -284,6 +285,13 @@ Rectangle {
                 AnimatedImage {
                     source: "../images/" + name
                     width: 24; height: 24
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            sendMsgTextField.text += "[" + title + "]";
+                        }
+                    }
                 }
             }
         }
