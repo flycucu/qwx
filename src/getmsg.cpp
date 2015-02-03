@@ -104,7 +104,7 @@ void GetMsg::m_saveLog(QString createTimeStr, QString fromUserName, QString cont
     QFile file(QWXDIR + "/" + fromUserName + ".txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << createTimeStr << " " << fromUserName << " " << content << "\n";
+        out << createTimeStr << DELIM << fromUserName << DELIM << content << "\n";
         file.close();
     }
 }

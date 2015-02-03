@@ -35,7 +35,7 @@ void ChatLog::load(QString toUserName)
         QTextStream in(&file);
         while (!in.atEnd()) {
             QString line = in.readLine();
-            QStringList result = line.split(" ");
+            QStringList result = line.split(DELIM);
             if (result.size() < 3)
                 continue;
 

@@ -26,7 +26,8 @@ void SendMsg::m_saveLog(QString fromUserName, QString toUserName, QString conten
     QFile file(QWXDIR + "/" + toUserName + ".txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << QString::number(time(NULL)) << " " << fromUserName << " " << content << "\n";
+        out << QString::number(time(NULL)) << DELIM << fromUserName << DELIM 
+            << content << "\n";
         file.close();
     }
 }
