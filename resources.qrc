@@ -15,6 +15,28 @@
   <file>images/back.png</file>
   <file>images/messages.png</file>
   <file>images/contacts.png</file>
-  <file>images/emotion.png</file>
+  <file>images/emotion.txt</file>
+  <file>images/icon_arrow.gif</file>
+  <file>images/icon_biggrin.gif</file>
+  <file>images/icon_confused.gif</file>
+  <file>images/icon_cool.gif</file>
+  <file>images/icon_cry.gif</file>
+  <file>images/icon_eek.gif</file>
+  <file>images/icon_evil.gif</file>
+  <file>images/icon_exclaim.gif</file>
+  <file>images/icon_idea.gif</file>
+  <file>images/icon_lol.gif</file>
+  <file>images/icon_mad.gif</file>
+  <file>images/icon_mrgreen.gif</file>
+  <file>images/icon_neutral.gif</file>
+  <file>images/icon_question.gif</file>
+  <file>images/icon_razz.gif</file>
+  <file>images/icon_redface.gif</file>
+  <file>images/icon_rolleyes.gif</file>
+  <file>images/icon_sad.gif</file>
+  <file>images/icon_smile.gif</file>
+  <file>images/icon_surprised.gif</file>
+  <file>images/icon_twisted.gif</file>
+  <file>images/icon_wink.gif</file>
 </qresource>
 </RCC>

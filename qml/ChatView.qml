@@ -230,6 +230,10 @@ Rectangle {
         moveToTheEnd();
     }
 
+    Emotion {
+        id: emotionObj
+    }
+
     Rectangle {
         id: inputRect
         width: parent.width; height: 24
@@ -243,10 +247,10 @@ Rectangle {
             }
         }
 
-        EmotionImage {
+        AnimatedImage {
             id: emotionImage
-            name: "得意"
             width: 24; height: 24
+            source: "../images/icon_smile.gif"
             anchors.right: sendButton.left
         
             MouseArea {
@@ -268,7 +272,7 @@ Rectangle {
 
         GridView {
             id: emotionGridView
-            model: emotionImage.icons
+            model: emotionObj
             width: parent.width; height: 100
             anchors.bottom: parent.bottom
             cellWidth: 30; cellHeight: 50
@@ -277,8 +281,8 @@ Rectangle {
 
             delegate: Item {
 
-                EmotionImage {
-                    name: modelData
+                AnimatedImage {
+                    source: "../images/" + name
                     width: 24; height: 24
                 }
             }

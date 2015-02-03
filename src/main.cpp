@@ -21,7 +21,7 @@
 #include "process.h"
 #include "xiaodoubi.h"
 #include "chatlog.h"
-#include "emotionimage.h"
+#include "emotion.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<Process>("cn.com.isoft.qwx", 1, 0, "Process");
     qmlRegisterType<XiaoDouBi>("cn.com.isoft.qwx", 1, 0, "XiaoDouBi");
     qmlRegisterType<ChatLog>("cn.com.isoft.qwx", 1, 0, "ChatLog");
-    qmlRegisterType<EmotionImage>("cn.com.isoft.qwx", 1, 0, "EmotionImage");
+    qmlRegisterType<Emotion>("cn.com.isoft.qwx", 1, 0, "Emotion");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);
