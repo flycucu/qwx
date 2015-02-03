@@ -12,7 +12,8 @@
 GetMsg::GetMsg(HttpPost* parent) 
   : HttpPost(parent), 
     m_fromUserName(""), 
-    m_toUserName("") 
+    m_toUserName(""),
+    m_needSaveLog(true)
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -26,7 +27,6 @@ GetMsg::~GetMsg()
 #endif
 }
 
-QString GetMsg::fromUserName() const { return m_fromUserName; }
 void GetMsg::setFromUserName(const QString & fromUserName) 
 {
     if (m_fromUserName != fromUserName) {
@@ -35,7 +35,6 @@ void GetMsg::setFromUserName(const QString & fromUserName)
     }
 }
 
-QString GetMsg::toUserName() const { return m_toUserName; }
 void GetMsg::setToUserName(const QString & toUserName) 
 {
     if (m_toUserName != toUserName) {
@@ -44,7 +43,13 @@ void GetMsg::setToUserName(const QString & toUserName)
     }
 }
 
-QStringList GetMsg::syncKey() const { return m_syncKey; }
+void GetMsg::setNeedSaveLog(bool needSaveLog) 
+{
+    if (m_needSaveLog != needSaveLog) {
+        m_needSaveLog = needSaveLog;
+        emit needSaveLogChanged();
+    }
+}
 
 void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
 {
@@ -134,7 +139,9 @@ void GetMsg::finished(QNetworkReply* reply)
             continue;
 
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
-            m_saveLog(createTimeStr, fromUserNameStr, content);
+            if (m_needSaveLog)
+                m_saveLog(createTimeStr, fromUserNameStr, content);
+
             emit newMsg(content, fromUserNameStr, toUserNameStr);
         }
         

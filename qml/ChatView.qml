@@ -68,6 +68,7 @@ Rectangle {
         id: getMsgObj
         fromUserName: chatView.fromUserName
         toUserName: chatView.toUserName
+        needSaveLog: false
         onNoMsg: {
             rootWindow.title = "微信Qt前端";
         }
@@ -97,6 +98,9 @@ Rectangle {
 
     ListModel {
         id: chatListModel
+        Component.onCompleted: {
+            chatListModel.remove(0);
+        }
 
         ListElement { content: ""; curUserName: "" }
     }
