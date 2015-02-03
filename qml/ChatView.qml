@@ -276,15 +276,19 @@ Rectangle {
             model: emotionObj
             width: parent.width; height: 168
             anchors.bottom: inputRect.top
-            cellWidth: 30; cellHeight: 50
+            cellWidth: 40; cellHeight: 50
+            anchors.horizontalCenter: parent.horizontalCenter
             focus: true
             visible: false
 
             delegate: Item {
+                width: parent.width; height: parent.height
 
                 AnimatedImage {
                     source: "../images/" + name
                     width: 24; height: 24
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
 
                     MouseArea {
                         anchors.fill: parent

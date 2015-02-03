@@ -9,3 +9,14 @@
 惊讶 icon_surprised.gif
 难过 icon_sad.gif
 酷 icon_cool.gif
+愉快 icon_redface.gif
+白眼 icon_rolleyes.gif
+咒骂 icon_mad.gif
+疑问 icon_question.gif
+擦汗 icon_arrow.gif
+抠鼻 icon_evil.gif
+鼓掌 icon_wink.gif
+糗大了 icon_exclaim.gif
+坏笑 icon_biggrin.gif
+哈欠 icon_neutral.gif
+阴险 icon_lol.gif
