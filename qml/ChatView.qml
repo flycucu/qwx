@@ -149,9 +149,10 @@ Rectangle {
 
             Text {
                 id: chatText
-                text: content
+                text: emotionObj.contentWithImage(content)
                 width: parent.width - fromUserHeadImage.width - 30 
                 wrapMode: Text.WordWrap
+                textFormat: Text.StyledText
                 font.pixelSize: 11
                 anchors.left: fromUserHeadImage.right
                 anchors.leftMargin: 10

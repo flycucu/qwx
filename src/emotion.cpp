@@ -31,6 +31,18 @@ Emotion::~Emotion()
 #endif
 }
 
+QString Emotion::contentWithImage(QString content) 
+{
+    for (int i = 0; i < m_emotions.size(); i++) {
+        QString replace = "[" + m_emotions[i].title() + "]";
+        if (content.contains(replace)) {
+            content.replace(replace, 
+                    "<img src=\"../images/" + m_emotions[i].name() + "\">");
+        }
+    }
+    return content;
+}
+
 void Emotion::addEmotion(const EmotionObject & emotion) 
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());

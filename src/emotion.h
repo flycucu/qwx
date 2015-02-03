@@ -20,6 +20,8 @@ public:
     explicit Emotion(QObject* parent = nullptr);
     ~Emotion();
 
+    Q_INVOKABLE QString contentWithImage(QString content);
+
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const; 
 
