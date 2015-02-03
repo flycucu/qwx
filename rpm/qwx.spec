@@ -1,8 +1,8 @@
 #
 # spec file for package qwx
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
-# Copyright (c) 2014 hillwood <hillwood@opensuse.org>
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 Hillwood Yang <hillwood@opensuse.org>
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,17 +20,18 @@
 
 Name:           qwx
 Summary:        WeChat for linux
-Version:        0.0git20150104
+Version:        0.1
 Release:        1
 License:        GPL-3.0
 Url:            https://github.com/xiangzhai/qwx
 Group:          Productivity/Networking/Instant Messenger
-Source:        %{name}-%{version}.tar.bz2
+Source:        %{name}-%{version}.tar.gz
 %if 0%{?fedora}
 BuildRequires:  qt5-qtbase-devel >= %{qt5version}
 %endif
 %if 0%{?suse_version}
 BuildRequires:  libqt5-qtbase-common-devel >= %{qt5version}
+BuildRequires:  update-desktop-files
 %endif
 BuildRequires:  pkgconfig(Qt5Xml) >= %{qt5version}
 BuildRequires:  pkgconfig(Qt5Network) >= %{qt5version}
@@ -49,19 +50,24 @@ WeChat for linux, base with QT5.
 
 %prep
 %setup -q 
+chmod 644 AUTHORS.md LICENSE README.md
 
 %build
-qmake-qt5 QWX_DEBUG=ON
+qmake-qt5 QWX_DEBUG=ON PREFIX=%{buildroot}%{_prefix}
 make
 
 %install
-mkdir -p %{buildroot}%{_bindir} 
-install -D -m 0755 qwx %{buildroot}%{_bindir}/
+make install
+%if 0%{?suse_version}
+%suse_update_desktop_file -r %{name} InstantMessaging
+%endif
 
 %files 
 %defattr(-, root, root, -)
-%doc AUTHORS AUTHORS.md LICENSE
-%{_bindir}/qwx
+%doc AUTHORS.md LICENSE README.md
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/
+%{_bindir}/%{name}
 
 %changelog
 
