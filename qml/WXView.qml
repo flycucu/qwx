@@ -70,9 +70,10 @@ Item {
             rootWindow.title = "微信Qt前端";
         }
         onNewMsg: {
-            rootWindow.title = "微信Qt前端 - 有新消息";
             var isExist = false;
             var nickName = "";
+            
+            rootWindow.title = "微信Qt前端 - 有新消息";
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
                 nickName = contactObj.getNickName(userName);
@@ -102,7 +103,19 @@ Item {
                 processObj.start();
             }
 
+            if (content == "away") {
+                Global.isAway = true;
+            } else if (content == "back") {
+                Global.isAway = false;
+            } else if (content == "小逗比出来" ||
+                       content == "robot come") {
+                Global.isRobot = true;
+            } else if (content == "小逗比退下" ||
+                       content == "robot away") {
+                Global.isRobot = false;
+            }
             if (Global.isAway) {
+                var awayMsg = "不在，请在滴声后留言[咖啡] 消息来自qwx https://github.com/xiangzhai/qwx 若打扰到您，请回复内容back，暂时屏蔽自动回复[阴险]";
                 if (Global.v2) {
                     sendMsgObj.sendV2(Global.uin,
                             Global.sid,                                          
@@ -110,7 +123,7 @@ Item {
                             Global.deviceId, 
                             toUserName,                                 
                             fromUserName,                                   
-                            contactObj.getNickName(Global.loginUserName) + "不在，请在滴声音后留言 ;)",
+                            contactObj.getNickName(Global.loginUserName) + awayMsg,
                             Global.syncKey)                                      
                 } else {
                     sendMsgObj.send(Global.uin,
@@ -119,7 +132,7 @@ Item {
                                 Global.deviceId,
                                 toUserName,
                                 fromUserName,
-                                contactObj.getNickName(Global.loginUserName) + "不在，请在滴声音后留言",
+                                contactObj.getNickName(Global.loginUserName) + awayMsg,
                                 Global.syncKey)
                 }
             }
