@@ -22,7 +22,8 @@ HEADERS += \
     $$PWD/process.h \
     $$PWD/xiaodoubi.h   \
     $$PWD/chatlog.h \
-    $$PWD/emotion.h
+    $$PWD/emotion.h \
+    $$PWD/logout.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -47,4 +48,5 @@ SOURCES += \
     $$PWD/process.cpp   \
     $$PWD/xiaodoubi.cpp \
     $$PWD/chatlog.cpp   \
-    $$PWD/emotion.cpp
+    $$PWD/emotion.cpp   \
+    $$PWD/logout.cpp

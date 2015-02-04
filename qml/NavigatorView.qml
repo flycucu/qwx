@@ -10,6 +10,19 @@ Item {
     id: navigatorView
     width: parent.width; height: parent.height
 
+    LogOut {
+        id: logOutObj
+    }
+
+    Component.onDestruction: {
+        if (Global.v2) {
+            logOutObj.getV2();
+        } else {
+            logOutObj.get();
+        }
+        console.log("Bye ;-)");
+    }
+
     Sync {
         id: syncObj
         onSyncKeyChanged: {
@@ -47,7 +60,7 @@ Item {
 
     Monitor {
         id: monitorObj
-        onNoMsg: {
+        onNoNewMsg: {
             rootWindow.title = "微信Qt前端";
         }
         onNewMsg: {

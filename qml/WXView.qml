@@ -66,7 +66,7 @@ Item {
             }
             Global.syncKey = getMsgObj.syncKey;
         }
-        onNoMsg: {
+        onNoNewMsg: {
             rootWindow.title = "微信Qt前端";
         }
         onNewMsg: {

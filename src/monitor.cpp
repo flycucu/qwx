@@ -79,10 +79,12 @@ void Monitor::finished(QNetworkReply* reply)
         file.close();                                                              
     }
 #endif
-    
+    if (replyStr == "")
+        return;
+
     if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
         emit newMsg(); 
     } else {
-        emit noMsg();
+        emit noNewMsg();
     }
 }

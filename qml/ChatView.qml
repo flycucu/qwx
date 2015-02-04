@@ -70,7 +70,7 @@ Rectangle {
         fromUserName: chatView.fromUserName
         toUserName: chatView.toUserName
         needSaveLog: false
-        onNoMsg: {
+        onNoNewMsg: {
             rootWindow.title = "微信Qt前端";
         }
         onReceived: {

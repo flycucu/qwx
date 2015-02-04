@@ -22,6 +22,7 @@
 #include "xiaodoubi.h"
 #include "chatlog.h"
 #include "emotion.h"
+#include "logout.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -50,6 +51,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<XiaoDouBi>("cn.com.isoft.qwx", 1, 0, "XiaoDouBi");
     qmlRegisterType<ChatLog>("cn.com.isoft.qwx", 1, 0, "ChatLog");
     qmlRegisterType<Emotion>("cn.com.isoft.qwx", 1, 0, "Emotion");
+    qmlRegisterType<LogOut>("cn.com.isoft.qwx", 1, 0, "LogOut");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

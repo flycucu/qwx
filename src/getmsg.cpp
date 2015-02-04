@@ -116,7 +116,7 @@ void GetMsg::finished(QNetworkReply* reply)
     if (!doc.isObject()) { emit error(); return; }
     QJsonObject obj = doc.object();
     if (obj["AddMsgCount"].toInt() == 0)
-        emit noMsg();
+        emit noNewMsg();
 
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
