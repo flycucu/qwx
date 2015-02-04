@@ -240,6 +240,35 @@ Rectangle {
         width: parent.width; height: 24
         anchors.bottom: parent.bottom
 
+        GridView {
+            id: emotionGridView
+            model: emotionObj
+            width: parent.width; height: 168
+            anchors.bottom: inputRect.top
+            cellWidth: 40; cellHeight: 50
+            anchors.horizontalCenter: parent.horizontalCenter
+            focus: true
+            visible: false
+
+            delegate: Item {
+                width: parent.width; height: parent.height
+
+                AnimatedImage {
+                    source: "../images/" + name
+                    width: 24; height: 24
+                    anchors.left: parent.left
+                    anchors.leftMargin: 6
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            sendMsgTextField.text += "[" + title + "]";
+                        }
+                    }
+                }
+            }
+        }
+        
         TextField {
             id: sendMsgTextField
             width: parent.width - emotionImage.width - sendButton.width
@@ -269,35 +298,6 @@ Rectangle {
             anchors.right: parent.right
             onClicked: {
                 sendMsg();
-            }
-        }
-
-        GridView {
-            id: emotionGridView
-            model: emotionObj
-            width: parent.width; height: 168
-            anchors.bottom: inputRect.top
-            cellWidth: 40; cellHeight: 50
-            anchors.horizontalCenter: parent.horizontalCenter
-            focus: true
-            visible: false
-
-            delegate: Item {
-                width: parent.width; height: parent.height
-
-                AnimatedImage {
-                    source: "../images/" + name
-                    width: 24; height: 24
-                    anchors.left: parent.left
-                    anchors.leftMargin: 6
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            sendMsgTextField.text += "[" + title + "]";
-                        }
-                    }
-                }
             }
         }
     }
