@@ -16,20 +16,19 @@ public:
     HttpGet(QObject* parent = nullptr);
     virtual ~HttpGet();
 
-    QList<QNetworkCookie> cookies() const;
+    QList<QNetworkCookie> cookies() const { return m_cookies; }
+
     void get(QString url, bool needSetCookie = false);
 
 protected:
-    virtual void finished(QNetworkReply* reply);
-
-private Q_SLOTS:
-    void m_finished(QNetworkReply* reply);
-    void m_sslErrors(QNetworkReply* reply, const QList<QSslError> & errors);
+    virtual void finished(QNetworkReply* reply) { Q_UNUSED(reply); }
 
 private:
     QNetworkAccessManager m_nam;
     QString m_url;
     QList<QNetworkCookie> m_cookies;
+    QMetaObject::Connection m_sslErrorConnection;
+    QMetaObject::Connection m_finishConnection;
 };
 
 #endif // HTTP_GET_H
