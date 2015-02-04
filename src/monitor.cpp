@@ -69,6 +69,10 @@ void Monitor::getV2(QString uin,
 void Monitor::finished(QNetworkReply* reply) 
 {
     QString replyStr(reply->readAll());
+    
+    if (replyStr == "")
+        return;
+
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
     qDebug() << "DEBUG:" << replyStr;
@@ -79,9 +83,6 @@ void Monitor::finished(QNetworkReply* reply)
         file.close();                                                              
     }
 #endif
-    if (replyStr == "")
-        return;
-
     if (replyStr != "window.synccheck={retcode:\"0\",selector:\"0\"}") {
         emit newMsg(); 
     } else {
