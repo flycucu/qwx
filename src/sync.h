@@ -15,10 +15,16 @@ public:
     Sync(HttpPost* parent = nullptr);
     ~Sync();
 
-    QStringList syncKey() const;
+    QStringList syncKey() const { return m_syncKey; }
 
-    Q_INVOKABLE void post(QString uin, QString sid, QString skey, QStringList syncKey);
-    Q_INVOKABLE void postV2(QString uin, QString sid, QString skey, QStringList syncKey);
+    Q_INVOKABLE void post(QString uin, 
+                          QString sid, 
+                          QString skey, 
+                          QStringList syncKey);
+    Q_INVOKABLE void postV2(QString uin, 
+                            QString sid, 
+                            QString skey, 
+                            QStringList syncKey);
 
 Q_SIGNALS:
     void error();
@@ -26,6 +32,13 @@ Q_SIGNALS:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    void m_post(QString host, 
+                QString uin, 
+                QString sid, 
+                QString skey, 
+                QStringList syncKey);
 
 private:
     QStringList m_syncKey;

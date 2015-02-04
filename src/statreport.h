@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #ifndef STAT_REPORT_H
 #define STAT_REPORT_H
@@ -20,6 +20,9 @@ public:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    void m_post(QString host, QString uuid);
 };
 
 #endif // STAT_REPORT_H

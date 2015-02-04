@@ -17,13 +17,13 @@ public:
     HeadImg(QObject* parent = nullptr);
     ~HeadImg();
 
-    bool v2() const;
+    bool v2() const { return m_v2; }
     void setV2(bool v2);
 
-    QString userName() const;
+    QString userName() const { return m_userName; }
     void setUserName(const QString & userName);
 
-    QString filePath() const;
+    QString filePath() const { return m_filePath; }
 
 Q_SIGNALS:
     void v2Changed();
@@ -31,17 +31,14 @@ Q_SIGNALS:
     void filePathChanged();
 
 private:
+    void m_get(QString host);
+
+private:
     bool m_v2;
     QString m_userName;
     QString m_filePath;
-    Download m_down;
-
-private Q_SLOTS:
-    void m_finished();
-
-private:
-    void m_get();
-    void m_getV2();
+    Download m_downLoad;
+    QMetaObject::Connection m_connection;
 };
 
 #endif // HEAD_IMG_H

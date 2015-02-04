@@ -26,13 +26,14 @@ Sync::~Sync()
 #endif
 }
 
-QStringList Sync::syncKey() const { return m_syncKey; }
-
-void Sync::post(QString uin, QString sid, QString skey, QStringList syncKey) 
+void Sync::m_post(QString host, 
+                  QString uin, 
+                  QString sid, 
+                  QString skey, 
+                  QStringList syncKey) 
 {
     QString ts = QString::number(time(NULL));
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&skey=" + skey + "&r=" + ts;
+    QString url = host + WX_CGI_PATH + "webwxsync?sid=" + sid + "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
@@ -52,28 +53,14 @@ void Sync::post(QString uin, QString sid, QString skey, QStringList syncKey)
     HttpPost::post(url, json, true);
 }
 
+void Sync::post(QString uin, QString sid, QString skey, QStringList syncKey) 
+{
+    m_post(WX_SERVER_HOST, uin, sid, skey, syncKey);
+}
+
 void Sync::postV2(QString uin, QString sid, QString skey, QStringList syncKey)
 {
-    QString ts = QString::number(time(NULL));
-    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&skey=" + skey + "&r=" + ts;
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
-        "\"},\"SyncKey\":{\"Count\":" + QString::number(syncKey.size()) + 
-        ",\"List\":[";
-    for (int i = 0; i < syncKey.size(); i++) {
-        if (i != 0)
-            json += ",";
-        QStringList result = syncKey[i].split("|");
-        json += "{\"Key\":" + result[0] + ",\"Val\":" + result[1] + "}";
-    }
-    json += "]},\"rr\":" + ts + "}";
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
-#endif
-    HttpPost::post(url, json, true);
+    m_post(WX_V2_SERVER_HOST, uin, sid, skey, syncKey);
 }
 
 void Sync::finished(QNetworkReply* reply) 

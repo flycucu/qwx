@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #ifndef MONITOR_H
 #define MONITOR_H
@@ -30,6 +30,14 @@ Q_SIGNALS:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    void m_get(QString host, 
+               QString uin, 
+               QString sid, 
+               QString skey, 
+               QString deviceId, 
+               QStringList syncKey);
 };
 
 #endif // MONITOR_H

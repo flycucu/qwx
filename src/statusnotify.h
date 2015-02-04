@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #ifndef STATUS_NOTIFY_H
 #define STATUS_NOTIFY_H
@@ -26,6 +26,14 @@ public:
 
 protected:
     void finished(QNetworkReply* reply);
+
+private:
+    void m_post(QString host, 
+                QString uin, 
+                QString sid, 
+                QString skey, 
+                QString deviceId, 
+                QString userName);
 };
 
 #endif // STATUS_NOTIFY_H

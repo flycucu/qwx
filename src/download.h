@@ -23,16 +23,14 @@ Q_SIGNALS:
     void downloaded(qreal progress);
     void finished();
 
-private Q_SLOTS:
-    void m_downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void m_readyRead();
-    void m_finished(QNetworkReply*);
-    void m_sslErrors(QNetworkReply* reply, const QList<QSslError> & errors);
-
 private:
     QNetworkAccessManager m_nam;
     QNetworkReply* m_reply;
     QFile m_file;
+    QMetaObject::Connection m_finishConnection;
+    QMetaObject::Connection m_sslErrorConnection;
+    QMetaObject::Connection m_downloadProgressConnection;
+    QMetaObject::Connection m_readyReadConnection;
 };
 
 #endif // DOWNLOAD_H

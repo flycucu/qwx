@@ -23,15 +23,15 @@ Monitor::~Monitor()
 #endif
 }
 
-void Monitor::get(QString uin, 
-                  QString sid, 
-                  QString skey, 
-                  QString deviceId, 
-                  QStringList syncKey) 
+void Monitor::m_get(QString host, 
+                    QString uin, 
+                    QString sid, 
+                    QString skey, 
+                    QString deviceId, 
+                    QStringList syncKey) 
 {
     QString ts = QString::number(time(NULL));
-    QString url = "https://webpush.weixin.qq.com" + WX_CGI_PATH + 
-        "synccheck?skey=" + skey + 
+    QString url = host + WX_CGI_PATH + "synccheck?skey=" + skey + 
         "&callback=jQuery183084135492448695_1420782130686&r=" + ts + 
         "&sid=" + sid + "&uin=" + uin + "&deviceid=" + deviceId + 
         "&synckey=";
@@ -48,29 +48,22 @@ void Monitor::get(QString uin,
     HttpGet::get(url, true);
 }
 
+void Monitor::get(QString uin, 
+                  QString sid, 
+                  QString skey, 
+                  QString deviceId, 
+                  QStringList syncKey) 
+{
+    m_get("https://webpush.weixin.qq.com", uin, sid, skey, deviceId, syncKey);
+}
+
 void Monitor::getV2(QString uin,                                                     
-                  QString sid,                                                     
-                  QString skey,                                                    
-                  QString deviceId,                                                
-                  QStringList syncKey)
+                    QString sid,                                                     
+                    QString skey,                                                    
+                    QString deviceId,                                                
+                    QStringList syncKey)
 {                                                                                  
-    QString ts = QString::number(time(NULL));
-    QString url = "https://webpush2.weixin.qq.com" + WX_CGI_PATH + 
-        "synccheck?skey=" + skey + 
-        "&callback=jQuery18308660551080269895_1388975862078&r=" + ts + 
-        "&sid=" + sid + "&uin=" + uin + "&deviceid=" + deviceId + 
-        "&synckey=";
-    for(int i = 0; i < syncKey.size(); i++) {
-        if (i != 0)
-            url += "%7C";
-        QStringList result = syncKey[i].split("|");
-        url += result[0] + "_" + result[1];
-    }
-    url += "&_=" + ts;
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    HttpGet::get(url, true);                                                    
+    m_get("https://webpush2.weixin.qq.com", uin, sid, skey, deviceId, syncKey);
 }
 
 void Monitor::finished(QNetworkReply* reply) 
