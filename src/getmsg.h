@@ -29,8 +29,14 @@ public:
     bool needSaveLog() const { return m_needSaveLog; }
     void setNeedSaveLog(bool needSaveLog);
 
-    Q_INVOKABLE void post(QString uin, QString sid, QString skey, QStringList syncKey);
-    Q_INVOKABLE void postV2(QString uin, QString sid, QString skey, QStringList syncKey);
+    Q_INVOKABLE void post(QString uin, 
+                          QString sid, 
+                          QString skey, 
+                          QStringList syncKey);
+    Q_INVOKABLE void postV2(QString uin, 
+                            QString sid, 
+                            QString skey, 
+                            QStringList syncKey);
 
 Q_SIGNALS:
     void fromUserNameChanged();
@@ -47,6 +53,11 @@ protected:
 
 private:
     void m_saveLog(QString createTimeStr, QString fromUserName, QString content);
+    void m_post(QString host, 
+                QString uin, 
+                QString sid, 
+                QString skey, 
+                QStringList syncKey);
 
 private:
     QString m_fromUserName;

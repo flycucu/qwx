@@ -60,16 +60,17 @@ void SendMsg::sendV2(QString uin,
     syncV2(uin, sid, skey, syncKey);
 }
 
-void SendMsg::post(QString uin, 
-                   QString sid, 
-                   QString skey,
-                   QString deviceId, 
-                   QString fromUserName, 
-                   QString toUserName, 
-                   QString content) 
+void SendMsg::m_post(QString host, 
+                     QString uin, 
+                     QString sid, 
+                     QString skey, 
+                     QString deviceId, 
+                     QString fromUserName, 
+                     QString toUserName, 
+                     QString content)
 {
     QString ts = QString::number(time(NULL));
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsendmsg?sid=" + sid 
+    QString url = host + WX_CGI_PATH + "webwxsendmsg?sid=" + sid 
         + "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
@@ -86,36 +87,50 @@ void SendMsg::post(QString uin,
     HttpPost::post(url, json, true);
 }
 
-void SendMsg::postV2(QString uin,
-                   QString sid,
-                   QString skey,
-                   QString deviceId,
-                   QString fromUserName,
-                   QString toUserName,
+void SendMsg::post(QString uin, 
+                   QString sid, 
+                   QString skey, 
+                   QString deviceId, 
+                   QString fromUserName, 
+                   QString toUserName, 
                    QString content)
 {
-    QString ts = QString::number(time(NULL));
-    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxsendmsg?sid=" + sid
-        + "&skey=" + skey + "&r=" + ts;
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid
-        + "\",\"Skey\":\"" + skey + "\",\"DeviceID\":\"" + deviceId
-        + "\"},\"Msg\":{\"FromUserName\":\"" + fromUserName
-        + "\",\"ToUserName\":\"" + toUserName
-        + "\",\"Type\":1,\"Content\":\"" + content + "\",\"ClientMsgId\":" + ts
-        + ",\"LocalID\":" + ts + "}}";
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
-#endif
-    HttpPost::post(url, json, true);
+    m_post(WX_SERVER_HOST, 
+           uin, 
+           sid, 
+           skey, 
+           deviceId, 
+           fromUserName, 
+           toUserName, 
+           content);
 }
 
-void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey) 
+void SendMsg::postV2(QString uin,
+                     QString sid,
+                     QString skey,
+                     QString deviceId,
+                     QString fromUserName,
+                     QString toUserName,
+                     QString content)
+{
+    m_post(WX_V2_SERVER_HOST, 
+           uin, 
+           sid, 
+           skey, 
+           deviceId, 
+           fromUserName, 
+           toUserName, 
+           content);
+}
+
+void SendMsg::m_sync(QString host, 
+                     QString uin, 
+                     QString sid, 
+                     QString skey, 
+                     QStringList syncKey)
 {                                                                                  
     QString ts = QString::number(time(NULL));                                      
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid +          
+    QString url = host + WX_CGI_PATH + "webwxsync?sid=" + sid +          
         "&skey=" + skey + "&r=" + ts;                                              
 #if QWX_DEBUG                                                                      
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;                            
@@ -136,28 +151,14 @@ void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey)
     HttpPost::post(url, json, true);                                               
 }
 
+void SendMsg::sync(QString uin, QString sid, QString skey, QStringList syncKey) 
+{
+    m_sync(WX_SERVER_HOST, uin, sid, skey, syncKey);
+}
+
 void SendMsg::syncV2(QString uin, QString sid, QString skey, QStringList syncKey)
 {
-    QString ts = QString::number(time(NULL));
-    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid +
-        "&skey=" + skey + "&r=" + ts;
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
-        "\"},\"SyncKey\":{\"Count\":" + QString::number(syncKey.size()) + 
-        ",\"List\":[";
-    for (int i = 0; i < syncKey.size(); i++) {
-        if (i != 0)
-            json += ",";
-        QStringList result = syncKey[i].split("|");
-        json += "{\"Key\":" + result[0] + ",\"Val\":" + result[1] + "}";
-    }
-    json += "]},\"rr\":" + ts + "}";
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
-#endif
-    HttpPost::post(url, json, true);
+    m_sync(WX_V2_SERVER_HOST, uin, sid, skey, syncKey);
 }
 
 void SendMsg::finished(QNetworkReply* reply) 

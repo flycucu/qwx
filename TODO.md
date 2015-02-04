@@ -7,6 +7,7 @@
 - [x] 和服务器保持心跳 SyncKey4 -> SyncKey5 -> SyncKey6
 - [x] 像手机/Pad版微信一样，推送（新消息）刷新“微信”ListView
 - [x] 保存聊天信息
+- [ ] 解析图片、语音等<msg></msg>类消息
 - [ ] 实用的对话泡泡
 - [ ] 反向 weixin.apk 替代扫描二维码
 

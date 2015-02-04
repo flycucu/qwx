@@ -51,10 +51,14 @@ void GetMsg::setNeedSaveLog(bool needSaveLog)
     }
 }
 
-void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
+void GetMsg::m_post(QString host, 
+                    QString uin, 
+                    QString sid, 
+                    QString skey, 
+                    QStringList syncKey) 
 {
     QString ts = QString::number(time(NULL));
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
+    QString url = host + WX_CGI_PATH + "webwxsync?sid=" + sid + 
         "&skey=" + skey + "&r=" + ts;
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
@@ -75,28 +79,14 @@ void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey)
     HttpPost::post(url, json, true);
 }
 
+void GetMsg::post(QString uin, QString sid, QString skey, QStringList syncKey) 
+{
+    m_post(WX_SERVER_HOST, uin, sid, skey, syncKey);
+}
+
 void GetMsg::postV2(QString uin, QString sid, QString skey, QStringList syncKey)
 {
-    QString ts = QString::number(time(NULL));
-    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxsync?sid=" + sid + 
-        "&skey=" + skey + "&r=" + ts;
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    QString json = "{\"BaseRequest\":{\"Uin\":" + uin + ",\"Sid\":\"" + sid + 
-        "\"},\"SyncKey\":{\"Count\":" + QString::number(syncKey.size()) + 
-        ",\"List\":[";
-    for (int i = 0; i < syncKey.size(); i++) {
-        if (i != 0)
-            json += ",";
-        QStringList result = syncKey[i].split("|");
-        json += "{\"Key\":" + result[0] + ",\"Val\":" + result[1] + "}";
-    }
-    json += "]},\"rr\":" + ts + "}";
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
-#endif
-    HttpPost::post(url, json, true);
+    m_post(WX_V2_SERVER_HOST, uin, sid, skey, syncKey);
 }
 
 void GetMsg::m_saveLog(QString createTimeStr, QString fromUserName, QString content) 
@@ -117,16 +107,17 @@ void GetMsg::finished(QNetworkReply* reply)
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&file);
         out << replyStr;
-        file.close(); 
+        file.close();
     }
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;                                   
-    qDebug() << "DEBUG:" << replyStr;                                              
+    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
+    qDebug() << "DEBUG:" << replyStr;
 #endif
-    QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());                
-    if (!doc.isObject()) { emit error(); return; }                                 
+    QJsonDocument doc = QJsonDocument::fromJson(replyStr.toUtf8());
+    if (!doc.isObject()) { emit error(); return; }
     QJsonObject obj = doc.object();
     if (obj["AddMsgCount"].toInt() == 0)
         emit noMsg();
+
     foreach (const QJsonValue & val, obj["AddMsgList"].toArray()) {
         QJsonObject msg = val.toObject();
         QString fromUserNameStr = msg["FromUserName"].toString();
@@ -134,7 +125,7 @@ void GetMsg::finished(QNetworkReply* reply)
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
         QString content = msg["Content"] .toString();
 
-        // TODO: filter <msg></msg> temporarly
+        // TODO: filter <msg></msg> temporarly ;)
         if (content.indexOf("msg") != -1)
             continue;
 
@@ -150,6 +141,11 @@ void GetMsg::finished(QNetworkReply* reply)
             if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
                 emit received(content, fromUserNameStr);
             }
+        }
+
+        if (m_map.size() > 64) {
+            while (m_map.size() > 32)
+                m_map.erase(m_map.begin());
         }
 
         m_map.insert(fromUserNameStr + toUserNameStr + createTimeStr, 

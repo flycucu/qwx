@@ -58,6 +58,19 @@ protected:
 
 private:
     void m_saveLog(QString fromUserName, QString toUserName, QString content);
+    void m_post(QString host, 
+                QString uin, 
+                QString sid, 
+                QString skey, 
+                QString deviceId, 
+                QString fromUserName, 
+                QString toUserName, 
+                QString content);
+    void m_sync(QString host, 
+                QString uin, 
+                QString sid, 
+                QString skey, 
+                QStringList syncKey);
 };
 
 #endif // SEND_MSG_H
