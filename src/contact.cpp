@@ -33,11 +33,13 @@ void Contact::addContact(const ContactObject & contact)
     endInsertRows();
 }
 
-void Contact::post() 
+void Contact::m_clear() { m_contactList.clear(); }
+
+void Contact::m_post(QString host) 
 {
     m_clear();
 
-    QString url = WX_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
+    QString url = host + WX_CGI_PATH + "webwxgetcontact?r=" + 
         QString::number(time(NULL));
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
@@ -47,19 +49,9 @@ void Contact::post()
     m_httpPost.post(url, json, true);
 }
 
-void Contact::postV2() 
-{
-    m_clear();
-    
-    QString url = WX_V2_SERVER_HOST + WX_CGI_PATH + "webwxgetcontact?r=" + 
-        QString::number(time(NULL));
-#if QWX_DEBUG
-    qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
-#endif
-    QString json = "{}";
-    connect(&m_httpPost, &HttpPost::signalFinished, this, &Contact::m_slotFinished);
-    m_httpPost.post(url, json, true);
-}
+void Contact::post() { m_post(WX_SERVER_HOST); }
+
+void Contact::postV2() { m_post(WX_V2_SERVER_HOST); }
 
 int Contact::rowCount(const QModelIndex & parent) const 
 {
@@ -73,12 +65,14 @@ QVariant Contact::data(const QModelIndex & index, int role) const
         return QVariant();
 
     const ContactObject & contact = m_contactList[index.row()];
+
     if (role == UserNameRole)
         return contact.userName();
     else if (role == NickNameRole)
         return contact.nickName();
     else if (role == HeadImgUrlRole)
         return contact.headImgUrl();
+
     return QVariant(); 
 }
                                                                                 
@@ -89,11 +83,6 @@ QHash<int, QByteArray> Contact::roleNames() const
     roles[NickNameRole] = "nickName";
     roles[HeadImgUrlRole] = "headImgUrl";
     return roles;
-}
-
-void Contact::m_clear() 
-{
-    m_contactList.clear();
 }
 
 void Contact::m_slotFinished(QNetworkReply* reply) 
@@ -124,10 +113,9 @@ void Contact::m_slotFinished(QNetworkReply* reply)
 
 QString Contact::getNickName(QString userName) 
 {
-    for (int i = 0; i < m_contactList.size(); i++) {
-        if (m_contactList[i].userName() == userName)
-            return m_contactList[i].nickName();
+    for (ContactObject contact : m_contactList) {
+        if (contact.userName() == userName)
+            return contact.nickName();
     }
-
     return "";
 }

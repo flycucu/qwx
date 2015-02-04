@@ -43,6 +43,7 @@ private Q_SLOTS:
 
 private:
     void m_clear();
+    void m_post(QString host);
 
 private:
     QList<ContactObject> m_contactList;

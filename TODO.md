@@ -1,13 +1,12 @@
 - [x] getter/setter Cookie 某些HTTP POST请求，需要发送cookie头
 - [x] 缓存 uin, sid, skey 到 ~/.qwx/.cookie 
 - [x] 发送cookie头后将HeadImgUrl缓存到 ~/.qwx/ 
-- [ ] 获取聊天室的HeadImgUrl
+- [ ] 获取聊天室的HeadImgUrl、昵称
 - [x] 在手机上发送消息，qwx上也要同步更新
 - [x] 在qwx上接收聊天室消息
 - [x] 和服务器保持心跳 SyncKey4 -> SyncKey5 -> SyncKey6
 - [x] 像手机/Pad版微信一样，推送（新消息）刷新“微信”ListView
-~~- [ ] 伪装cookie的expires=2114年~~ @cjacker 认为这样干会被腾讯干（封号）
-- [ ] 保存聊天信息
+- [x] 保存聊天信息
 - [ ] 实用的对话泡泡
 - [ ] 反向 weixin.apk 替代扫描二维码
 

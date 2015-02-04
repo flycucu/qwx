@@ -26,7 +26,10 @@
 int main(int argc, char* argv[]) 
 {                                                                        
     QtSingleApplication app(argc, argv);
-    if (app.isRunning()) return 0;
+
+    if (app.isRunning())
+        return 0;
+
     app.setApplicationName(CODE_NAME);
     app.setApplicationVersion(APPLICATION_VERSION);
 
