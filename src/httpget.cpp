@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+// Copyright (C) 2014 - 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 #include <QNetworkCookieJar>
 
@@ -50,5 +50,6 @@ void HttpGet::get(QString url, bool needSetCookie)
                 disconnect(m_sslErrorConnection);
                 disconnect(m_finishConnection);
             });
+    
     m_nam.get(request);
 }
