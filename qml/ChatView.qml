@@ -17,18 +17,18 @@ Rectangle {
 
     function moveToTheEnd() 
     {
-        chatListView.positionViewAtEnd()
+        chatListView.positionViewAtEnd();
     }
 
     Component.onCompleted: {
-        Global.chatView = chatView
+        Global.chatView = chatView;
     }
 
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
             if (!Global.isRobot) {
-                return
+                return;
             }
             if (Global.v2) {
                 sendMsgObj.sendV2(Global.uin,
@@ -38,7 +38,7 @@ Rectangle {
                             chatView.fromUserName,                                 
                             chatView.toUserName,                                   
                             content,                                 
-                            Global.syncKey)                                      
+                            Global.syncKey); 
             } else {
                 sendMsgObj.send(Global.uin,
                                 Global.sid,
@@ -47,12 +47,11 @@ Rectangle {
                                 chatView.fromUserName,
                                 chatView.toUserName,
                                 content,
-                                Global.syncKey)
+                                Global.syncKey);
             }
-
             chatListModel.append({"content": content,                
-                                  "curUserName": chatView.fromUserName})           
-            moveToTheEnd()
+                                  "curUserName": chatView.fromUserName}); 
+            moveToTheEnd();
         }
     }
 
@@ -90,7 +89,7 @@ Rectangle {
         }
         onNewMsg: {
             if (Global.isRobot) {
-                xiaodoubiObj.get(content)
+                xiaodoubiObj.get(content);
             }
         }
     }                                                                              
@@ -137,7 +136,7 @@ Rectangle {
                 id: fromUserHeadImgObj 
                 userName: curUserName 
                 onFilePathChanged: { 
-                    fromUserHeadImage.imageSource = fromUserHeadImgObj.filePath 
+                    fromUserHeadImage.imageSource = fromUserHeadImgObj.filePath; 
                 }
             }
 
@@ -226,8 +225,9 @@ Rectangle {
         } else if (sendMsgTextField.text == "小逗比退下" || 
                    sendMsgTextField.text == "robot away") {
             Global.isRobot = false;
-        } else if (Global.isRobot)
+        } else if (Global.isRobot) {
             xiaodoubiObj.get(sendMsgTextField.text);
+        }
 
         sendMsgTextField.text = "";
         moveToTheEnd();

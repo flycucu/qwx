@@ -79,8 +79,7 @@ Item {
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
                 nickName = contactObj.getNickName(userName);
-                if (userName == fromUserName || 
-                    userName == toUserName) {
+                if (userName == fromUserName || userName == toUserName) {
                     isExist = true;
                     wxListModel.get(i).wxContent = content;
                     wxListModel.move(i, 0, 1);
@@ -121,7 +120,7 @@ Item {
                 Global.isRobot = false;
             }
             if (Global.isAway) {
-                var awayMsg = "不在，请在滴声后留言[咖啡] 消息来自qwx https://github.com/xiangzhai/qwx 若打扰到您，请回复内容back，暂时屏蔽自动回复[阴险]";
+                var awayMsg = "不在，请在滴声后留言[咖啡] 消息来自qwx https://github.com/xiangzhai/qwx 若打扰到您，请回复内容back，暂时屏蔽自动回复";
                 if (Global.v2) {
                     sendMsgObj.sendV2(Global.uin,
                             Global.sid,                                          

@@ -159,7 +159,7 @@ void GetMsg::finished(QNetworkReply* reply)
         }
 
         if (m_map.size() > 64) {
-            while (m_map.size() > 32)
+            while (m_map.size() > 64 / 2)
                 m_map.erase(m_map.begin());
         }
 
