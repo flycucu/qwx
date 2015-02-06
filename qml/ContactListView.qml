@@ -39,7 +39,8 @@ Item {
 
             HeadImg {                                                              
                 v2: Global.v2
-                userName: contactUserName                                       
+                userName: contactUserName
+                headImgUrl: contactHeadImgUrl
                 onFilePathChanged: {                                               
                     headImage.imageSource = filePath
                 }                                                                  

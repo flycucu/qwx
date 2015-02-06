@@ -78,7 +78,7 @@ Item {
 
     HeadImg {
         id: loginUserHeadImg
-        v2: Global.v2                                             
+        v2: Global.v2 
         userName: Global.loginUserName
     }
 

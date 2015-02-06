@@ -15,7 +15,7 @@ Item {
             wxListModel.remove(0);
         } 
                                                                                    
-        ListElement { wxUserName: ""; wxNickName: ""; wxContent: "" } 
+        ListElement { wxUserName: ""; wxNickName: ""; wxHeadImgUrl: "";  wxContent: "" } 
     }
 
     Component.onCompleted: {
@@ -23,6 +23,7 @@ Item {
         for (var i = 0; i < Global.initContactList.length; i++) {
             wxListModel.append({"wxUserName": Global.initContactList[i].userName, 
                                 "wxNickName": Global.initContactList[i].nickName, 
+                                "wxHeadImgUrl": Global.initContactList[i].headImgUrl,
                                 "wxContent": ""});
         }
     }
@@ -72,11 +73,11 @@ Item {
         onNewMsg: {
             var isExist = false;
             var nickName = "";
+            var headImgUrl = "";
             
             rootWindow.title = "微信Qt前端 - 有新消息";
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
-                nickName = contactObj.getNickName(userName);
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true;
@@ -89,12 +90,16 @@ Item {
             if (isExist == false) {
                 if (Global.loginUserName == fromUserName) {
                     nickName = contactObj.getNickName(toUserName);
+                    headImgUrl = contactObj.getHeadImgUrl(toUserName);
                     wxListModel.insert(0, {"wxUserName": toUserName, 
-                                           "wxNickName": nickName});
+                                           "wxNickName": nickName, 
+                                           "wxHeadImgUrl": headImgUrl});
                 } else {
                     nickName = contactObj.getNickName(fromUserName);
+                    headImgUrl = contactObj.getHeadImgUrl(fromUserName);
                     wxListModel.insert(0, {"wxUserName": fromUserName, 
-                                           "wxNickName": nickName});
+                                           "wxNickName": nickName, 
+                                           "wxHeadImgUrl": headImgUrl});
                 }
             }
 
@@ -151,6 +156,7 @@ Item {
                 id: headImgObj
                 v2: Global.v2
                 userName: wxUserName
+                headImgUrl: wxHeadImgUrl
                 onFilePathChanged: {
                     headImage.imageSource = headImgObj.filePath
                 }

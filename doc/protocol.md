@@ -143,7 +143,7 @@ https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&r=13889760868
 {"BaseRequest":{"Uin":750366800,"Sid":"e75TXbI7TnKUevmI","Skey":"","DeviceID":"e519062714508114"},"Count":10,"List":[{"UserName":"z_zer0v","ChatRoomId":3445229833},{"UserName":"huobao002","ChatRoomId":3445229833},{"UserName":"wxid_jo4qxoep4go411","ChatRoomId":3445229833},{"UserName":"jijunlong123456","ChatRoomId":3445229833},{"UserName":"wxid_toyaj4qwrynb21","ChatRoomId":3445229833},{"UserName":"wxid_6655286553012","ChatRoomId":3445229833},{"UserName":"wxid_rankrke1kkyd12","ChatRoomId":3445229833},{"UserName":"wxid_chcblpm846k022","ChatRoomId":3445229833},{"UserName":"tw297554396","ChatRoomId":3445229833},{"UserName":"wxid_3076050756212","ChatRoomId":3445229833}]}
 
 
-## get headimg ？头像？
+## 聊天室头像
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetheadimg?seq=620917806&username=3445229833chatroom@
 

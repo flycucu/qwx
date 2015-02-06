@@ -12,7 +12,8 @@
 #include "globaldeclarations.h"
 
 Contact::Contact(QObject* parent) 
-  : QAbstractListModel(parent)
+  : QAbstractListModel(parent), 
+    m_v2(false)
 {
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
@@ -49,9 +50,9 @@ void Contact::m_post(QString host)
     m_httpPost.post(url, json, true);
 }
 
-void Contact::post() { m_post(WX_SERVER_HOST); }
+void Contact::post() { m_v2 = false; m_post(WX_SERVER_HOST); }
 
-void Contact::postV2() { m_post(WX_V2_SERVER_HOST); }
+void Contact::postV2() { m_v2 = true; m_post(WX_V2_SERVER_HOST); }
 
 int Contact::rowCount(const QModelIndex & parent) const 
 {
@@ -81,7 +82,7 @@ QHash<int, QByteArray> Contact::roleNames() const
     QHash<int, QByteArray> roles;
     roles[UserNameRole] = "contactUserName";
     roles[NickNameRole] = "nickName";
-    roles[HeadImgUrlRole] = "headImgUrl";
+    roles[HeadImgUrlRole] = "contactHeadImgUrl";
     return roles;
 }
 
@@ -106,7 +107,8 @@ void Contact::m_slotFinished(QNetworkReply* reply)
         QJsonObject user = val.toObject();                                         
         addContact(ContactObject(user["UserName"].toString(), 
                    user["NickName"].toString(), 
-                   WX_SERVER_HOST + user["HeadImgUrl"].toString()));
+                   m_v2 ? WX_V2_SERVER_HOST + user["HeadImgUrl"].toString() : 
+                        WX_SERVER_HOST + user["HeadImgUrl"].toString()));
     }                                                                              
     emit contactListChanged();
 }
@@ -116,6 +118,15 @@ QString Contact::getNickName(QString userName)
     for (ContactObject contact : m_contactList) {
         if (contact.userName() == userName)
             return contact.nickName();
+    }
+    return "";
+}
+
+QString Contact::getHeadImgUrl(QString userName) 
+{
+    for (ContactObject contact : m_contactList) {
+        if (contact.userName() == userName)
+            return contact.headImgUrl();
     }
     return "";
 }

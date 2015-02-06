@@ -29,7 +29,8 @@ public:
     Q_INVOKABLE void addContact(const ContactObject & contact);
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
-    Q_INVOKABLE QString getNickName(QString nickName);
+    Q_INVOKABLE QString getNickName(QString userName);
+    Q_INVOKABLE QString getHeadImgUrl(QString userName);
 
 Q_SIGNALS:
     void error();
@@ -48,6 +49,7 @@ private:
 private:
     QList<ContactObject> m_contactList;
     HttpPost m_httpPost;
+    bool m_v2;
 };
 
 class ContactObject 
