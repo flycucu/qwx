@@ -30,15 +30,18 @@ Rectangle {
             if (!Global.isRobot) {
                 return;
             }
+            if (content == "") {
+                return;
+            }
             if (Global.v2) {
                 sendMsgObj.sendV2(Global.uin,
-                            Global.sid,                                          
-                            Global.skey,
-                            Global.deviceId, 
-                            chatView.fromUserName,                                 
-                            chatView.toUserName,                                   
-                            content,                                 
-                            Global.syncKey); 
+                                  Global.sid,                                          
+                                  Global.skey,
+                                  Global.deviceId, 
+                                  chatView.fromUserName,                                 
+                                  chatView.toUserName,                                   
+                                  content,                                 
+                                  Global.syncKey); 
             } else {
                 sendMsgObj.send(Global.uin,
                                 Global.sid,
@@ -193,6 +196,9 @@ Rectangle {
 
     function sendMsg() 
     {
+        if (sendMsgTextField.text == "") {
+            return;
+        }
         if (Global.v2) {
             sendMsgObj.sendV2(Global.uin,
                               Global.sid, 
