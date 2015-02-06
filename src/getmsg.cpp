@@ -142,7 +142,7 @@ void GetMsg::finished(QNetworkReply* reply)
         QString content = msg["Content"] .toString();
 
         if (content.contains("op id='2'"))
-            content = "";
+            continue;
         
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
             if (m_needSaveLog)

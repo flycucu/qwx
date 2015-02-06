@@ -38,8 +38,14 @@ void ChatLog::load(QString toUserName)
             QStringList result = line.split(DELIM);
             if (result.size() < 3)
                 continue;
-
-            m_chatLogList.append(new ChatLogObject(result[1], result[2]));
+ 
+            QString userName = result[1];
+            QString content = result[2];
+            if (content.startsWith("@")) {
+                userName = userName.mid(0, userName.indexOf(":"));
+                content = content.mid(content.indexOf(":") + QString("<br/>").size()); 
+            }
+            m_chatLogList.append(new ChatLogObject(userName, content));
         }
         file.close();
     }
