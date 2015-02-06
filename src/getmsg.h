@@ -37,6 +37,8 @@ public:
                             QString sid, 
                             QString skey, 
                             QStringList syncKey);
+    Q_INVOKABLE QString contentWithoutUserName(QString content);
+    Q_INVOKABLE QString contentToUserName(QString content, QString oriUserName);
 
 Q_SIGNALS:
     void fromUserNameChanged();

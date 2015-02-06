@@ -212,3 +212,15 @@ https://res.wx.qq.com/zh_CN/htmledition/swf/msg17ced3.mp3
 ## 获取消息中的图片
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?type=slave&MsgID={MsgID值}&skey=%40{skey值}
+
+
+## 获取视频
+
+/cgi-bin/mmwebwx-bin/webwxgetvideo?type=flv&msgid={MsgID值}&skey={SKey值}
+
+/cgi-bin/mmwebwx-bin/webwxgetvideo?fun=download&msgid={MsgID值}&skey={SKey值}
+
+
+## 获取语音
+
+webwxgetvoice

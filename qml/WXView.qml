@@ -78,6 +78,7 @@ Item {
             rootWindow.title = "微信Qt前端 - 有新消息";
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
+                nickName = contactObj.getNickName(userName);
                 if (userName == fromUserName || 
                     userName == toUserName) {
                     isExist = true;

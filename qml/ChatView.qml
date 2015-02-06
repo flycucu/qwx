@@ -80,7 +80,9 @@ Rectangle {
             } else if (content == "小逗比出来" || content == "robot come") {
                 Global.isRobot = true;
             }
-            chatListModel.append({"content": content, "curUserName": userName});
+            var newContent = getMsgObj.contentWithoutUserName(content);
+            var newUserName = getMsgObj.contentToUserName(content, userName);
+            chatListModel.append({"content": newContent, "curUserName": newUserName});
             moveToTheEnd();
             if (Global.isRobot) {
                 xiaodoubiObj.get(content);

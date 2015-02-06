@@ -89,6 +89,22 @@ void GetMsg::postV2(QString uin, QString sid, QString skey, QStringList syncKey)
     m_post(WX_V2_SERVER_HOST, uin, sid, skey, syncKey);
 }
 
+QString GetMsg::contentWithoutUserName(QString content) 
+{
+    if (content.startsWith("@"))
+        return content.mid(content.indexOf(":") + QString("<br/>").size());
+
+    return content;
+}
+
+QString GetMsg::contentToUserName(QString content, QString oriUserName) 
+{
+    if (content.startsWith("@")) 
+        return content.mid(0, content.indexOf(":"));
+
+    return oriUserName;
+}
+
 void GetMsg::m_saveLog(QString createTimeStr, QString fromUserName, QString content) 
 {
     QFile file(QWXDIR + "/" + fromUserName + ".txt");
@@ -125,10 +141,9 @@ void GetMsg::finished(QNetworkReply* reply)
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
         QString content = msg["Content"] .toString();
 
-        // TODO: filter <msg></msg> temporarly ;)
-        if (content.indexOf("msg") != -1)
-            continue;
-
+        if (content.contains("op id='2'"))
+            content = "";
+        
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
             if (m_needSaveLog)
                 m_saveLog(createTimeStr, fromUserNameStr, content);

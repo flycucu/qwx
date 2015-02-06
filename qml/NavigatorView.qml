@@ -15,11 +15,13 @@ Item {
     }
 
     Component.onDestruction: {
+        /*
         if (Global.v2) {
             logOutObj.getV2();
         } else {
             logOutObj.get();
         }
+        */
         console.log("Bye ;-)");
     }
 
