@@ -92,7 +92,7 @@ void GetMsg::postV2(QString uin, QString sid, QString skey, QStringList syncKey)
 QString GetMsg::contentWithoutUserName(QString content) 
 {
     if (content.startsWith("@"))
-        return content.mid(content.indexOf(":") + QString("<br/>").size());
+        return content.mid(content.indexOf(":<br/>") + QString(":<br/>").size());
 
     return content;
 }
@@ -100,7 +100,7 @@ QString GetMsg::contentWithoutUserName(QString content)
 QString GetMsg::contentToUserName(QString content, QString oriUserName) 
 {
     if (content.startsWith("@")) 
-        return content.mid(0, content.indexOf(":"));
+        return content.left(content.indexOf(":<br/>"));
 
     return oriUserName;
 }
@@ -141,7 +141,7 @@ void GetMsg::finished(QNetworkReply* reply)
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
         QString content = msg["Content"] .toString();
 
-        if (content.contains("op id='2'"))
+        if (content.contains("msg"))
             continue;
         
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {

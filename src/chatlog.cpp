@@ -42,8 +42,8 @@ void ChatLog::load(QString toUserName)
             QString userName = result[1];
             QString content = result[2];
             if (content.startsWith("@")) {
-                userName = userName.mid(0, userName.indexOf(":"));
-                content = content.mid(content.indexOf(":") + QString("<br/>").size()); 
+                userName = content.left(content.indexOf(":<br/>"));
+                content = content.mid(content.indexOf(":<br/>") + QString(":<br/>").size()); 
             }
             m_chatLogList.append(new ChatLogObject(userName, content));
         }
