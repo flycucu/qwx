@@ -61,6 +61,8 @@ Item {
         id: getMsgObj
         onSyncKeyChanged: {
             if (getMsgObj.syncKey.length == 0) {
+                processObj.arguments = ["微信Qt前端", "掉线！请重新登录", '--icon=dialog-error', '-t', '13000'];
+                processObj.start();
                 rootWindowStackView.clear(); 
                 rootWindowStackView.push({item: Qt.resolvedUrl("SplashView.qml")});
                 return;
@@ -81,7 +83,7 @@ Item {
                 nickName = contactObj.getNickName(userName);
                 if (userName == fromUserName || userName == toUserName) {
                     isExist = true;
-                    wxListModel.get(i).wxContent = content;
+                    wxListModel.get(i).wxContent = getMsgObj.contentWithoutUserName(content);
                     wxListModel.move(i, 0, 1);
                     break;
                 }
