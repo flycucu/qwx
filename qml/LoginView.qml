@@ -14,7 +14,7 @@ Item {
 
     Text {
         id: titleText
-        text: "微信"
+        text: Global.v2 ? "微信V2" : "微信"
         font.pixelSize: 22
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -30,7 +30,7 @@ Item {
     }
 
     Text {
-        text: "请使用微信扫描二维码以登录"
+        text: Global.v2 ? "请再次使用微信扫描二维码以登录" : "请使用微信扫描二维码以登录"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: qrcodeImage.bottom
         anchors.topMargin: 38
