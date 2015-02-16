@@ -14,6 +14,7 @@ Rectangle {
     property string toUserName
     property string toNickName
     property bool showEmotion: false
+    property var toUserList
 
     function moveToTheEnd() 
     {
@@ -194,13 +195,29 @@ Rectangle {
         }                                                                  
     }
 
+    function contactRefresh()                                                   
+    {                                                                           
+        if (Global.v2)                                                          
+            contactObj.postV2();                                                
+        else                                                                    
+            contactObj.post();                                                  
+    }                                                                           
+                                                                                
+    Contact {                                                                   
+        id: contactObj                                                          
+        Component.onCompleted: {                                                
+            contactRefresh();                                                   
+        }                                                                       
+    }
+
     function sendMsg() 
     {
         if (sendMsgTextField.text == "") {
             return;
         }
-        if (Global.v2) {
-            sendMsgObj.sendV2(Global.uin,
+        if (typeof(chatView.toUserList) == 'undefined') {
+            if (Global.v2) {
+                sendMsgObj.sendV2(Global.uin,
                               Global.sid, 
                               Global.skey,
                               Global.deviceId, 
@@ -208,8 +225,8 @@ Rectangle {
                               chatView.toUserName, 
                               sendMsgTextField.text, 
                               Global.syncKey);
-        } else {
-            sendMsgObj.send(Global.uin,
+            } else {
+                sendMsgObj.send(Global.uin,
                             Global.sid,
                             Global.skey,
                             Global.deviceId,
@@ -217,6 +234,29 @@ Rectangle {
                             chatView.toUserName,
                             sendMsgTextField.text,
                             Global.syncKey);
+            }
+        } else {
+            for (var i = 0; i < chatView.toUserList.length; i++) {
+                if (Global.v2) {                                                    
+                    sendMsgObj.sendV2(Global.uin,                                   
+                              Global.sid,                                       
+                              Global.skey,                                      
+                              Global.deviceId,                                  
+                              chatView.fromUserName,                            
+                              chatView.toUserList[i].userName,
+                              sendMsgTextField.text,                            
+                              Global.syncKey);                                  
+                } else {                                                            
+                    sendMsgObj.send(Global.uin,                                     
+                            Global.sid,                                         
+                            Global.skey,                                        
+                            Global.deviceId,                                    
+                            chatView.fromUserName,                              
+                            chatView.toUserList[i].userName,                                
+                            sendMsgTextField.text,                              
+                            Global.syncKey);                                    
+                }
+            }
         }
         chatListModel.append({"content": sendMsgTextField.text, 
                               "curUserName": chatView.fromUserName});

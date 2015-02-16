@@ -23,7 +23,7 @@ Item {
             contactRefresh();
         }
         onContactListChanged: {
-            modContactListView.model = contactObj;
+            modContactListView.model = contactObj.contactList;
         }
     }
 
@@ -39,8 +39,8 @@ Item {
 
             HeadImg {                                                              
                 v2: Global.v2
-                userName: contactUserName
-                headImgUrl: contactHeadImgUrl
+                userName: modelData.userName
+                headImgUrl: modelData.headImgUrl
                 onFilePathChanged: {                                               
                     headImage.imageSource = filePath
                 }                                                                  
@@ -56,7 +56,7 @@ Item {
             }                                                                      
                                                                                    
             Text {                                                                 
-                text: nickName                                           
+                text: modelData.nickName                                           
                 font.pixelSize: 13                                                 
                 anchors.top: parent.top                                            
                 anchors.topMargin: 14                                              
@@ -70,14 +70,27 @@ Item {
             }
 
             MouseArea {                                                        
-                anchors.fill: parent                                           
-                onClicked: {                                                   
-                    navigatorStackView.push({                                  
-                        item: Qt.resolvedUrl("ChatView.qml"),                  
-                        properties: {
-                            fromUserName: Global.loginUserName,
-                            toUserName: contactUserName,                    
-                            toNickName: nickName}});
+                anchors.fill: parent 
+                onClicked: {
+                    if (modelData.userName == "groupsend") {
+                        navigatorStackView.push({
+                            item: Qt.resolvedUrl("ChatView.qml"),
+                            properties: {
+                                fromUserName: Global.loginUserName,
+                                toUserList: contactObj.contactList,
+                                toNickName: "群发"
+                            }
+                        });
+                    } else {
+                        navigatorStackView.push({                                  
+                            item: Qt.resolvedUrl("ChatView.qml"),
+                            properties: {
+                                fromUserName: Global.loginUserName,
+                                toUserName: modelData.userName,
+                                toNickName: modelData.nickName 
+                            }
+                        });
+                    }
                 }                                                              
             }
         }

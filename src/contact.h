@@ -3,30 +3,21 @@
 #ifndef CONTACT_H
 #define CONTACT_H
 
-#include <QAbstractListModel>
-
 #include "httppost.h"
+#include "userobject.h"
 
-class ContactObject;
-
-class Contact : public QAbstractListModel 
+class Contact : public QObject 
 {
     Q_OBJECT
 
-public:
-    enum ContactRoles {
-        UserNameRole = Qt::UserRole + 1,
-        NickNameRole,
-        HeadImgUrlRole
-    };
+    Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
 
+public:
     explicit Contact(QObject* parent = nullptr);
     ~Contact();
 
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-    
-    Q_INVOKABLE void addContact(const ContactObject & contact);
+    QList<QObject*> contactList() const { return m_contactList; }
+
     Q_INVOKABLE void post();
     Q_INVOKABLE void postV2();
     Q_INVOKABLE QString getNickName(QString userName);
@@ -36,9 +27,6 @@ Q_SIGNALS:
     void error();
     void contactListChanged();
 
-protected:
-    QHash<int, QByteArray> roleNames() const;
-
 private Q_SLOTS:
     void m_slotFinished(QNetworkReply* reply);
 
@@ -47,29 +35,9 @@ private:
     void m_post(QString host);
 
 private:
-    QList<ContactObject> m_contactList;
     HttpPost m_httpPost;
+    QList<QObject*> m_contactList;
     bool m_v2;
-};
-
-class ContactObject 
-{
-public:
-    ContactObject(const QString & userName, 
-                  const QString & nickName, 
-                  const QString & headImgUrl) 
-      : m_userName(userName), m_nickName(nickName), m_headImgUrl(headImgUrl)
-    {
-    }
-
-    QString userName() const { return m_userName; }
-    QString nickName() const { return m_nickName; }
-    QString headImgUrl() const { return m_headImgUrl; }
-
-private:
-    QString m_userName;
-    QString m_nickName;
-    QString m_headImgUrl;
 };
 
 #endif // CONTACT_H
