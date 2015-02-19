@@ -195,21 +195,6 @@ Rectangle {
         }                                                                  
     }
 
-    function contactRefresh()                                                   
-    {                                                                           
-        if (Global.v2)                                                          
-            contactObj.postV2();                                                
-        else                                                                    
-            contactObj.post();                                                  
-    }                                                                           
-                                                                                
-    Contact {                                                                   
-        id: contactObj                                                          
-        Component.onCompleted: {                                                
-            contactRefresh();                                                   
-        }                                                                       
-    }
-
     function sendMsg() 
     {
         if (sendMsgTextField.text == "") {
