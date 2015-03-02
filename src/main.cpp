@@ -23,6 +23,8 @@
 #include "chatlog.h"
 #include "emotion.h"
 #include "logout.h"
+#include "ipcity.h"
+#include "weather.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -52,6 +54,8 @@ int main(int argc, char* argv[])
     qmlRegisterType<ChatLog>("cn.com.isoft.qwx", 1, 0, "ChatLog");
     qmlRegisterType<Emotion>("cn.com.isoft.qwx", 1, 0, "Emotion");
     qmlRegisterType<LogOut>("cn.com.isoft.qwx", 1, 0, "LogOut");
+    qmlRegisterType<IpCity>("cn.com.isoft.qwx", 1, 0, "IpCity");
+    qmlRegisterType<Weather>("cn.com.isoft.qwx", 1, 0, "Weather");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

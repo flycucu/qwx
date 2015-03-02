@@ -15,27 +15,48 @@ Item {
     }
 
     Component.onDestruction: {
-        /*
         if (Global.v2) {
             logOutObj.getV2();
         } else {
             logOutObj.get();
         }
-        */
         console.log("Bye ;-)");
+    }
+
+    Process {                                                                   
+        id: processObj                                                          
+        program: "notify-send"                                                  
+    }
+
+    Weather {
+        id: weatherObj
+        onWeatherChanged: {
+            processObj.arguments = ["节能减排", report, '--icon=dialog-information', '-t', '13000'];
+            processObj.start();
+        }
+    }
+
+    IpCity {
+        id: ipCityObj
+        Component.onCompleted: {
+            ipCityObj.get();
+        }
+        onCityChanged: {
+            weatherObj.get(city);
+        }
     }
 
     Sync {
         id: syncObj
         onSyncKeyChanged: {
-            Global.syncKey = syncObj.syncKey
-            doMonitor()
+            Global.syncKey = syncObj.syncKey;
+            doMonitor();
         }
         Component.onCompleted: {
             if (Global.v2) {
-                syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
+                syncObj.postV2(Global.uin, Global.sid, Global.skey, Global.initSyncKey);
             } else {
-                syncObj.post(Global.uin, Global.sid, Global.skey, Global.initSyncKey)
+                syncObj.post(Global.uin, Global.sid, Global.skey, Global.initSyncKey);
             }
         }
     }
@@ -44,9 +65,9 @@ Item {
         id: statusNotifyObj
         Component.onCompleted: {
             if (Global.v2) {
-                statusNotifyObj.postV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName)
+                statusNotifyObj.postV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName);
             } else {
-                statusNotifyObj.post(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName)
+                statusNotifyObj.post(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.loginUserName);
             }
         }
     }
@@ -54,9 +75,9 @@ Item {
     function doMonitor() 
     {
         if (Global.v2) {
-            monitorObj.getV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+            monitorObj.getV2(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey);
         } else {
-            monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey)
+            monitorObj.get(Global.uin, Global.sid, Global.skey, Global.deviceId, Global.syncKey);
         }
     }
 
@@ -74,7 +95,7 @@ Item {
         id: monitorTimer                                                              
         interval: 6000; running: true; repeat: true 
         onTriggered: {
-            doMonitor()
+            doMonitor();
         }
     }
 

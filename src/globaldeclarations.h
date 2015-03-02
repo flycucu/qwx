@@ -17,5 +17,7 @@ const QString XIAODOUBI_URL = "http://www.xiaodoubi.com/bot/api.php?chat=";
 const QString QWXDIR = QDir::homePath() + "/." + CODE_NAME;
 const QString COOKIE_FILENAME = ".cookie";
 const QString DELIM = ";|";
+const QString IPLOOKUP_URL = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";
+const QString WEATHER_URL = "http://api.map.baidu.com/telematics/v3/weather?location=%1&output=json&ak=6xxzcQMhb4WgKX0EUkwG747K";
 
 #endif // GLOBAL_DECLARATIONS_H
