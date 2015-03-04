@@ -11,8 +11,8 @@
 #include "contact.h"
 #include "globaldeclarations.h"
 
-Contact::Contact(QObject* parent) 
-  : QObject(parent), 
+Contact::Contact(HttpPost* parent) 
+  : HttpPost(parent), 
     m_v2(false)
 {
 #if QWX_DEBUG
@@ -25,6 +25,7 @@ Contact::~Contact()
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__;
 #endif
+    m_clear();
 }
 
 void Contact::m_clear() 
@@ -48,15 +49,14 @@ void Contact::m_post(QString host)
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << url;
 #endif
     QString json = "{}";
-    connect(&m_httpPost, &HttpPost::signalFinished, this, &Contact::m_slotFinished);
-    m_httpPost.post(url, json, true);
+    HttpPost::post(url, json, true);
 }
 
 void Contact::post() { m_v2 = false; m_post(WX_SERVER_HOST); }
 
 void Contact::postV2() { m_v2 = true; m_post(WX_V2_SERVER_HOST); }
 
-void Contact::m_slotFinished(QNetworkReply* reply) 
+void Contact::finished(QNetworkReply* reply) 
 {
     QString replyStr(reply->readAll());
 #if QWX_DEBUG
