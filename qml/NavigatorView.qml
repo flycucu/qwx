@@ -31,7 +31,7 @@ Item {
     Weather {
         id: weatherObj
         onWeatherChanged: {
-            processObj.arguments = ["节能减排", report, '--icon=dialog-information', '-t', '13000'];
+            processObj.arguments = [qsTr("energy saving and emission reduction"), report, '--icon=dialog-information', '-t', '13000'];
             processObj.start();
         }
     }
@@ -84,7 +84,7 @@ Item {
     Monitor {
         id: monitorObj
         onNoNewMsg: {
-            rootWindow.title = "微信Qt前端";
+            rootWindow.title = qsTr("WeChat Qt frontend");
         }
         onNewMsg: {
             Global.monitorNewMsg();
@@ -116,19 +116,19 @@ Item {
                 anchors.top: navigatorHeader.bottom
 
                 IconTab {
-                    title: "微信"
+                    title: qsTr("WeChat")
                     iconSource: "images/messages.png"
                     WXView {}
                 }
 
                 IconTab {
-                    title: "通讯录"
+                    title: qsTr("Contact")
                     iconSource: "images/contacts.png"
                     ContactListView {}
                 }
 
                 IconTab {
-                    title: "我"
+                    title: qsTr("Me")
                     iconSource: loginUserHeadImg.filePath
                     IView {}
                 }
@@ -169,7 +169,7 @@ Item {
                 color: "#20282a"
                                                                                    
                 Text { 
-                    text: "微信"
+                    text: qsTr("WeChat")
                     font.pixelSize: 22
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left

@@ -25,6 +25,7 @@
 #include "logout.h"
 #include "ipcity.h"
 #include "weather.h"
+#include "i18n.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -35,6 +36,9 @@ int main(int argc, char* argv[])
 
     app.setApplicationName(CODE_NAME);
     app.setApplicationVersion(APPLICATION_VERSION);
+
+    I18N i18n(TRANSLATIONS_PATH, APPLICATION_ENCODING);
+    i18n.translate();
 
     qmlRegisterType<QwxUUID>("cn.com.isoft.qwx", 1, 0, "QwxUUID");
     qmlRegisterType<Scan>("cn.com.isoft.qwx", 1, 0, "Scan");

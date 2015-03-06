@@ -25,7 +25,8 @@ HEADERS += \
     $$PWD/emotion.h \
     $$PWD/logout.h  \
     $$PWD/ipcity.h  \
-    $$PWD/weather.h
+    $$PWD/weather.h \
+    $$PWD/i18n.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -53,4 +54,5 @@ SOURCES += \
     $$PWD/emotion.cpp   \
     $$PWD/logout.cpp    \
     $$PWD/ipcity.cpp    \
-    $$PWD/weather.cpp
+    $$PWD/weather.cpp   \
+    $$PWD/i18n.cpp

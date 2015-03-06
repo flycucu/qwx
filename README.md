@@ -23,6 +23,14 @@ make
 ```
 
 
+## i18n
+
+```
+lupdate qml/*.qml -ts translations/qwx_zh_CN.ts
+lrelease translations/qwx_zh_CN.ts
+```
+
+
 ## 重度开发状态下的原型骨架截图
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/splash.png)

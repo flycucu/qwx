@@ -8,7 +8,7 @@ import cn.com.isoft.qwx 1.0
 ApplicationWindow {
     id: rootWindow
     width: 320; height: 544
-    title: "微信Qt前端"
+    title: qsTr("WeChat Qt frontend")
 
     StackView {
         id: rootWindowStackView
