@@ -1,20 +1,23 @@
 qwx
 ----
 
-微信Qt前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md) 
+WeChat Qt frontend based on [webwx protocol] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md)
+微信Qt前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md)
+
+***UNFRIENDLY for COMMERICAL! images and protocol copyright [Tencent] (http://weixin.qq.com/)*** 
 ***请不要用于商业用途！图片、协议版权归[腾讯] (http://weixin.qq.com/) 所有！***
 
 
-## 依赖
+## Dependences 依赖
 
-Qt5(>=5.2)的qml、quick、network、xml 
+Qt5(>=5.2) qml, quick, network and xml 
 
 ## Rock for wayland 
 
 [QtWayland 5.4 with QtCompositor] (https://github.com/papyros/papyros-shell#dependencies)
 
 
-## 编译、运行
+## Build && Install 编译、运行
 
 ```
 qmake QWX_DEBUG=ON
@@ -31,11 +34,13 @@ lrelease translations/qwx_zh_CN.ts
 ```
 
 
-## 重度开发状态下的原型骨架截图
+## Skeleton 重度开发状态下的原型骨架截图
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/splash.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/login.png)
+
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/qwx-snapshot1.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/wayland-screenshot.png)
 
