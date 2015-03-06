@@ -2,6 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>ChatView</name>
+    <message>
+        <source>Send</source>
+        <translation type="unfinished">发送</translation>
+    </message>
+</context>
+<context>
     <name>LoginView</name>
     <message>
         <source>WeChat</source>

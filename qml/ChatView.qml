@@ -327,7 +327,7 @@ Rectangle {
 
         Button {
             id: sendButton
-            text: "发送"
+            text: qsTr("Send")
             anchors.right: parent.right
             onClicked: {
                 sendMsg();

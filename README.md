@@ -42,6 +42,10 @@ lrelease translations/qwx_zh_CN.ts
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/qwx-snapshot1.png)
 
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/qwx-snapshot2.png)
+
+![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/qwx-snapshot3.png)
+
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/wayland-screenshot.png)
 
 ![ScreenShot](https://raw.github.com/xiangzhai/qwx/master/doc/chat.png)
