@@ -1,8 +1,15 @@
+2015-03-09 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+
+qwx v0.3 released.
+
+* Add i18n support.
+
+
 2015-02-13 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 qwx v0.2 released.
 
-Add some comment for webwx V2 user about scanning QRcode twice ;)
+* Add some comment for webwx V2 user about scanning QRcode twice ;)
 
 
 2015-01-29 Leslie Zhai <xiang.zhai@i-soft.com.cn>

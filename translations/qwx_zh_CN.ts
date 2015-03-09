@@ -7,6 +7,14 @@
         <source>Send</source>
         <translation type="unfinished">发送</translation>
     </message>
+    <message>
+        <source>WeChat Qt frontend</source>
+        <translation type="unfinished">微信Qt前端</translation>
+    </message>
+    <message>
+        <source>New message</source>
+        <translation type="unfinished">有新消息</translation>
+    </message>
 </context>
 <context>
     <name>LoginView</name>

@@ -74,10 +74,10 @@ Rectangle {
         toUserName: chatView.toUserName
         needSaveLog: false
         onNoNewMsg: {
-            rootWindow.title = "微信Qt前端";
+            rootWindow.title = qsTr("WeChat Qt frontend");
         }
         onReceived: {
-            rootWindow.title = "微信Qt前端 - 有新消息";
+            rootWindow.title = qsTr("WeChat Qt frontend") + " - " + qsTr("New message");
             if (content == "小逗比退下" || content == "robot away") {
                 Global.isRobot = false;
             } else if (content == "小逗比出来" || content == "robot come") {
