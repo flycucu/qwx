@@ -1,11 +1,11 @@
 qwx
 ----
 
-WeChat Qt frontend based on [webwx protocol] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md)
+WeChat Qt frontend based on [webwx protocol] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md) 
 微信Qt前端，使用[网页微信协议] (https://github.com/xiangzhai/qwx/blob/master/doc/protocol.md)
 
-***UNFRIENDLY for COMMERICAL! images and protocol copyright [Tencent] (http://weixin.qq.com/)*** 
-***请不要用于商业用途！图片、协议版权归[腾讯] (http://weixin.qq.com/) 所有！***
+***images and protocol Copyright (C) by [Tencent] (http://weixin.qq.com/)*** 
+***图片、协议版权归[腾讯] (http://weixin.qq.com/) 所有！***
 
 
 ## Dependences 依赖
