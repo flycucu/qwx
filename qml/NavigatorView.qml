@@ -31,7 +31,7 @@ Item {
     Weather {
         id: weatherObj
         onWeatherChanged: {
-            processObj.arguments = [qsTr("energy saving and emission reduction"), report, '--icon=dialog-information', '-t', '13000'];
+            processObj.arguments = [qsTr("energy saving and emission reduction"), report, '-i', '/usr/share/icons/hicolor/64x64/apps/qwx.png', '-t', '13000'];
             processObj.start();
         }
     }
