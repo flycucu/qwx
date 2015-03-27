@@ -30,7 +30,8 @@ Item {
     }
 
     Text {
-        text: Global.v2 ? qsTr("Please again scan the QRcode to login") : qsTr("Please scan the QRcode to login")
+        id: tipText
+        text: qsTr("Loading QRcode ...")
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: qrcodeImage.bottom
         anchors.topMargin: 38
@@ -56,7 +57,14 @@ Item {
         }
     }
 
-    function scanQRcode() { scanObj.get(loginView.uuid, loginView.tip) }
+    function scanQRcode() { 
+        if (qrcodeImage.status == Image.Ready) {
+            scanObj.get(loginView.uuid, loginView.tip);
+            tipText.text = Global.v2 ? 
+                                qsTr("Please again scan the QRcode to login") : 
+                                qsTr("Please scan the QRcode to login");
+        }
+    }
 
     Timer {
         id: scanTimer

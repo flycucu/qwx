@@ -30,6 +30,10 @@
         <source>Please scan the QRcode to login</source>
         <translation type="unfinished">请使用微信扫描二维码以登录</translation>
     </message>
+    <message>
+        <source>Loading QRcode ...</source>
+        <translation type="unfinished">加载二维码中...</translation>
+    </message>
 </context>
 <context>
     <name>NavigatorView</name>
