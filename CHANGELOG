@@ -1,3 +1,11 @@
+2015-03-27 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+
+qwx v0.4 released.
+
+* Add loading qrcode tip.
+* Fix contact list view segfault issue.
+
+
 2015-03-09 Leslie Zhai <xiang.zhai@i-soft.com.cn>
 
 qwx v0.3 released.
