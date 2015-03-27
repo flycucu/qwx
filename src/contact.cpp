@@ -73,7 +73,7 @@ void Contact::finished(QNetworkReply* reply)
     if (!doc.isObject()) { emit error(); return; }                                 
     QJsonObject obj = doc.object();                                                
     QJsonArray arr = obj["MemberList"].toArray();                              
-    m_contactList.append(new UserObject("groupsend", "群发", ""));
+    m_contactList.append(new UserObject("groupsend", tr("Group Send"), ""));
     foreach (const QJsonValue & val, arr) {                                        
         QJsonObject user = val.toObject();                                         
         m_contactList.append(new UserObject(user["UserName"].toString(), 

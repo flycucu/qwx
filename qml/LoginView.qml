@@ -41,28 +41,30 @@ Item {
         id: scanObj
         onError: { console.log("ERROR:", strerror) }
         onScanedButWaitConfirm: {
-            console.log("scanned but waiting for confirm...")
-            loginView.tip = "0"
-            statReportObj.firstRequestSuccess(loginView.uuid)
-            statReportObj.secondRequestStart(loginView.uuid)
+            console.log("scanned but waiting for confirm...");
+            tipText.text = qsTr("Please confirm on your mobile");
+            loginView.tip = "0";
+            statReportObj.firstRequestSuccess(loginView.uuid);
+            statReportObj.secondRequestStart(loginView.uuid);
         }
         onScanedAndConfirmed: {
-            console.log("confirmed!")
-            scanTimer.stop()
+            console.log("confirmed!");
+            tipText.text = qsTr("Confirmed then waiting for login");
+            scanTimer.stop();
             if (Global.v2) {
-                cookieObj.getV2(redirect_uri)
+                cookieObj.getV2(redirect_uri);
             } else {
-                cookieObj.get(redirect_uri)
+                cookieObj.get(redirect_uri);
             }
         }
     }
 
     function scanQRcode() { 
         if (qrcodeImage.status == Image.Ready) {
-            scanObj.get(loginView.uuid, loginView.tip);
             tipText.text = Global.v2 ? 
                                 qsTr("Please again scan the QRcode to login") : 
                                 qsTr("Please scan the QRcode to login");
+            scanObj.get(loginView.uuid, loginView.tip);
         }
     }
 

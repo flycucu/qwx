@@ -17,6 +17,13 @@
     </message>
 </context>
 <context>
+    <name>Contact</name>
+    <message>
+        <source>Group Send</source>
+        <translation type="unfinished">群发</translation>
+    </message>
+</context>
+<context>
     <name>LoginView</name>
     <message>
         <source>WeChat</source>
@@ -33,6 +40,14 @@
     <message>
         <source>Loading QRcode ...</source>
         <translation type="unfinished">加载二维码中...</translation>
+    </message>
+    <message>
+        <source>Please confirm on your mobile</source>
+        <translation type="unfinished">请在你的手机上确认</translation>
+    </message>
+    <message>
+        <source>Confirmed then waiting for login</source>
+        <translation type="unfinished">已确认！等待登录进程</translation>
     </message>
 </context>
 <context>
