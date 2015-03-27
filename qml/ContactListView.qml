@@ -30,10 +30,6 @@ Item {
     ListView {
         id: modContactListView
         anchors.fill: parent
-        onMovementEnded: {
-            if (modContactListView.contentY == 0)
-                contactRefresh();
-        }
         delegate: Item {
             width: parent.width; height: 60
 
@@ -44,8 +40,8 @@ Item {
                 onFilePathChanged: {                                               
                     headImage.imageSource = filePath
                 }                                                                  
-            }                                                                      
-                                                                                   
+            }
+
             CircleImage {
                 id: headImage                                                      
                 width: 42; height: 42                                              
