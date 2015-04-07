@@ -7,7 +7,7 @@
 #include <QDir>
 
 const QString CODE_NAME = "qwx";
-const QString APPLICATION_VERSION = "0.3";
+const QString APPLICATION_VERSION = "0.4";
 const QString APPLICATION_ENCODING = "UTF-8";
 const QString TRANSLATIONS_PATH = "translations";
 
