@@ -79,7 +79,8 @@ void SendMsg::m_post(QString host,
         + "\",\"Skey\":\"" + skey + "\",\"DeviceID\":\"" + deviceId 
         + "\"},\"Msg\":{\"FromUserName\":\"" + fromUserName 
         + "\",\"ToUserName\":\"" + toUserName 
-        + "\",\"Type\":1,\"Content\":\"" + content + "\",\"ClientMsgId\":" + ts 
+        + "\",\"Type\":1,\"Content\":\"" + content.replace("\"", "\\\"") 
+        + "\",\"ClientMsgId\":" + ts 
         + ",\"LocalID\":" + ts + "}}";
 #if QWX_DEBUG
     qDebug() << "DEBUG:" << __PRETTY_FUNCTION__ << json;
