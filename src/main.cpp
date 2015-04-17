@@ -26,6 +26,7 @@
 #include "ipcity.h"
 #include "weather.h"
 #include "i18n.h"
+#include "clipboard.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -60,6 +61,7 @@ int main(int argc, char* argv[])
     qmlRegisterType<LogOut>("cn.com.isoft.qwx", 1, 0, "LogOut");
     qmlRegisterType<IpCity>("cn.com.isoft.qwx", 1, 0, "IpCity");
     qmlRegisterType<Weather>("cn.com.isoft.qwx", 1, 0, "Weather");
+    qmlRegisterType<Clipboard>("cn.com.isoft.qwx", 1, 0, "Clipboard");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

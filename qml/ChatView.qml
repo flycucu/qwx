@@ -25,6 +25,10 @@ Rectangle {
         Global.chatView = chatView;
     }
 
+    Clipboard {
+        id: clipboard
+    }
+
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
@@ -161,6 +165,13 @@ Rectangle {
                 font.pixelSize: 11
                 anchors.left: fromUserHeadImage.right
                 anchors.leftMargin: 10
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: {
+                        clipboard.copy(content);
+                    }
+                }
             }
         }
     }

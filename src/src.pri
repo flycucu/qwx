@@ -26,7 +26,8 @@ HEADERS += \
     $$PWD/logout.h  \
     $$PWD/ipcity.h  \
     $$PWD/weather.h \
-    $$PWD/i18n.h
+    $$PWD/i18n.h    \
+    $$PWD/clipboard.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -55,4 +56,5 @@ SOURCES += \
     $$PWD/logout.cpp    \
     $$PWD/ipcity.cpp    \
     $$PWD/weather.cpp   \
-    $$PWD/i18n.cpp
+    $$PWD/i18n.cpp  \
+    $$PWD/clipboard.cpp
