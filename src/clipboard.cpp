@@ -9,7 +9,9 @@ Clipboard::Clipboard(QObject *parent)
     : QObject(parent)
     , m_clipboard(QApplication::clipboard())
 {
-    connect(m_clipboard, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
+#if QWX_DEBUG
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 QString Clipboard::text()
@@ -25,8 +27,4 @@ void Clipboard::copy(QString text)
 
     // Let the clipboard know of our mimeData object
     m_clipboard->setMimeData(mimeData);
-}
-
-void Clipboard::dataChanged()
-{
 }
