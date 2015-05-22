@@ -211,6 +211,8 @@ Rectangle {
         if (sendMsgTextField.text == "") {
             return;
         }
+        sendMsgTextField.text = sendMsgTextField.text.replace("qwx", 
+            "消息发自 qwx - 微信 Qt 前端 https://github.com/xiangzhai/qwx");
         if (typeof(chatView.toUserList) == 'undefined') {
             if (Global.v2) {
                 sendMsgObj.sendV2(Global.uin,
