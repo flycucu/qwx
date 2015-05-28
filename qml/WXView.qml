@@ -188,6 +188,9 @@ Item {
                 anchors.top: nickNameText.bottom
                 anchors.topMargin: 6
                 anchors.left: nickNameText.left
+                width: 240
+                clip: true
+                elide: Text.ElideRight
             }
 
             Rectangle {
