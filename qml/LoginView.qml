@@ -14,7 +14,7 @@ Item {
 
     Text {
         id: titleText
-        text: Global.v2 ? "微信V2" : "微信"
+        text: Global.v2 ? qsTr("WeChat") + " V2" : qsTr("WeChat")
         font.pixelSize: 22
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -30,7 +30,8 @@ Item {
     }
 
     Text {
-        text: Global.v2 ? "请再次使用微信扫描二维码以登录" : "请使用微信扫描二维码以登录"
+        id: tipText
+        text: qsTr("Loading QRcode ...")
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: qrcodeImage.bottom
         anchors.topMargin: 38
@@ -40,23 +41,32 @@ Item {
         id: scanObj
         onError: { console.log("ERROR:", strerror) }
         onScanedButWaitConfirm: {
-            console.log("DEBUG: scanned but waiting for confirm...")
-            loginView.tip = "0"
-            statReportObj.firstRequestSuccess(loginView.uuid)
-            statReportObj.secondRequestStart(loginView.uuid)
+            console.log("scanned but waiting for confirm...");
+            tipText.text = qsTr("Please confirm on your mobile");
+            loginView.tip = "0";
+            statReportObj.firstRequestSuccess(loginView.uuid);
+            statReportObj.secondRequestStart(loginView.uuid);
         }
         onScanedAndConfirmed: {
-            console.log("DEBUG: confirmed!")
-            scanTimer.stop()
+            console.log("confirmed!");
+            tipText.text = qsTr("Confirmed then waiting for login");
+            scanTimer.stop();
             if (Global.v2) {
-                cookieObj.getV2(redirect_uri)
+                cookieObj.getV2(redirect_uri);
             } else {
-                cookieObj.get(redirect_uri)
+                cookieObj.get(redirect_uri);
             }
         }
     }
 
-    function scanQRcode() { scanObj.get(loginView.uuid, loginView.tip) }
+    function scanQRcode() { 
+        if (qrcodeImage.status == Image.Ready) {
+            tipText.text = Global.v2 ? 
+                                qsTr("Please again scan the QRcode to login") : 
+                                qsTr("Please scan the QRcode to login");
+            scanObj.get(loginView.uuid, loginView.tip);
+        }
+    }
 
     Timer {
         id: scanTimer

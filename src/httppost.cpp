@@ -44,7 +44,6 @@ void HttpPost::post(QString url, QString str, bool needSetCookie)
             });
     m_finishConnection = connect(&m_nam, &QNetworkAccessManager::finished, 
             [this](QNetworkReply* reply) {
-                emit signalFinished(reply);
                 this->finished(reply);
                 disconnect(m_sslErrorConnection);
                 disconnect(m_finishConnection);

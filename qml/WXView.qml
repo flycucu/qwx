@@ -61,7 +61,7 @@ Item {
         id: getMsgObj
         onSyncKeyChanged: {
             if (getMsgObj.syncKey.length == 0) {
-                processObj.arguments = ["微信Qt前端", "掉线！请重新登录", '--icon=dialog-error', '-t', '13000'];
+                processObj.arguments = [qsTr("WeChat Qt frontend"), qsTr("Disconnected! Please login again"), '-i', '/usr/share/icons/hicolor/64x64/apps/qwx.png', '-t', '13000'];
                 processObj.start();
                 rootWindowStackView.clear(); 
                 rootWindowStackView.push({item: Qt.resolvedUrl("SplashView.qml")});
@@ -70,14 +70,14 @@ Item {
             Global.syncKey = getMsgObj.syncKey;
         }
         onNoNewMsg: {
-            rootWindow.title = "微信Qt前端";
+            rootWindow.title = qsTr("WeChat Qt frontend");
         }
         onNewMsg: {
             var isExist = false;
             var nickName = "";
             var headImgUrl = "";
             
-            rootWindow.title = "微信Qt前端 - 有新消息";
+            rootWindow.title = qsTr("WeChat Qt frontend") + " - " + qsTr("New message");
             for (var i = 0; i < wxListModel.count; i++) {
                 var userName = wxListModel.get(i).wxUserName;
                 nickName = contactObj.getNickName(userName);
@@ -106,7 +106,7 @@ Item {
             }
 
             if (nickName != "") {
-                processObj.arguments = [nickName, content, '--icon=dialog-information', '-t', '3000'];
+                processObj.arguments = [nickName, content, '-i', '/usr/share/icons/hicolor/64x64/apps/qwx.png', '-t', '3000'];
                 processObj.start();
             }
 
@@ -188,6 +188,9 @@ Item {
                 anchors.top: nickNameText.bottom
                 anchors.topMargin: 6
                 anchors.left: nickNameText.left
+                width: 240
+                clip: true
+                elide: Text.ElideRight
             }
 
             Rectangle {

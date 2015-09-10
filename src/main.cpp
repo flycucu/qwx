@@ -23,6 +23,10 @@
 #include "chatlog.h"
 #include "emotion.h"
 #include "logout.h"
+#include "ipcity.h"
+#include "weather.h"
+#include "i18n.h"
+#include "clipboard.h"
 
 int main(int argc, char* argv[]) 
 {                                                                        
@@ -33,6 +37,9 @@ int main(int argc, char* argv[])
 
     app.setApplicationName(CODE_NAME);
     app.setApplicationVersion(APPLICATION_VERSION);
+
+    I18N i18n(TRANSLATIONS_PATH, APPLICATION_ENCODING);
+    i18n.translate();
 
     qmlRegisterType<QwxUUID>("cn.com.isoft.qwx", 1, 0, "QwxUUID");
     qmlRegisterType<Scan>("cn.com.isoft.qwx", 1, 0, "Scan");
@@ -52,6 +59,9 @@ int main(int argc, char* argv[])
     qmlRegisterType<ChatLog>("cn.com.isoft.qwx", 1, 0, "ChatLog");
     qmlRegisterType<Emotion>("cn.com.isoft.qwx", 1, 0, "Emotion");
     qmlRegisterType<LogOut>("cn.com.isoft.qwx", 1, 0, "LogOut");
+    qmlRegisterType<IpCity>("cn.com.isoft.qwx", 1, 0, "IpCity");
+    qmlRegisterType<Weather>("cn.com.isoft.qwx", 1, 0, "Weather");
+    qmlRegisterType<Clipboard>("cn.com.isoft.qwx", 1, 0, "Clipboard");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml")); 
     QObject* topLevel = engine.rootObjects().value(0);

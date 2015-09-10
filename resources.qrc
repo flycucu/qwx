@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/">
+  <file>translations/qwx_zh_CN.qm</file>
   <file>qml/global.js</file>
   <file>qml/main.qml</file>
   <file>qml/SplashView.qml</file>
@@ -8,7 +9,6 @@
   <file>qml/IconTab.qml</file>
   <file>qml/WXView.qml</file>
   <file>qml/ChatView.qml</file>
-  <file>qml/TalkBubble.qml</file>
   <file>qml/ContactListView.qml</file>
   <file>qml/IView.qml</file>
   <file>images/splash.jpg</file>

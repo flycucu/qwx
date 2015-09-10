@@ -23,7 +23,11 @@ HEADERS += \
     $$PWD/xiaodoubi.h   \
     $$PWD/chatlog.h \
     $$PWD/emotion.h \
-    $$PWD/logout.h
+    $$PWD/logout.h  \
+    $$PWD/ipcity.h  \
+    $$PWD/weather.h \
+    $$PWD/i18n.h    \
+    $$PWD/clipboard.h
 
 SOURCES += \
     $$PWD/main.cpp  \
@@ -49,4 +53,8 @@ SOURCES += \
     $$PWD/xiaodoubi.cpp \
     $$PWD/chatlog.cpp   \
     $$PWD/emotion.cpp   \
-    $$PWD/logout.cpp
+    $$PWD/logout.cpp    \
+    $$PWD/ipcity.cpp    \
+    $$PWD/weather.cpp   \
+    $$PWD/i18n.cpp  \
+    $$PWD/clipboard.cpp

@@ -6,14 +6,14 @@
 #include "httppost.h"
 #include "userobject.h"
 
-class Contact : public QObject 
+class Contact : public HttpPost 
 {
     Q_OBJECT
 
     Q_PROPERTY(QList<QObject*> contactList READ contactList NOTIFY contactListChanged)
 
 public:
-    explicit Contact(QObject* parent = nullptr);
+    explicit Contact(HttpPost* parent = nullptr);
     ~Contact();
 
     QList<QObject*> contactList() const { return m_contactList; }
@@ -27,15 +27,14 @@ Q_SIGNALS:
     void error();
     void contactListChanged();
 
-private Q_SLOTS:
-    void m_slotFinished(QNetworkReply* reply);
+protected:
+    void finished(QNetworkReply* reply);
 
 private:
     void m_clear();
     void m_post(QString host);
 
 private:
-    HttpPost m_httpPost;
     QList<QObject*> m_contactList;
     bool m_v2;
 };

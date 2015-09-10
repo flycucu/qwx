@@ -140,10 +140,10 @@ void GetMsg::finished(QNetworkReply* reply)
         QString toUserNameStr = msg["ToUserName"].toString();
         QString createTimeStr = QString::number(msg["CreateTime"].toInt());
         QString content = msg["Content"] .toString();
-
+       
         if (content.contains("msg"))
             continue;
-        
+
         if (!m_map.contains(fromUserNameStr + toUserNameStr + createTimeStr)) {
             if (m_needSaveLog)
                 m_saveLog(createTimeStr, fromUserNameStr, content);

@@ -25,6 +25,10 @@ Rectangle {
         Global.chatView = chatView;
     }
 
+    Clipboard {
+        id: clipboard
+    }
+
     XiaoDouBi {
         id: xiaodoubiObj
         onContentChanged: {
@@ -74,10 +78,10 @@ Rectangle {
         toUserName: chatView.toUserName
         needSaveLog: false
         onNoNewMsg: {
-            rootWindow.title = "微信Qt前端";
+            rootWindow.title = qsTr("WeChat Qt frontend");
         }
         onReceived: {
-            rootWindow.title = "微信Qt前端 - 有新消息";
+            rootWindow.title = qsTr("WeChat Qt frontend") + " - " + qsTr("New message");
             if (content == "小逗比退下" || content == "robot away") {
                 Global.isRobot = false;
             } else if (content == "小逗比出来" || content == "robot come") {
@@ -161,6 +165,13 @@ Rectangle {
                 font.pixelSize: 11
                 anchors.left: fromUserHeadImage.right
                 anchors.leftMargin: 10
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: {
+                        clipboard.copy(content);
+                    }
+                }
             }
         }
     }
@@ -195,26 +206,13 @@ Rectangle {
         }                                                                  
     }
 
-    function contactRefresh()                                                   
-    {                                                                           
-        if (Global.v2)                                                          
-            contactObj.postV2();                                                
-        else                                                                    
-            contactObj.post();                                                  
-    }                                                                           
-                                                                                
-    Contact {                                                                   
-        id: contactObj                                                          
-        Component.onCompleted: {                                                
-            contactRefresh();                                                   
-        }                                                                       
-    }
-
     function sendMsg() 
     {
         if (sendMsgTextField.text == "") {
             return;
         }
+        sendMsgTextField.text = sendMsgTextField.text.replace("qwx", 
+            "消息发自 qwx - 微信 Qt 前端 https://github.com/xiangzhai/qwx");
         if (typeof(chatView.toUserList) == 'undefined') {
             if (Global.v2) {
                 sendMsgObj.sendV2(Global.uin,
@@ -342,7 +340,7 @@ Rectangle {
 
         Button {
             id: sendButton
-            text: "发送"
+            text: qsTr("Send")
             anchors.right: parent.right
             onClicked: {
                 sendMsg();
